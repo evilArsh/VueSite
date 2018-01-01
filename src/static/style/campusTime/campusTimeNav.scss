@@ -1,0 +1,18 @@
+.campusTimeNav{
+    .titleImg{
+        float: left;
+        width: 20px;
+        height: 20px;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+ul li{text-decoration: none;list-style: none;}
+// .titleImg{width: 20px;height:20px;width: 300px;}
+.titleImg img{width: 100%;height: 100%;}
+.nav_left{width: 20px;height: 20px;float: left;}
+.nav_right{float: left;}
+.clearFloat{clear: both;}
+.campusTimeNav{float: left;}

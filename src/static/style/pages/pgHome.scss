@@ -1,0 +1,36 @@
+@import '../pre.scss';
+.homeContainer{
+	//****
+	//position: absolute;
+	.leftCtrl,.rightCtrl{
+		transition:all .3s ease;
+		position: fixed;
+		top:50%;
+		transform:translate(0,-100%);
+		text-align: center;
+		width: 4rem;
+		height: 4rem;
+		font-size: 2rem;
+		background-color: #ededed;
+		color:#d8d8d8;
+		&:hover{
+			background-color: #ccc;
+			color:#a58585;
+		}
+		&::before{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+		}
+	}
+	.leftCtrl{
+		border-bottom-right-radius: 50%;
+		border-top-right-radius: 50%;
+	}
+	.rightCtrl{
+		right:0;
+		border-bottom-left-radius: 50%;
+		border-top-left-radius: 50%;
+	}
+}

@@ -1,0 +1,31 @@
+@import "../pre.scss";
+$pTopBottom:10px;
+.routerContainer {
+  padding:0 0 0 20px;
+  transition:all .3s;
+  color: #fff;
+  font-size: 12px;
+  position: relative;
+  z-index: 99;
+  width: 100%;
+  background-color: rgba(58, 55, 52, 0.56);
+  .routerList {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: 12px;
+    cursor: pointer;
+    &>i {
+      font-style: normal;
+    }
+    &:hover {
+      background-color: #4d2e2e;
+    }
+    &:last-child {
+      color: #ff9b3b;
+      &:hover {
+      	cursor: auto;
+      	background-color: transparent;
+      }
+    }
+  }
+}

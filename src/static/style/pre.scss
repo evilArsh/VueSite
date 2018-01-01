@@ -1,0 +1,36 @@
+
+//CPHeader.vue头部填充（高度）
+$pTopBottom:10px;
+//$headerHeight:40px;
+//主页bar高度
+$barHeight:30px;
+//主页bar 和blog 菜单的共同宽度
+$barWidth:100px;
+$paddingLeft:4%;
+//定义断点
+//参照max-width 1440 90rem 90:	75	  :   62   :    48  :25.875
+//							1:0.833333:0.688889:0.533333:0.2875
+$breakpoints:(
+	'xs': 'screen and (max-width:25.875rem)',
+	'sm': 'screen and (max-width:48rem)',
+	'md': 'screen and (max-width:62rem)',
+	'lg': 'screen and (max-width:75rem)',
+	)!default;
+//@include bsha(inset 0 0 8px 0 #000000);
+//@include tsha(-1px 0 #fdd90b, 0 -1px #fdd90b, 1px 0 #0d0d0d, 0 1px #0d0d0d);
+//text-shadow box-shadow;
+@mixin bsha($arguments...){
+
+	box-shadow:$arguments;
+}
+@mixin tsha($args...){
+    text-shadow: $args;
+}
+
+//media query
+@mixin media($breakpoint){
+	$screen: map-get($breakpoints,$breakpoint);
+	@media #{unquote($screen)}{
+		@content;
+	}
+}

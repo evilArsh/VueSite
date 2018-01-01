@@ -1,0 +1,34 @@
+.routerBar-enter-active,.routerBar-leave-active{
+  transition: all 1s ease;
+}
+.routerBar-enter, .routerBar-leave-active {
+  transform: translateY(-100%);
+}
+/* //content区*/
+.fade-enter-active,.fade-leave-active{
+  transition: all .3s ease;
+}
+.fade-enter, .fade-leave-active {
+  transform: translate(-10px,-10px);
+  opacity: 0;
+}
+/* 主页bar */
+.left-enter-active,.left-leave-active{
+  transition: all .3s ease;
+}
+.left-enter, .left-leave-active {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* 遮挡幕布  */
+.dim-enter-active,.dim-leave-active{
+  transition: all .3s ease;
+}
+.dim-enter, .dim-leave-to {
+	opacity: 0
+}
+/* 顶部路由 */
+.isShow{
+	margin-top: -23px;
+}
