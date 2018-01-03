@@ -3,16 +3,16 @@
 import Vue from 'vue';
 import App from './App';
 import axios from 'axios';
-import router from './router/VRIndex';
-import store from './store/VXIndex';
+import router from './router/vrIndex';
+import store from './store/vxIndex';
 import 'normalize.css/normalize.css';
 import 'font-awesome/css/font-awesome.css';
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-new Vue({
+const root=new Vue({
   el: '#app',
   router,
   store,
  ...App
-}).$mount('#app')
+})

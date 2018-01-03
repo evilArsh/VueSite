@@ -1,34 +1,48 @@
 <!-- 主页 -->
-<template>
+<template >
   <div class="homeContainer">
-    <a href="javascript:;" class="leftCtrl fa fa-chevron-left" @click="back"></a>
-    <a href="javascript:;" class="rightCtrl fa fa-chevron-right" @click="next"></a>
+    <v-cpListBlog :datas='blogData'></v-cpListBlog>
+    <v-cpLoadFoot :target="lockEvent"></v-cpLoadFoot>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import cpListBlog from '@/components/home/cpListBlog'
+import cpLoadFoot from '@/components/common/cpLoadFoot'
 export default {
   data() {
     return {
+      lockEvent:this.isAll()
     }
   },
   components: {
+    'v-cpListBlog':cpListBlog,
+    'v-cpLoadFoot':cpLoadFoot
   },
   computed: {
+    blogData:function(){
+      return this.getData();
+    }
   },
   methods: {
-    next: function() {
-    },
-    back: function() {
-    	
+    ...mapGetters(['getData','isAll']),
+    ...mapActions(['fetchData']),
+    //滚动条滑到一定位置触发获取数据
+    loadData:function(event){
+      if(!this.lockEvent){
+        if(document.documentElement.scrollTop+document.body.scrollTop>this.$el.offsetHeight/2){
+        };
     }
+  }
+  },
+  watch:{
   },
   beforeMount() {
 
   },
   mounted() {
-  },
-  watch:{
+    this.fetchData();
+    document.addEventListener('scroll',this.loadData);
   },
   beforeUpdate() {}
 }

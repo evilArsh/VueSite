@@ -20,19 +20,5 @@
 				"title":"HTML5感悟"
 			}]
 		}]
-	},
-	{
-		"title":"c++",
-		"imgUrl":"../assets/logo.png",
-		"amount":"564",
-		"data":[{
-			"date":"2017年12月",
-			"amount":"325",
-			"data":[{
-				"title":"cocos2d"
-			},{
-				"title":"opencv实现"
-			}]
-		}]
 	}]
 }

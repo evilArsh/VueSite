@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import VXStyle from './modules/vxStyle';
-import VXRouter from './modules/vxRouter';
+import vxStyle from './modules/vxStyle';
+import vxRouter from './modules/vxRouter';
+import vxHomeData from './modules/vxHomeData';
 import axios from 'axios';
 Vue.use(Vuex);
 export default new Vuex.Store({
-	modules:{
-		VXStyle,
-		VXRouter,
-	}
+    modules:{
+        vxStyle,
+        vxRouter,
+        vxHomeData
+    }
 });

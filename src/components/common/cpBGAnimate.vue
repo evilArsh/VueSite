@@ -32,8 +32,8 @@ export default {
       runTypes: [],
       //运动规则,待优化
       runRules: ['easeIn', 'easeOut', 'easeInOut'],
-      animateSwitch: null,
-      //
+      animateSwitch: false,
+      ifResize:false,
       loopHandle:null,
     };
   },
@@ -53,7 +53,7 @@ export default {
     //装载Tween动画名字
     this.runTypes = Object.assign([], JSON.stringify(this.Tween).match(/\b\w+\b/g), this.runType);
     /*******************************/
-    this.init();
+  // this.init();
   },
   computed: {
 
@@ -96,31 +96,39 @@ export default {
       };
     },
     closeAnimate:function(){
-    	this.animateSwitch=false;
+      this.ifResize=false;
+     this.animateSwitch=false;
     },
     startAnimate:function(){
-    	this.animateSwitch=true;
+      this.ifResize=true;
+     this.animateSwitch=true;
     },
     updateScale: function() {
-      this.closeAnimate();
-      this.width = document.body.clientWidth;
-      this.height = document.body.clientHeight;
-      this.startAnimate();
-    },
+      if(!this.ifResize) {return};
+      let _self=this;
+      setTimeout(function(){
+      _self.closeAnimate();
+      _self.width = document.body.clientWidth;
+      _self.height =document.body.clientHeight;
+      _self.startAnimate();
+      },1500);
+      },
     init: function() {
       let _self = this;
       this.cvs = document.getElementById('cvs');
       this.ctx = this.cvs.getContext('2d');
-      this.updateScale();
+      this.ifResize=true;
+      this.width = document.body.clientWidth;
+      this.height =document.body.clientHeight;
       //创建图片
       this.img.self = new Image();
-      this.img.iWidth = 20,
-        this.img.iHeight = 20,
-        this.img.self.src = imgUrl;
+      this.img.iWidth =15,
+      this.img.iHeight = 15,
+      this.img.self.src = imgUrl;
       //
       this.img.self.onload = function() {
-        this.runConfig();
-        this.startAnimate();
+      this.runConfig();
+      this.startAnimate();
       }.bind(this);
     },
     //配置运动的参数

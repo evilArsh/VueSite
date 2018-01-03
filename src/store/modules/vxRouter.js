@@ -1,7 +1,6 @@
 import maps from '../vxMaps'
 //CPHeader.vue导航系统
 //parent为navbar,child为每个navbar的子路由
-//1.假如一个路由退出栈了，那么它的子路由的状态是怎样的？
 class Parent {
   constructor() {
     this.length = 0;
@@ -12,13 +11,12 @@ class Parent {
     this.length++;
   }
   pop(index) {
-    //如果不断的进栈然后出栈，数组会变大，考虑一个阈值，满足条件就清空一部分？
+    //考虑一个阈值，清空一部分
     this.length = index; //
     this.stack.splice(index);
   }
   clear() {
-    //？splice
-    //清空数组的效率问题
+
     if (this.length !== 0) {
       this.stack = [];
       this.length = 0;

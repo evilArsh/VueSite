@@ -9,7 +9,7 @@
       <v-pgnavbar v-show="navShow"></v-pgnavbar>
     </transition>
     <v-cpbganimate></v-cpbganimate>
-    <div class="homeMain" @click="hideNav">
+    <div class="mainContainer" @click="hideNav">
       <transition name="fade">
         <router-view></router-view>
       </transition>
@@ -33,16 +33,15 @@ export default {
     'v-cpheader': cpHeader,
     'v-cprouter': cpRouter,
     'v-cpbigblack': cpBigBlack,
-    'v-cpbganimate':cpBGAnimate
+    'v-cpbganimate':cpBGAnimate,
   },
   computed: {
-    ...mapGetters(['navWidth', 'navShow', 'activeCom'])
+    ...mapGetters(['navShow', 'activeCom'])
   },
   methods: {
     ...mapActions(['setActiveCom', 'setNavVisible']),
     hideNav: function() {
       this.setNavVisible(false);
-      console.log('');
     }
   },
 
@@ -73,14 +72,13 @@ export default {
 body,
 html {
   height: 100%;
-  overflow-x: hidden; //font-size: 100%;
 }
 
 a {
   text-decoration: none;
 }
 
-.homeMain {
+.mainContainer {
   transition: all .3s ease;
   min-width: 100%;
   /*transform: translateX(70px);*/
