@@ -36,10 +36,10 @@ export default {
     'v-cpbganimate':cpBGAnimate,
   },
   computed: {
-    ...mapGetters(['navShow', 'activeCom'])
+    ...mapGetters(['navShow'])
   },
   methods: {
-    ...mapActions(['setActiveCom', 'setNavVisible']),
+    ...mapActions(['setNavVisible']),
     hideNav: function() {
       this.setNavVisible(false);
     }

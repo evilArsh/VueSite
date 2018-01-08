@@ -5,27 +5,22 @@ import campusTimeLive from '../pages/campusTime/cpLive.vue' // 校园时光-动�
 import campusTimeMessage from '../pages/campusTime/cpMessage.vue' // 校园时光-留言 
 export default [{
   path: '/campusTime',
-  name: '校园时光',
+  name: '校园时光-首页',
   component: campusTime,
   meta: {
-    isRoot: true
+    isRoot: true,
+    target:'campusTime'
   },
-  children: [{
+  children: [
+      //把campusTimeHome并到campusTime中（未完成）
+  /*{
       path: '/campusTime/',
-      name: '校园时光-主页',
+      name: '校园时光-首页',
       component: campusTimeHome,
       meta: {
-        isRoot: true
+        isRoot: true,
       }
-    },
-    {
-      path: '/campusTime/home',
-      name: '校园时光-主页',
-      component: campusTimeHome,
-      meta: {
-        isRoot: false
-      }
-    },
+    },*/
     {
       path: 'album',
       name: '校园时光-相册',

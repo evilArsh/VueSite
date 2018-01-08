@@ -5,6 +5,7 @@ export default[
         name:'博客',
         component:blog,
         meta:{
-            isRoot:true
+            isRoot:true,
+            target:'blog'
         }
     }]

@@ -10,9 +10,9 @@ import 'font-awesome/css/font-awesome.css';
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-const root=new Vue({
+/*const root=*/new Vue({
   el: '#app',
-  router,
   store,
+  router,
  ...App
 })

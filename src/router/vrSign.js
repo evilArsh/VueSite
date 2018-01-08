@@ -4,18 +4,20 @@ export default [
   //用户登录注册
   {
     path: '/sign/signUp',
-    name: '注册',
+    name: '登录',
     component: signUp,
     meta: {
-      isRoot: true
+      isRoot: true,
+      target:'sign'
     }
   },
   {
     path: '/sign/signIn',
-    name: '登录',
+    name: '注册',
     component: signIn,
     meta: {
-      isRoot: true
+      isRoot: true,
+      target:'sign'
     }
   }
 ]

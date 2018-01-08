@@ -1,9 +1,11 @@
 import Vue from 'vue'
+import store from '../store/vxIndex'
 import Router from 'vue-router'
 import home from '../pages/pgHome.vue'
 import sign from './vrSign'
 import campusTime from './vrCampusTime'
 import blog from './vrBlog'
+import color from './vrRouterBind'
 Vue.use(Router)
 const router= new Router({
     routes: [{ 
@@ -11,7 +13,8 @@ const router= new Router({
         name: '首页',
         component: home,
         meta:{
-            isRoot:true
+            isRoot:true,
+            target:'home'
         }
     },
     ...sign,
@@ -26,10 +29,9 @@ const router= new Router({
     }
     ]
 });
-router.beforeEach((to,from,next)=>{
-    console.log(to)
-    console.log('dasdsadasd')
-    next();
+router.afterEach(function(to,from){
+   if(typeof to.meta.isRoot!=='undefined'&&to.meta.isRoot){
+    store.dispatch('setHeadBgColor',color[to.meta.target])
+   }
 });
-
-export default router;
+export default router
