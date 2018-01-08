@@ -1,23 +1,20 @@
 {
-	"package":[{
-		"title":"web",
-		"imgUrl":"../assets/logo.png",
-		"amount":"123",
+	"head":{},
+	"data":[{
+		"head":{
+			"title":"web",
+			"imgUrl":"../assets/logo.png",
+			"number":"123"
+		},
 		"data":[{
-			"date":"2014年12月",
-			"amount":"123",
+			"head":{
+				"date":"2014年12月",
+				"number":"123"
+			},
 			"data":[{
 				"title":"js闭包"
 			},{
 				"title":"js原啊实打实的打的动型链"
-			}]
-		},{
-			"date":"2017年12月",
-			"amount":"123",
-			"data":[{
-				"title":"css3动画"
-			},{
-				"title":"HTML5感悟"
 			}]
 		}]
 	}]

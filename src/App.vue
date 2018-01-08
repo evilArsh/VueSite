@@ -50,10 +50,7 @@ export default {
 </script>
 <style src="./static/style/animate.css"></style>
 <style lang="scss">
-@import './static/style/Pre.scss';
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -80,7 +77,7 @@ a {
 
 .mainContainer {
   transition: all .3s ease;
-  min-width: 100%;
+  width: 100%;
   /*transform: translateX(70px);*/
 }
 </style>

@@ -12,6 +12,7 @@ import cpLoadFoot from '@/components/common/cpLoadFoot'
 export default {
   data() {
     return {
+      //无数据了就无需获取    |获取数据时关闭获取数据功能
       lockEvent:this.isAll()
     }
   },

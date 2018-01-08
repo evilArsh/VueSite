@@ -12,5 +12,7 @@ export default{
 	//top of router div
 	TOGGLE_ROUTER:'TOGGLE_ROUTER',
 	//head part
-	HEAD_BGCOLOR:'HRAD_BGCOLOR'
+	HEAD_BGCOLOR:'HRAD_BGCOLOR',
+	//博客模块
+	LIST_STATUS:'LIST_STATUS'
 };

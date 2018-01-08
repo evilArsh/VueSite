@@ -1,7 +1,7 @@
 <template>
   <div class="headContainer" :style="bgColor">
     <span class="hide fa fa-bars" @click="toggleNavBar"></span>
-    <span class="toHomeBar"><span class="logo"></span></span>
+    <div class="toHomeBar"><a href="#" class="logo"></a></div>
     <span class="hideBar fa" :class="changeTip" @click="toggle"></span>
   </div>
 </template>

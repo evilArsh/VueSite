@@ -1,7 +1,7 @@
 <template >
   <div class="listBlogContainer">
     
-    <div v-for="(item,index) in datas" :key="index">
+    <div v-for="(item,index) in datas" :key="index" class="blogBlock">
       <p class="aTitle">{{item.title}}</p>
       <div class="aContent">{{item.content}}</div>
       <div class="aFooter">
@@ -25,5 +25,5 @@ export default {
 
 </script>
 <style lang="scss" scoped>
- //@import "../static/style/components/cpListBlog.scss";
+@import '../../static/style/components/cpListBlog.scss';
 </style>

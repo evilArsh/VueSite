@@ -5,8 +5,8 @@
 <p class="me">Jack</p>
 <div class="options" @click="hide">
 	<router-link to="/"  class="option">主页</router-link> 
-	<router-link to="/Sign/SignIn"  class="option">登录</router-link> 
-	<router-link to="/Blog" class="option">博客分类</router-link>
+	<router-link to="/sign/signIn"  class="option">登录</router-link> 
+	<router-link to="/blog" class="option">博客分类</router-link>
 	<a href="javascript:;" class="option">心情日记</a>
 	<router-link to="/campusTime" class="option">校园时光</router-link>
 	<a href="javascript:;" class="option">聊天室</a>

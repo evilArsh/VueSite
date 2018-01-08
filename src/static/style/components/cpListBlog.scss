@@ -1,1 +1,24 @@
 @import '../pre.scss';
+.listBlogContainer{
+}
+.blogBlock{
+    max-width: 70rem;
+    margin:0 auto 20px auto;
+    .aTitle{
+        padding:.5rem 0;
+        font-size: rem(1.8);
+    }
+    .aContent{
+        font-size:rem(1.4) ;
+        line-height: rem(2.5);
+        @include tsha(1px 1px 1px rgba(215,215,215,.65));
+        color:#000333;
+    }
+    .aFooter{
+        padding:rem(2) 0 0 0;
+        font-size: rem(1.2);
+    }
+    .aEnter{
+        float:right;
+    }
+}

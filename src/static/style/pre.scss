@@ -1,15 +1,7 @@
 
-//CPHeader.vue头部填充（高度）
-$pTopBottom:10px;
-//$headerHeight:40px;
-//主页bar高度
-$barHeight:30px;
-//主页bar 和blog 菜单的共同宽度
-$barWidth:100px;
-$paddingLeft:4%;
 //定义断点
 //参照max-width 1440 90rem 90:	75	  :   62   :    48  :25.875
-//							1:0.833333:0.688889:0.533333:0.2875
+//                                                        1:0.833333:0.688889:0.533333:0.2875
 $breakpoints:(
 	'xs': 'screen and (max-width:25.875rem)',
 	'sm': 'screen and (max-width:48rem)',
@@ -33,4 +25,9 @@ $breakpoints:(
 	@media #{unquote($screen)}{
 		@content;
 	}
+}
+//处理成返回$value倍
+@function rem($value){
+	//浏览器默认字体16px
+	@return ($value*0.625)+rem;
 }
