@@ -1,9 +1,10 @@
 @import '../pre.scss';
 .listBlogContainer{
+    width: rem(120);
 }
 .blogBlock{
-    max-width: 70rem;
     margin:0 auto 20px auto;
+    width: rem(90);
     .aTitle{
         padding:.5rem 0;
         font-size: rem(1.8);

@@ -1,6 +1,6 @@
 <!-- 主页 -->
 <template >
-  <div class="homeContainer">
+  <div class="homeContainer" :style="bgColor">
     <v-cpListBlog :datas='blogData'></v-cpListBlog>
     <v-cpLoadFoot :target="lockEvent"></v-cpLoadFoot>
   </div>
@@ -21,6 +21,7 @@ export default {
     'v-cpLoadFoot':cpLoadFoot
   },
   computed: {
+    ...mapGetters(['bgColor']),
     blogData:function(){
       return this.getData();
     }

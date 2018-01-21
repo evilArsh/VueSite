@@ -42,7 +42,7 @@ const windows = {
   getters: {
     navShow: state => state.navShow,
     routerShow:state=>state.routerShow,
-    headBgColor:state=>state.headBgColor
+    bgColor:state=>{return {'backgroundColor':state.headBgColor}}
   },
 };
 export default windows;

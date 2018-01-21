@@ -30,20 +30,13 @@ export default {
   mounted() {
   },
   computed: {
-    ...mapGetters(["navShow","headBgColor"]),
+    ...mapGetters(["navShow","bgColor"]),
     changeTip:function(){
       return{
         'fa-chevron-up':!this.tipDirection,
         'fa-chevron-down':this.tipDirection
       }
     },
-
-    //头部动态背景色
-    bgColor:function(){
-      return{
-        'backgroundColor':this.headBgColor
-      }
-    }
   },
   watch: {
   }

@@ -1,6 +1,6 @@
 <!-- 注册  -->
 <template>
-  <div class="signContainer">
+  <div class="signContainer" :style="bgColor">
     <div class="box">
       <div class="item"><i class="i fa fa-user"></i>
         <input  class="input lname" type="text" placeholder="请输入邮箱">
@@ -19,10 +19,14 @@
   </div>
 </template>
 <script>
+import {  mapGetters } from 'vuex'
 export default {
   data() {
     return {
     }
+  },
+  computed:{
+...mapGetters(['bgColor'])
   },
   methods: {
     toLog() {

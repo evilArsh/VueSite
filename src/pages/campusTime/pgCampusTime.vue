@@ -1,5 +1,5 @@
 <template>
-  <div class="campusTime">
+  <div class="campusTime" :style="bgColor">
       <campus-time-nav></campus-time-nav>
       <div class="content">
           <keep-alive>
@@ -25,6 +25,9 @@ export default {
               }
           ]
       }
+  },
+  computed:{
+    ...mapGetters(['bgColor'])
   },
   components: {
       'campus-time-nav': PGcampusTimeNav, // 导航组件

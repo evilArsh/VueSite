@@ -5,7 +5,7 @@ import home from '../pages/pgHome.vue'
 import sign from './vrSign'
 import campusTime from './vrCampusTime'
 import blog from './vrBlog'
-import color from './vrRouterBind'
+import color from './vrRouterBindColor'
 Vue.use(Router)
 const router= new Router({
     routes: [{ 
