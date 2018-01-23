@@ -11,7 +11,7 @@
 
         <div class="date_outer"><span class="date fa fa-caret-down">{{item_time.head.date}}</span>
           </div>
-          <ul class="default d">
+          <ul class="default">
            <li class="item_content"  v-for="(item_c,index_c) in item_time.data" :key="index_c" :id="'first'+index_block+'second'+index_time+'third'+index_c">{{item_c.title}}</li>
          </ul>
        </li>
@@ -53,41 +53,43 @@ export default {
       let index=id.match(/\d+/g);
       let level=id.match(/\D+/g).length;
       let combo=this.indexCombo(index);
-      console.log('level:'+level)
-      console.log('this.target[combo]!==undefined:'+(this.target[combo]!==undefined))
-      //console.log('this.target[combo]:'+this.target[combo])
+      console.log(JSON.stringify(this.target))
+      //have initiated
       if(this.target[combo]!==undefined){
-          if(this.target[combo].isOpen){
           let height=(window.getComputedStyle(target.nextElementSibling,'').height).match(/\d+/g)[0];
-          if(level>1){
-            this.target[index[0]][height]-=this.target[index[0]][height]-height;
+          //will close
+          if(this.target[combo].isOpen){
+            //如是递归组件,此处可拓展,目标树结点高度的改变影响父组件
+            if(level>1){
+              this.target[index[0]].height-=height;
+              this.target[index[0]].extra=this.target[index[0]].height;
+            };
+            this.target[combo].extra=this.target[combo].height;//////
+            this.target[combo].height=0;
+          //will open
+          }else{
+            if(level>1){
+              this.target[index[0]].height+=this.target[combo].extra;
+            };
+            this.target[combo].height=this.target[combo].extra;
           }
-         // this.target[combo][isOpen]=false;
-        }
-      }else{
+      }else{/*初始化*/
         this.target[combo]={};
         this.target[combo].isOpen=false;
         if(level>1){
-        this.target[combo].height=(this.menuData[index[0]].data[index[1]].data.length)*this.defSS;
+        this.target[combo].extra=this.target[combo].height=(this.menuData[index[0]].data[index[1]].data.length)*this.defSS;
         this.target[index[0]].height+=this.target[combo].height;
         console.log(this.target[combo].height)
         console.log(this.target[index[0]].height)
         }else{
-        this.target[combo].height=(this.menuData[combo].data.length)*this.defSSS;
+        this.target[combo].extra=this.target[combo].height=(this.menuData[combo].data.length)*this.defSSS;
         }
       }
-      //执行toggle
-      if(this.target[combo].isOpen){
-        target.nextElementSibling.style.height='0px';
-      }else{
-        //console.log(this.target[combo].height)
+        if(level>1){
+        document.getElementById(id).parentNode.style.height=this.target[index[0]].height+'px';
+        }
         target.nextElementSibling.style.height=this.target[combo].height+'px';
-      }
         this.target[combo].isOpen=!this.target[combo].isOpen;
-      //let height=window.getComputedStyle(target.nextElementSibling,'').height;
-      //console.log(window.getComputedStyle(target.nextElementSibling,'').height)
-      //console.log(target.parentNode.getAttribute('id').match(/^\D+/g));
-      //target=target.nextElementSibling;
       },
     judgeTarget:function(target){
       while(target.nodeName!=="DIV"&&target.nodeName!=="LI"&&target.nodeName!=="BODY"){
@@ -127,6 +129,5 @@ export default {
   display:blcok;
   height:0;
 }
-.d{height:500px}
 </style>
 
