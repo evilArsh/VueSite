@@ -1,6 +1,6 @@
 @import "../pre.scss";
 $step:2;
-$color:red;
+$color:#ededec;
 .blogListContainer {
   border-left: solid 4px #ff9900;
   float: left;
@@ -31,20 +31,49 @@ $color:red;
   .block {
     display: block;
   }
+  .date_outer {
+    position: relative;
+    transition: all 0.5s ease;
+    padding: rem(.5) 0 rem(.5) rem(1*$step);
+    &:hover {
+      background-color: $color;
+    }
+    .ttip_l {
+      position: absolute;
+      color: #86c1e4;
+      left: rem(0.8);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+        .rDown {
+      transform: translateY(-50%) rotate(90deg);
+    }
+    .rDefault {
+      transform: translateY(-50%) rotate(0);
+    }
+    cursor: pointer;
+  }
   .title_outer {
-        transition: all 0.5s ease;
+    transition: all 0.5s ease;
     &:hover {
       background-color: $color;
     }
     cursor: pointer;
     position: relative;
     padding: rem(.5) 0 rem(.5) rem(1);
-    .title_tip {
+    .ttip {
+      //transform: rotate(30deg);
       position: absolute;
       color: #86c1e4;
       right: rem(1);
       top: 50%;
       transform: translateY(-50%);
+    }
+    .rDown {
+      transform: translateY(-50%) rotate(-90deg);
+    }
+    .rDefault {
+      transform: translateY(-50%) rotate(0);
     }
   } //每块标题
   .title {
@@ -64,14 +93,6 @@ $color:red;
   .item {
     font-size: 12px;
     display: block;
-  }
-  .date_outer {
-    transition: all 0.5s ease;
-    padding: rem(.5) 0 rem(.5) rem(1*$step);
-    &:hover {
-      background-color: $color;
-    }
-    cursor: pointer;
   } //每项时间
   .date {
     position: relative;

@@ -5,11 +5,11 @@
    <ul>
    <li class="block" v-for="(item_block,index_block) in menuData" :key="index_block" :id="'first'+index_block">
 
-      <div class="title_outer"><span class="title">{{item_block.head.title}}</span><span class="title_tip fa fa-caret-down"></span></div>
+      <div class="title_outer"><span class="title">{{item_block.head.title}}</span><span class="ttip fa fa-caret-left" :id="'tip_first'+index_block"></span></div>
       <ul class="default">
        <li class="item" v-for="(item_time,index_time) in item_block.data" :key="index_time" :id="'first'+index_block+'second'+index_time">
 
-        <div class="date_outer"><span class="date fa fa-caret-down">{{item_time.head.date}}</span>
+        <div class="date_outer"><span class="ttip_l fa fa-caret-right" :id="'tip_first'+index_block+'second'+index_time"></span><span class="date">{{item_time.head.date}}</span>
           </div>
           <ul class="default">
            <li class="item_content"  v-for="(item_c,index_c) in item_time.data" :key="index_c" :id="'first'+index_block+'second'+index_time+'third'+index_c">{{item_c.title}}</li>
@@ -53,7 +53,6 @@ export default {
       let index=id.match(/\d+/g);
       let level=id.match(/\D+/g).length;
       let combo=this.indexCombo(index);
-      console.log(JSON.stringify(this.target))
       //have initiated
       if(this.target[combo]!==undefined){
           let height=(window.getComputedStyle(target.nextElementSibling,'').height).match(/\d+/g)[0];
@@ -89,6 +88,7 @@ export default {
         document.getElementById(id).parentNode.style.height=this.target[index[0]].height+'px';
         }
         target.nextElementSibling.style.height=this.target[combo].height+'px';
+        this.tipRotate(id,this.target[combo].isOpen);
         this.target[combo].isOpen=!this.target[combo].isOpen;
       },
     judgeTarget:function(target){
@@ -96,6 +96,23 @@ export default {
         target=target.parentNode;
       }
       target.nodeName==="DIV"?this.toggleBar(target):/*打开文章*/1;
+    },
+    //旋转小图标
+    tipRotate:function(id_,isOpen){
+      let pre="tip_",
+      id=pre.concat(id_),
+      el=document.getElementById(id);
+      console.log(el.className)
+      let cls=el.className.match(/^(.(?!(rDefault|rDown)))+/g);
+      //will close
+      if(isOpen){
+        cls.push('rDefault');
+        //console.log(cls)
+      }else{
+        cls.push('rDown');
+      }
+      cls=cls.join(' ');
+      el.className=cls;
     },
     //索引合并
     indexCombo:function(data){
@@ -128,6 +145,9 @@ export default {
   transition:all 0.3s ease;
   display:blcok;
   height:0;
+}
+.fa{
+  transition:all 0.3s ease;
 }
 </style>
 
