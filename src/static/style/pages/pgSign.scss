@@ -2,84 +2,94 @@
 //外壳
 .signContainer {
   position: fixed;
-  left:0;
-  top:0;
-  right:0;
+  left: 0;
+  top: 0;
+  right: 0;
   bottom: 0;
   .box {
     //background-color: #ebd29b;
-    display: inline-block;
-    //padding: 70px 30px;
+    display: inline-block; //padding: 70px 30px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
-}
+  }
   .input {
     padding: .75em .75em .75em 3em;
     margin: .75em 0;
     display: inline-block;
-    width: 20em;
-    //@include bsha(inset 0px 0px 5px 3px rgb(226, 173, 106));
+    width: 20em; //@include bsha(inset 0px 0px 5px 3px rgb(226, 173, 106));
     background-color: #fff2e1;
     border-radius: 5em;
     font-size: .5rem;
-  } 
-  .i{
-  	position: absolute;
-  	top:50%;
-    left:.75rem;
-  	transform:translate(0,-50%);
-  	color:#f0bf6c;
-  	font-size: 1rem
+  }
+  .i {
+    transition: all .5s ease;
+    position: absolute;
+    top: 50%;
+    left: .75rem;
+    transform: translate(0, -50%);
+    color: #f0bf6c;
+    font-size: 1rem
   }
   .item {
     position: relative;
     margin: .5em 0;
   }
-  .signIn,.signUp{
+  .mail_tip{
+    position: absolute;
+    top:rem(-1);
+    left:2rem;
+    font-size: rem(1.4);
+    color:red;
+    &::before{
+      margin:0 3px 0 0;
+    }
+  }
+  .signIn,
+  .signUp {
     text-align: center;
     font-size: .75rem;
-	  display: inline-block;
+    display: inline-block;
     position: relative;
     padding: .75em;
-    width:4em;
-    float:left;
+    width: 4em;
+    float: left;
     background-color: #eac17b;
     color: #ececec;
   }
-  .main{
-  	background-color: #ff6600;
-  	color:#fff;
+  .main {
+    background-color: #ff6600;
+    color: #fff;
   }
-  .signIn{
-  	border-top-left-radius: .5em;
-  	border-bottom-left-radius: .5em;
+  .signIn {
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
   }
-  .signUp{
-  	border-top-right-radius: .5em;
-  	border-bottom-right-radius: .5em;
+  .signUp {
+    border-top-right-radius: .5em;
+    border-bottom-right-radius: .5em;
   }
-  .forget{
-  	font-size: 12px;
-  	color:#929292;
-  	display: inline-block;
-  	position: relative;
-  	left:100%;
-    transform:translate(-100%,0);
+  .forget {
+    font-size: 12px;
+    color: #929292;
+    display: inline-block;
+    position: relative;
+    left: 100%;
+    transform: translate(-100%, 0);
   }
   .toReg {
-  	display: block;
-  	text-align: center;
-  	margin:50px 0 0 0;
-  	font-size: 14px;
-  	color:red;
+    display: block;
+    text-align: center;
+    margin: 50px 0 0 0;
+    font-size: 14px;
+    color: red;
   }
-  .inup{
-  	&::after{
-  		content:'';
-  		display: table;
-  		clear:both;
-  	}
+  .inup {
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
   }
 }

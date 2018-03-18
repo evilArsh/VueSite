@@ -4,7 +4,7 @@ export default [
   //用户登录注册
   {
     path: '/sign/signUp',
-    name: '登录',
+    name: '注册',
     component: signUp,
     meta: {
       isRoot: true,
@@ -13,7 +13,7 @@ export default [
   },
   {
     path: '/sign/signIn',
-    name: '注册',
+    name: '登录',
     component: signIn,
     meta: {
       isRoot: true,

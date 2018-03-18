@@ -32,3 +32,17 @@
 .isShow{
 	margin-top: -23px;
 }
+/*登录注册*/
+  .upDown-enter,
+  .upDown-leave-to {
+    transform: translateY(20px);
+    opacity: 0
+  }
+
+  .upDown-enter-active {
+    transition: all .3s ease;
+  }
+
+  .upDown-leave-active {
+    transition: all .3s ease;
+  }

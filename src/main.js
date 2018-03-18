@@ -8,7 +8,7 @@ import store from './store/vxIndex';
 import 'normalize.css/normalize.css';
 import 'font-awesome/css/font-awesome.css';
 Vue.config.productionTip = false;
-
+Vue.prototype.$ajax = axios;
 /* eslint-disable no-new */
 /*const root=*/new Vue({
   el: '#app',

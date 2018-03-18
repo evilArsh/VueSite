@@ -1,6 +1,6 @@
-import maps from '../vxMaps'
+import maps from '../vxMaps';
 //模拟
-import xData from '../../../static/data/blogData.json'
+import xData from '../../../static/data/blogData.json';
 const vxHomeData={
     state:{
         //数据
