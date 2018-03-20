@@ -44,7 +44,6 @@
       }
     },
     methods: {
-      ...mapActions(['doLogin']),
       toReg() {
         this.$router.replace('/sign/signUp')
       },
@@ -55,7 +54,7 @@
         let m= this.isMailMatch(this.mail),n=this.isDataNull(this.pwd);
         if(m&&!n){
           //提交数据
-          this.doLogin({mail:this.mail,pwd:this.pwd});
+          console.log(this.$ajax.login({mail:this.mail,pwd:this.pwd}));
           return;
         }
         this.mailToggle=m?false:true;

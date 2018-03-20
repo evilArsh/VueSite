@@ -32,7 +32,7 @@
 </template>
 <script>
   import {
-    mapGetters
+    mapGetters,mapActions
   } from 'vuex'
   export default {
     data() {
@@ -67,7 +67,10 @@
       submit() {
         let m=this.isMailMatch(this.mail),p=this.isPwdMatch(this.pwd),rp=this.isPwdMatch(this.rPwd);
         if(m&&p&&rp&&p===rp){
-          //提交数据
+          const re=this.$ajax.register({ mail: this.mail, pwd: this.pwd })
+          .then(function(res) {
+            console.log(res);
+          });          
           return;
         }
         this.mailToggle=m?false:true;

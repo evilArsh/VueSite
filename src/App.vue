@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <v-cprouter></v-cprouter>
-    <v-cpheader></v-cpheader>
+    <v-cpheader></v-cpheader><!-- 
     <transition name="dim">
       <v-cpbigblack v-show="navShow"></v-cpbigblack>
-    </transition>
+    </transition> -->
     <transition name="left">
-      <v-pgnavbar v-show="navShow"></v-pgnavbar>
+      <v-pgnavbar></v-pgnavbar>
     </transition>
     <v-cpbganimate></v-cpbganimate>
     <div class="mainContainer" @click="hideNav">
@@ -28,11 +28,13 @@ export default {
   data() {
     return {}
   },
+  beforeCreate(){
+    this.$ajax.initial();
+  },
   components: {
     'v-pgnavbar': pgNavBar,
     'v-cpheader': cpHeader,
     'v-cprouter': cpRouter,
-    'v-cpbigblack': cpBigBlack,
     'v-cpbganimate':cpBGAnimate,
   },
   computed: {
@@ -58,6 +60,7 @@ export default {
   font-family: 'Microsoft YaHei', '微软雅黑', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position:relative;
 }
 
 ::selection {
@@ -77,7 +80,7 @@ a {
 
 .mainContainer {
   transition: all .3s ease;
-  width: 100%;
-  /*transform: translateX(70px);*/
+  overflow:auto;
+  padding:0 50px 0 20px;
 }
 </style>

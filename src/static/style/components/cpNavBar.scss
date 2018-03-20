@@ -1,63 +1,88 @@
 @import "../pre.scss";
-.homeNav{
-	position: fixed;
-	//transition:left .5s ease;
-	background-color:#322F28;
-	display: block;
-	padding:0 20px;
-	z-index:999;
-	bottom:0;
-	top:0;
-//头像
-
-	.navLogo{
-		display: block;
-		margin:20px auto 0 auto;
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		background-color: #FFF;
-		border:solid 3px #5e5b54;
-	}
-//我的名字
-
-	.me{
-		text-align: center;
-		color: #e3ebc0;
-		letter-spacing: 1px;
-		font-size: 14px;
-		padding-top: 10px;
-	}
-//功能
-
-	.options{
-		margin-top: 40px;
-	}
-	.option{
-		display: block;
-		text-align: center;
-		font-size: 12px;
-		text-decoration: none;
-		color:#989387;
-		padding: 10px 0;
-		&:hover{
-			background-color: #141310;
-			color:#ededec;
-		}
-	}
-.links{
-	bottom:5%;
-	width:100%;
-	.link{
-		text-align: center;
-		display: block;
-		font-size: 20px;
-		color:#989387;
-		margin:10px;
-		&:hover{
-			color: #ededec;
-			cursor:pointer;
-		}
-	}
-}
+.homeNav {
+  float: left;
+  width: rem(15); //transition:left .5s ease;
+  .navLogo {
+    display: block;
+    margin: 20px auto 0 auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #FFF;
+    border: solid 3px #5e5b54;
+  } //我的名字
+  .me {
+    text-align: center;
+    color: #e3ebc0;
+    letter-spacing: 1px;
+    font-size: 14px;
+    padding-top: 10px;
+  } //功能
+  .options {
+    // margin-top: 40px;
+    .f1,
+    .f2,
+    .f3,
+    .f4,
+    .f5,
+    .f6 {
+      &::before {
+        font-size: rem(1.8);
+        margin: 0 10px;
+      }
+    }
+    .f1 {
+      &::before {
+        color: #00cee5
+      }
+    }
+    .f2 {
+      &::before {
+        color: #FFCC00
+      }
+    }
+    .f3 {
+      &::before {
+        color:#66CCCC
+      }
+    }
+    .f4 {
+      &::before {
+        color: #CC3399
+      }
+    }
+    .f5 {
+      &::before {
+        color:#CCCC99
+      }
+    }
+    .f6 {
+      &::before {
+        color: #336699
+      }
+    }
+    .option {
+      display: block;
+      font-size: rem(1.4);
+      text-decoration: none;
+      color: #989387;
+      padding: 10px 0;
+      &:hover {
+        color: #fff;
+        background-color: #FF9900;
+      }
+    }
+  }
+  .links {
+    .link {
+      display: block;
+      font-size: 20px;
+      color: #989387;
+      margin: 10px;
+      &:hover {
+        color: #ff9900;
+        cursor: pointer;
+      }
+    }
+  }
 }

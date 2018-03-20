@@ -1,7 +1,7 @@
 <!-- 头部router导航 search -->
 <!-- 路由结构  -->
 <template>
-  <div class="routerContainer" :class="{isShow:routerShow}">
+  <div class="routerContainer">
     <div class="router" @click="toWhere">当前位置：
       <span v-for="(item,index) of routerStack.stack" :index="index+1" :title="item.name" class="routerList"><i>{{item.name}}</i></span>
     </div>
@@ -26,7 +26,7 @@ export default {
       this.routerLength = this.getStackLength();
   },
   computed: {
-    ...mapGetters(["routerStack", "routerShow"])
+    ...mapGetters(["routerStack"])
   },
   watch: {
     '$route' (to, from) {
