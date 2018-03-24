@@ -1,48 +1,94 @@
-.routerBar-enter-active,.routerBar-leave-active{
+.routerBar-enter-active,
+.routerBar-leave-active {
   transition: all 1s ease;
 }
-.routerBar-enter, .routerBar-leave-active {
+
+.routerBar-enter,
+.routerBar-leave-active {
   transform: translateY(-100%);
 }
+
+
 /* //content区*/
-.fade-enter-active,.fade-leave-active{
+
+.fade-enter-active,
+.fade-leave-active {
   transition: all .3s ease;
 }
-.fade-enter, .fade-leave-active {
-  transform: translate(-10px,-10px);
+
+.fade-enter,
+.fade-leave-active {
+  transform: translate(-10px, -10px);
   opacity: 0;
 }
+
+
 /* 主页bar */
-.left-enter-active,.left-leave-active{
+
+.left-enter-active,
+.left-leave-active {
   transition: all .3s ease;
 }
-.left-enter, .left-leave-active {
-  transform: translateX(-100%);
+
+.left-enter,
+.left-leave-active {
+  transform: translate(-100%);
   opacity: 0;
 }
+
 
 /* 遮挡幕布  */
-.dim-enter-active,.dim-leave-active{
+
+.dim-enter-active,
+.dim-leave-active {
   transition: all .3s ease;
 }
-.dim-enter, .dim-leave-to {
-	opacity: 0
+
+.dim-enter,
+.dim-leave-to {
+  opacity: 0
 }
-/* 顶部路由 */
-.isShow{
-	margin-top: -23px;
+
+
+/*tipbar*/
+
+.downUp-enter,
+.downUp-leave-to {
+  transform: translate3d(0,-100%,0);
+  opacity: 0;
 }
-/*登录注册*/
-  .upDown-enter,
-  .upDown-leave-to {
-    transform: translateY(20px);
+
+.downUp-leave-active{
+  transition: all .5s cubic-bezier(0,1.11,1,1)
+}
+.downUp-enter-active {
+  transition: all .5s cubic-bezier(0,1.11,1,1)
+}
+
+@keyframes downUp {
+  0%,
+  5% {
+    opacity: 1;
+    transition: translateY(100%)
+  }
+  100% {
     opacity: 0
   }
+}
 
-  .upDown-enter-active {
-    transition: all .3s ease;
-  }
 
-  .upDown-leave-active {
-    transition: all .3s ease;
-  }
+/*登录注册*/
+
+.upDown-enter,
+.upDown-leave-to {
+  transform: translateY(20px);
+  opacity: 0
+}
+
+.upDown-enter-active {
+  transition: all .3s ease;
+}
+
+.upDown-leave-active {
+  transition: all .3s ease;
+}

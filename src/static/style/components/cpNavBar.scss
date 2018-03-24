@@ -1,75 +1,83 @@
 @import "../pre.scss";
 .homeNav {
+  position: relative;
+  z-index: 999;
   float: left;
-  width: rem(15); //transition:left .5s ease;
+  width: rem(10); //transition:left .5s ease;
+  .userHeadContainer {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ededec; // background-color: #00cee5;
+  }
+  .userSet {
+    margin: 10px 0;
+    text-align: center;
+    .userName {
+    @include bsha(0px 1px 2px 0px #c7baac);
+    border-radius: 10%;
+      margin: 0 auto;
+      color:#ff9900;
+      display: block;
+      overflow: hidden;
+      width: 80%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: 2px;
+      font-size: rem(1.4);
+    }
+    .setting {
+      color:#ccc;
+      display: block;
+      margin:5px 0 0 0;
+      padding: 2px;
+      &:hover{
+        color:#00cee5
+      }
+    }
+  }
+  .writeBlog {
+    margin-top: 10px;
+    text-align: center;
+    font-size: rem(1.4);
+    display: block;
+    color:#009966
+  }
   .navLogo {
     display: block;
-    margin: 20px auto 0 auto;
+    margin: 0 auto;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    background-color: #FFF;
-    border: solid 3px #5e5b54;
   } //我的名字
-  .me {
+  .toLogin {
+    transform: translateX(50%);
+    width: 50%;
+    border-radius: 10%;
+    @include bsha(0px 1px 2px 0px #c7baac);
+    display: block;
+    color: #000;
     text-align: center;
-    color: #e3ebc0;
     letter-spacing: 1px;
-    font-size: 14px;
-    padding-top: 10px;
+    font-size: rem(1.2);
+    padding: 4px 0;
   } //功能
   .options {
-    // margin-top: 40px;
-    .f1,
-    .f2,
-    .f3,
-    .f4,
-    .f5,
-    .f6 {
-      &::before {
-        font-size: rem(1.8);
-        margin: 0 10px;
-      }
-    }
-    .f1 {
-      &::before {
-        color: #00cee5
-      }
-    }
-    .f2 {
-      &::before {
-        color: #FFCC00
-      }
-    }
-    .f3 {
-      &::before {
-        color:#66CCCC
-      }
-    }
-    .f4 {
-      &::before {
-        color: #CC3399
-      }
-    }
-    .f5 {
-      &::before {
-        color:#CCCC99
-      }
-    }
-    .f6 {
-      &::before {
-        color: #336699
-      }
-    }
     .option {
+      transition: all .3s ease;
+      letter-spacing: 2px;
+      text-align: center;
+      position: relative;
       display: block;
       font-size: rem(1.4);
       text-decoration: none;
-      color: #989387;
+      color: #888;
       padding: 10px 0;
+      &::before {
+        text-align: center;
+        display: block;
+        font-size: rem(2);
+        margin: 5px 10px;
+      }
       &:hover {
-        color: #fff;
-        background-color: #FF9900;
+        color: #ff9900;
       }
     }
   }

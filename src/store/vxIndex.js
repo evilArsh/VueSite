@@ -5,6 +5,7 @@ import vxRouter from './modules/vxRouter';
 import vxHomeData from './modules/vxHomeData';
 import vxBlogData from './modules/vxBlogData';
 import vxSign from './modules/vxSign';
+import vxStatusManage from './modules/vxStatusManage';
 Vue.use(Vuex);
 export default new Vuex.Store({
     modules:{
@@ -12,6 +13,7 @@ export default new Vuex.Store({
         vxRouter,
         vxHomeData,
         vxBlogData,
-        vxSign
+        vxSign,
+        vxStatusManage
     }
 });

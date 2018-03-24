@@ -1,19 +1,26 @@
 @import "../pre.scss";
-$pTopBottom:10px;
 .routerContainer {
   padding:0 0 0 20px;
   transition:all .3s;
-  color: #fff;
+  color: #888;
   font-size: 12px;
   position: relative;
   z-index: 99;
   width: 100%;
-  background-color: rgba(58, 55, 52, 0.56);
+      &::before{
+      content:' ';
+      position: absolute;
+      height: 100%;
+      width: 3px;
+      background-color: #ff9900;
+      left:0
+    }
   .routerList {
     display: inline-block;
     padding: 5px 5px;
     font-size: 12px;
     cursor: pointer;
+
     &>i {
       font-style: normal;
     }

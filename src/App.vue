@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <v-cptipbar></v-cptipbar>
     <v-cprouter></v-cprouter>
     <v-cpheader></v-cpheader><!-- 
     <transition name="dim">
@@ -9,7 +10,7 @@
       <v-pgnavbar></v-pgnavbar>
     </transition>
     <v-cpbganimate></v-cpbganimate>
-    <div class="mainContainer" @click="hideNav">
+    <div class="mainContainer">
       <transition name="fade">
         <router-view></router-view>
       </transition>
@@ -17,6 +18,7 @@
   </div>
 </template>
 <script>
+import cpTipBar from '@/components/common/cpTipBar'
 import pgNavBar from '@/components/home/cpNavBar'
 import cpHeader from '@/components/home/cpHeader'
 import cpRouter from '@/components/home/cpRouter'
@@ -32,19 +34,15 @@ export default {
     this.$ajax.initial();
   },
   components: {
+    'v-cptipbar':cpTipBar,
     'v-pgnavbar': pgNavBar,
     'v-cpheader': cpHeader,
     'v-cprouter': cpRouter,
     'v-cpbganimate':cpBGAnimate,
   },
   computed: {
-    ...mapGetters(['navShow'])
   },
   methods: {
-    ...mapActions(['setNavVisible']),
-    hideNav: function() {
-      this.setNavVisible(false);
-    }
   },
 
 }
@@ -81,6 +79,6 @@ a {
 .mainContainer {
   transition: all .3s ease;
   overflow:auto;
-  padding:0 50px 0 20px;
+  padding:0 50px 0 0;
 }
 </style>

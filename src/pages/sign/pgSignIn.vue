@@ -44,6 +44,7 @@
       }
     },
     methods: {
+      ...mapActions(['setLoginData']),
       toReg() {
         this.$router.replace('/sign/signUp')
       },
@@ -52,9 +53,14 @@
       },
       submit: function () {
         let m= this.isMailMatch(this.mail),n=this.isDataNull(this.pwd);
+        let _self=this;
         if(m&&!n){
-          //提交数据
-          console.log(this.$ajax.login({mail:this.mail,pwd:this.pwd}));
+          //提交数据 
+          this.$ajax.login({mail:this.mail,pwd:this.pwd})
+          .then(function(res){
+            console.log(res)
+            _self.setLoginData(res.data);
+          })
           return;
         }
         this.mailToggle=m?false:true;
