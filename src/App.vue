@@ -1,27 +1,21 @@
 <template>
   <div id="app">
     <v-cptipbar></v-cptipbar>
-    <v-cprouter></v-cprouter>
-    <v-cpheader></v-cpheader><!-- 
+<!-- 
     <transition name="dim">
       <v-cpbigblack v-show="navShow"></v-cpbigblack>
     </transition> -->
-    <transition name="left">
-      <v-pgnavbar></v-pgnavbar>
-    </transition>
     <v-cpbganimate></v-cpbganimate>
     <div class="mainContainer">
-      <transition name="fade">
-        <router-view></router-view>
-      </transition>
+        <v-cpheader></v-cpheader>
+        <v-pghome></v-pghome>
     </div>
   </div>
 </template>
 <script>
+import pgHome from './pages/pgHome'
 import cpTipBar from '@/components/common/cpTipBar'
-import pgNavBar from '@/components/home/cpNavBar'
 import cpHeader from '@/components/home/cpHeader'
-import cpRouter from '@/components/home/cpRouter'
 import cpBigBlack from '@/components/common/cpBigBlack'
 import cpBGAnimate from '@/components/common/cpBGAnimate'
 import { mapActions, mapGetters } from 'vuex'
@@ -35,10 +29,9 @@ export default {
   },
   components: {
     'v-cptipbar':cpTipBar,
-    'v-pgnavbar': pgNavBar,
     'v-cpheader': cpHeader,
-    'v-cprouter': cpRouter,
     'v-cpbganimate':cpBGAnimate,
+    'v-pghome':pgHome
   },
   computed: {
   },
@@ -59,6 +52,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position:relative;
+  min-height:100%;
 }
 
 ::selection {
@@ -77,8 +71,8 @@ a {
 }
 
 .mainContainer {
+  position:relative;
+  min-height:100%;
   transition: all .3s ease;
-  overflow:auto;
-  padding:0 50px 0 0;
 }
 </style>

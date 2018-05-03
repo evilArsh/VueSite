@@ -9,7 +9,7 @@ export default{
 	//head part
 	HEAD_BGCOLOR:'HRAD_BGCOLOR',
 	//博客模块
-	LIST_STATUS:'LIST_STATUS',
+ 
 	//状态管理
 	BAR_CLOSE:'BAR_CLOSE',
 	BAR_MSG:'BAR_MSG',

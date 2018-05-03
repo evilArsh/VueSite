@@ -1,11 +1,10 @@
-import blog from '../pages/pgBlog.vue'
 export default[
     {
-        path:'/blog',
+        path:'/blogMenu',
         name:'博客',
-        component:blog,
+        component:()=>import('../components/blog/cpBlogMenu'),
         meta:{
             isRoot:true,
-            target:'blog'
+            target:'blogMenu'
         }
     }]

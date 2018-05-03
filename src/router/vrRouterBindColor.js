@@ -1,7 +1,7 @@
 export default{
-    'home':'#fff',
-    'blog':'#fff',
-    'sign':'#ffd182',
+    'home':'#2c3e50',
+    'blogMenu':'#2c3e50',
+    'sign':'#2980b9',
     'campusTime':'#ff9900',
     'ignore_me_home':'rgba(215,183,147,0.5)'
 }

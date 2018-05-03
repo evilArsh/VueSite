@@ -1,96 +1,15 @@
 @import "../pre.scss";
 .homeNav {
-  position: relative;
-  z-index: 999;
+  display: inline-block;
   float: left;
-  width: rem(10); //transition:left .5s ease;
-  .userHeadContainer {
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #ededec; // background-color: #00cee5;
-  }
-  .userSet {
-    margin: 10px 0;
-    text-align: center;
-    .userName {
-    @include bsha(0px 1px 2px 0px #c7baac);
-    border-radius: 10%;
-      margin: 0 auto;
-      color:#ff9900;
+ margin:rem(5);
+  .options{
+    .option{
       display: block;
-      overflow: hidden;
-      width: 80%;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      padding: 2px;
+      color:#bdc3c7;
       font-size: rem(1.4);
-    }
-    .setting {
-      color:#ccc;
-      display: block;
-      margin:5px 0 0 0;
-      padding: 2px;
-      &:hover{
-        color:#00cee5
-      }
-    }
-  }
-  .writeBlog {
-    margin-top: 10px;
-    text-align: center;
-    font-size: rem(1.4);
-    display: block;
-    color:#009966
-  }
-  .navLogo {
-    display: block;
-    margin: 0 auto;
-    width: 50px;
-    height: 50px;
-  } //我的名字
-  .toLogin {
-    transform: translateX(50%);
-    width: 50%;
-    border-radius: 10%;
-    @include bsha(0px 1px 2px 0px #c7baac);
-    display: block;
-    color: #000;
-    text-align: center;
-    letter-spacing: 1px;
-    font-size: rem(1.2);
-    padding: 4px 0;
-  } //功能
-  .options {
-    .option {
-      transition: all .3s ease;
-      letter-spacing: 2px;
-      text-align: center;
-      position: relative;
-      display: block;
-      font-size: rem(1.4);
-      text-decoration: none;
-      color: #888;
-      padding: 10px 0;
-      &::before {
-        text-align: center;
-        display: block;
-        font-size: rem(2);
-        margin: 5px 10px;
-      }
-      &:hover {
-        color: #ff9900;
-      }
-    }
-  }
-  .links {
-    .link {
-      display: block;
-      font-size: 20px;
-      color: #989387;
-      margin: 10px;
-      &:hover {
-        color: #ff9900;
-        cursor: pointer;
-      }
+      margin:rem(1.6);
+      letter-spacing: 5px;
     }
   }
 }

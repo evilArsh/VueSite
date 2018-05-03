@@ -1,56 +1,45 @@
 <!-- 主页 -->
-<template >
+<template>
   <div class="homeContainer" :style="bgColor">
-    <v-cpListBlog :datas='blogData'></v-cpListBlog>
-    <v-cpLoadFoot :target="lockEvent"></v-cpLoadFoot>
+    <v-cprouter></v-cprouter>
+
+    <v-pgnavbar></v-pgnavbar>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
+    <div class="footer">
+      <a href="javascript:;" class="about">about</a>
+      <p class="footerWord">Copyright © 2018 <a class="linkWord" href="http://www.miitbeian.gov.cn">黔ICP备17004129号</a></p>
+    </div>
   </div>
 </template>
 <script>
+import pgNavBar from '@/components/home/cpNavBar'
+import cpRouter from '@/components/home/cpRouter'
 import { mapActions, mapGetters } from 'vuex'
-import cpListBlog from '@/components/home/cpListBlog'
-import cpLoadFoot from '@/components/common/cpLoadFoot'
 export default {
   data() {
-    return {
-      //无数据了就无需获取    |获取数据时关闭获取数据功能
-      //错误------------------------------------------------
-      lockEvent:this.isAll()
-    }
+    return {}
   },
   components: {
-    'v-cpListBlog':cpListBlog,
-    'v-cpLoadFoot':cpLoadFoot
+    'v-pgnavbar': pgNavBar,
+    'v-cprouter': cpRouter,
+
   },
   computed: {
-    ...mapGetters(['bgColor']),
-    blogData:function(){
-      return this.getData();
-    }
+    ...mapGetters(['bgColor'])
   },
-  methods: {
-    ...mapGetters(['getData','isAll']),
-    ...mapActions(['fetchData']),
-    //滚动条滑到一定位置触发获取数据
-    loadData:function(event){
-      if(!this.lockEvent){
-        if(document.documentElement.scrollTop+document.body.scrollTop>this.$el.offsetHeight/2){
-        };
-    }
-  }
-  },
-  watch:{
-  },
+  methods: {},
+  watch: {},
   beforeMount() {
 
   },
-  mounted() {
-    this.fetchData();
-    document.addEventListener('scroll',this.loadData);
-  },
+  mounted() {},
   beforeUpdate() {}
 }
 
 </script>
+<style src="../static/style/animate.css"></style>
 <style lang="scss" scoped>
 @import "../static/style/pages/pgHome.scss";
 

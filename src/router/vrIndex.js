@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import store from '../store/vxIndex'
 import Router from 'vue-router'
-import home from '../pages/pgHome.vue'
 import sign from './vrSign'
 import campusTime from './vrCampusTime'
 import blog from './vrBlog'
@@ -11,7 +10,6 @@ const router= new Router({
     routes: [{ 
         path: '/',
         name: '首页',
-        component: home,
         meta:{
             isRoot:true,
             target:'home'

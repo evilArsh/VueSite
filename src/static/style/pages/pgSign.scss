@@ -1,11 +1,14 @@
 @import "../pre.scss";
 //外壳
 .signContainer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+position: absolute;
+box-shadow: 0px 0px 5px 1px #1f5579;
+    height: 60%;
+    width: 30%;
+    top: rem(5);
+    border-radius: 3px;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
   .box {
     //background-color: #ebd29b;
     display: inline-block; //padding: 70px 30px;
@@ -15,30 +18,30 @@
     position: absolute;
   }
   .input {
-    padding: .75em .75em .75em 3em;
-    margin: .75em 0;
+    padding: 0.75em 0.75em 0.75em 3em;
+    /* margin: .75em 0; */
     display: inline-block;
-    width: 20em; //@include bsha(inset 0px 0px 5px 3px rgb(226, 173, 106));
-    background-color: #fff2e1;
-    border-radius: 5em;
-    font-size: .5rem;
+    width: 16rem;
+    background-color: #fff;
+    border-radius: 6px;
+    font-size: rem(1.4);
   }
   .i {
     transition: all .5s ease;
     position: absolute;
     top: 50%;
-    left: .75rem;
+    left: rem(1.25);
     transform: translate(0, -50%);
     color: #f0bf6c;
-    font-size: 1rem
+    font-size: rem(1.8);
   }
   .item {
     position: relative;
-    margin: .5em 0;
+    margin: rem(5) 0;
   }
   .mail_tip{
     position: absolute;
-    top:rem(-1);
+    top:rem(-1.75);
     left:2rem;
     font-size: rem(1.4);
     color:red;
@@ -55,8 +58,8 @@
     padding: .75em;
     width: 4em;
     float: left;
-    background-color: #eac17b;
-    color: #ececec;
+    background-color: #bbb9b9;
+    color: #dbdbdb;
   }
   .main {
     background-color: #ff6600;

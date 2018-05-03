@@ -1,117 +1,115 @@
 @import "../pre.scss";
-$step:2;
-$color:#ededec;
 .blogListContainer {
-  border-left: solid 4px #ff9900;
-  float: left;
-  transition: all 0.6s ease;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, .5);
-  text-overflow: ellipsis;
-  white-space: nowrap; //搜索栏
-  .search {
+  position: absolute;
+  border: solid 6px #34495e;
+  background-color: #34495e;
+  box-shadow: inset 0px 0px 4px 1px #162029;
+  height: 80%;
+  width: 55%;
+  top: rem(5);
+  border-radius: 3px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  .outer {
     position: relative;
-    .tip {
-      color: #6495ed;
-      position: absolute;
-      right: rem(1);
-      top: 50%;
-      padding: rem(0.25) rem(0.25);
-      transform: translateY(-50%); //z-index: 999;
-    }
-    .input {
-      font-size: 14px;
-      width: 100%;
-      @include bsha(inset 0 0 2px 1px #b9b9b9);
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      padding: rem(0.25) rem(3.5) rem(0.25) rem(0.25);
-    }
-  } //整块
-  .block {
-    display: block;
   }
-  .date_outer {
-    position: relative;
-    transition: all 0.5s ease;
-    padding: rem(.5) 0 rem(.5) rem(1*$step);
-    &:hover {
-      background-color: $color;
+  .blogCardContainer {
+    margin: rem(1) rem(1) 0 rem(1);
+    .contentContainer {
+      padding: rem(1.2);
+      border-radius: 3px;
+      background-color: #f7f9e7; // white-space: nowrap;
     }
-    .ttip_l {
-      position: absolute;
-      color: #86c1e4;
-      left: rem(0.8);
-      top: 50%;
-      transform: translateY(-50%);
+    .type {
+
+      padding: 0.1875rem;
+      font-size: rem(1.2);
+      display: inline-block;
+      border-radius: 6px;
+      background-color: #03A9F4;
+      box-shadow: 0px 0px 1px 1px #03a9f4;
+      color: #fff4f4;
     }
-        .rDown {
-      transform: translateY(-50%) rotate(90deg);
+    .content {
+      position: relative;
     }
-    .rDefault {
-      transform: translateY(-50%) rotate(0);
+    .title {
+      font-size: rem(2);
+      font-weight: bold;
+      padding: rem(1) 0 0 0;
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    cursor: pointer;
+    .describe {
+      color: #8d8c87;
+      padding: rem(1) 0;
+      margin: 0 0 rem(1);
+      font-size: rem(1.2);
+      letter-spacing: 1px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .img {
+      float: right;
+      width: 120px;
+      height: 60px;
+    }
+    .footerContainer {
+      position: relative;
+      padding: rem(1.2);
+      background-color: #F7F9EF;
+      border-radius: 3px;
+      .author {
+        font-size: rem(1.4);
+        color: #607D8B;
+      }
+      .time {
+        margin: 0 0 0 rem(2);
+        font-size: rem(1.2);
+        color: #b3b3b3;
+      }
+      .enter {
+        position: absolute;
+        right: 3.125rem;
+        padding: 0.3125rem 1.25rem;
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+        background-color: #34495e;
+        color: #ff9900;
+        font-size: 0.8125rem;
+        border-radius: 5px;
+      }
+    }
   }
-  .title_outer {
-    transition: all 0.5s ease;
-    &:hover {
-      background-color: $color;
-    }
-    cursor: pointer;
-    position: relative;
-    padding: rem(.5) 0 rem(.5) rem(1);
-    .ttip {
-      //transform: rotate(30deg);
-      position: absolute;
-      color: #86c1e4;
-      right: rem(1);
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .rDown {
-      transform: translateY(-50%) rotate(-90deg);
-    }
-    .rDefault {
-      transform: translateY(-50%) rotate(0);
-    }
-  } //每块标题
-  .title {
-    font-size: 14px;
-    position: relative;
-    &::before {
-      top: 50%;
-      transform: translateY(-50%);
-      left: -5px;
-      width: 10px;
-      height: 10px;
-      position: absolute;
-      content: '  ';
-      border-left: solid 2px #af571c;
-    }
-  } //每块中每项
-  .item {
-    font-size: 12px;
-    display: block;
-  } //每项时间
-  .date {
-    position: relative;
-    &::before {
-      left: -20%;
-      position: absolute;
-      color: #86c1e4;
-    }
-  } //具体每个ul
-  .third {}
-  //每个
-  .item_content {
-    list-style: none;
-    padding: rem(.5) 0 rem(.5) rem(1*$step*2);
-    margin: 0 rem(1) 0 0;
-    transition: all 0.5s ease;
-    &:hover {
-      background-color: $color;
-    }
-    cursor: pointer;
+  .handle {
+    left: 50%;
+    transform: translate3d(-50%, 100%, 0);
+    bottom: rem(-1);
+    font-size: rem(1.4);
+    position: absolute;
+
+
+  }
+  .prev,.next{
+    border: solid rem(.4);
+    border-color: #34495e;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: rem(.2);
+    color: #fff;
+    font-size: rem(1.2);
+    background-color: #3f362e;
   }
 }
+// background-color: #2b3c4e;
+//     border-top: solid 4px;
+//     border-right: solid 4px;
+//     border-left: solid 4px;
+//     border-color: #788480;
+//     border-top-left-radius: 9px;
+//     border-top-right-radius: 7px;
+//     box-shadow: inset 1px 1px 1px red;
+//     font-size: 12px;
