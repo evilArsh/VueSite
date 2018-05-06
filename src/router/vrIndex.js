@@ -2,7 +2,6 @@ import Vue from 'vue'
 import store from '../store/vxIndex'
 import Router from 'vue-router'
 import sign from './vrSign'
-import campusTime from './vrCampusTime'
 import blog from './vrBlog'
 import color from './vrRouterBindColor'
 Vue.use(Router)
@@ -45,7 +44,6 @@ const router = new Router({
       }
     },
     ...sign,
-    ...campusTime,
     ...blog,
     {
       path: '*',
@@ -56,8 +54,8 @@ const router = new Router({
     }
   ]
 });
-router.beforeEach(function(to, from, next) {
-  if (typeof to.meta.dispatchFunc === 'object' && typeof to.meta.dispatchFunc.length === 'number') {
+router.beforeResolve(function(to, from, next) {
+    if (typeof to.meta.dispatchFunc === 'object' && typeof to.meta.dispatchFunc.length === 'number') {
     for (var i = 0; i < to.meta.dispatchFunc.length; i++) {
      store.dispatch(to.meta.dispatchFunc[i].name, to.meta.dispatchFunc[i].payload);
     }
@@ -68,6 +66,7 @@ router.afterEach(function(to, from) {
   if (typeof to.meta.isRoot !== 'undefined' && to.meta.isRoot) {
     store.dispatch('setHeadBgColor', color[to.meta.target])
   }
+
   // store.dispatch('toggleHead',false)
 });
 export default router

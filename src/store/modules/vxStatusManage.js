@@ -1,15 +1,15 @@
 //对数据的处理
 import maps from '../vxMaps';
 const vxStatusManage = {
-    state: {
-      packageReg: /^[0-9]{1,}D$/,
-      isTipBarVisible: false,
-      tipBarMsg: { success: false, data: '', status: '' },
-      isUserLogin: false,
-      //base url
-      baseUrl:'',
-      baseResourceURL:'',
-      userInfo: { nickName: '', avatar: '' } //this.$ajax.baseURL+'/user.png'
+  state: {
+    packageReg: /^[0-9]{1,}D$/,
+    isTipBarVisible: false,
+    tipBarMsg: { success: false, data: '', status: '' },
+    isUserLogin: false,
+    //base url
+    baseUrl: '',
+    baseResourceURL: '',
+    userInfo: { id: '', nickName: '', avatar: '', mail: '' } //this.$ajax.baseURL+'/user.png'
 
   },
   actions: {
@@ -30,11 +30,15 @@ const vxStatusManage = {
       }
     },
     //获取用户信息
-    setUserInfo({ commit, dispatch }, res){
-              dispatch('submitDataFromServer', res);
+    setUserInfo({ commit, dispatch }, res) {
+      dispatch('submitDataFromServer', res);
       if (res.success) {
         commit(maps.USER_SETINFOR, res)
       }
+    },
+    //博客列表
+    setBlogList({ commit, dispatch }, res) {
+      dispatch('submitDataFromServer', res);
     },
     setTipBarMsg({ commit }, res) {
       commit(maps.BAR_MSG, res);
@@ -50,11 +54,18 @@ const vxStatusManage = {
       //do something
       dispatch('setTipBarMsg', res);
     },
-    setBaseURL({state},url){
-        state.baseUrl=url;
+    setBaseURL({ state }, url) {
+      state.baseUrl = url;
     },
-        baseResourceURL({state},url){
-        state.baseResourceURL=url;
+    baseResourceURL({ state }, url) {
+      state.baseResourceURL = url;
+    },
+    //小操作
+    setNickName({ state }, val) {
+        state.userInfo.nickName=val;
+    },
+    setAvatarURL({ state }, val) {
+           state.userInfo.avatar=state.baseResourceURL + '/' + val;
     }
   },
   mutations: {
@@ -67,8 +78,15 @@ const vxStatusManage = {
       state.isTipBarVisible = false;
     },
     [maps.USER_SETINFOR](state, res) {
-      state.userInfo.nickName = res.package.userNickName;
-      state.userInfo.avatar = state.baseResourceURL+'/'+res.package.userAvatar;
+      state.userInfo = Object.assign({}, {
+        nickName: res.package.userNickName,
+        mail: res.package.userMail,
+        id: res.package.userID,
+        avatar: state.baseResourceURL + '/' + res.package.userAvatar
+      })
+      // state.userInfo.nickName = res.package.userNickName;
+      // state.userInfo.mail = res.package.userMail;
+      // state.userInfo.avatar = state.baseResourceURL + '/' + res.package.userAvatar;
       state.isUserLogin = true;
     }
   },
@@ -76,7 +94,8 @@ const vxStatusManage = {
     tipBarMsg: state => state.tipBarMsg,
     tipBarVisible: state => state.isTipBarVisible,
     isUserLogin: state => state.isUserLogin,
-    userInfo: state => state.userInfo
+    userInfo: state => state.userInfo,
+    getUserID: state => state.userInfo.id
   }
 };
 export default vxStatusManage;

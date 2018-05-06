@@ -59,6 +59,61 @@ export default store => {
         },
         withCredentials: true
       });
+    },
+    //所有博客内容
+    getBlogList(queryAfter, number) {
+      queryAfter = parseInt(queryAfter),
+        number = parseInt(number)
+      return axios({
+        url: '/blog',
+        method: 'get',
+        params: {
+          queryAfter: queryAfter,
+          number: number
+        },
+        headers: {},
+        withCredentials: true
+      });
+    },
+    //单个博客内容
+    getUserBlogList(id, queryAfter, number) {
+      queryAfter = parseInt(queryAfter),
+        number = parseInt(number)
+      return axios({
+        url: '/blog' + '/' + id,
+        method: 'get',
+        params: {
+          queryAfter: queryAfter,
+          number: number
+        },
+        headers: {},
+        withCredentials: true
+      });
+    },
+    //修改资料
+    updateUser(id, data) {
+      return axios({
+        url: '/user' + '/' + id,
+        method: 'put',
+        data: data,
+        headers: {
+          "x-csrf-token": this.getCsrf()
+        },
+        withCredentials: true
+      });
+    },
+    //上传头像
+    upload(id, data) {
+      return axios({
+        baseURL: baseResourceURL,
+        url: '/'+id,
+        method: 'put',
+        data: data,
+        headers: {
+          "x-csrf-token": this.getCsrf()
+        },
+        withCredentials: true
+      });
     }
   }
 };

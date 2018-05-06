@@ -39,7 +39,7 @@
     }
   }
   .loginOut{
-    
+
   }
   .infoContainer,
   .avatarContainer,
@@ -51,13 +51,16 @@
   .avatarContainer {
     .imgOuter {
       max-width: 200px;
-      max-height: 200px;
       border: dashed 1px #fff;
       padding: 12px;
     }
     .img {
       height: 100%;
       width: 100%;
+    }
+    .tip{
+      padding: 9px 0px;
+    color: #fff;
     }
     .choice {
       display: block;

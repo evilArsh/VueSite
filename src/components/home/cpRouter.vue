@@ -33,6 +33,11 @@ export default {
       let { fullPath, name, meta } = this.$route;
       //监听路由变化改变Header.vue
       fullPath === '/' ? this.isHome = true : this.isHome = false;
+      // if (typeof to.meta.dispatchFunc === 'object' && typeof to.meta.dispatchFunc.length === 'number') {
+      //   for (var i = 0; i < to.meta.dispatchFunc.length; i++) {
+      //     this.$store.dispatch(to.meta.dispatchFunc[i].name, to.meta.dispatchFunc[i].payload);
+      //   }
+      // }
       this.statusHandle(meta);
       this.alterPath({ fullPath, name, meta });
       this.routerLength = this.getStackLength();

@@ -3,101 +3,20 @@
     <div class="blogCardContainer">
       
     </div>
-    <div class="blogCardContainer">
+    <div class="blogCardContainer" v-for="item in blogList" :key="item.blog_id">
       <div class="contentContainer">
         <div>
-          <p class="type">#编程</p>
+          <p class="type">#{{item.blog_type}}</p>
         </div>
-        <img src="../../assets/logo.png" height="200" width="200" alt="" class="img">
+        <img src="../../assets/logo.png" alt="" class="img">
         <div class="content">
-          <p class="title">的期望的全额负担的题</p>
-          <p class="describe">这个是顶顶顶述</p>
+          <p class="title">{{item.blog_title}}</p>
+          <p class="describe">{{item.blog_descbibe}}</p>
         </div>
       </div>
       <div class="footerContainer">
-        <a class="author">吴小龙</a>
-        <a class="time">2018.12.12</a>
-        <a href="javascript:;" class="enter">查看</a>
-      </div>
-    </div>
-    <div class="blogCardContainer">
-      <div class="contentContainer">
-        <div>
-          <p class="type">#编程</p>
-        </div>
-        <img src="../../assets/logo.png" height="200" width="200" alt="" class="img">
-        <div class="content">
-          <p class="title">的期望的全额负担的题</p>
-          <p class="describe">这个是顶顶顶述</p>
-        </div>
-      </div>
-      <div class="footerContainer">
-        <a class="author">吴小龙</a>
-        <a class="time">2018.12.12</a>
-        <a href="javascript:;" class="enter">查看</a>
-      </div>
-    </div>    <div class="blogCardContainer">
-      <div class="contentContainer">
-        <div>
-          <p class="type">#编程</p>
-        </div>
-        <img src="../../assets/logo.png" height="200" width="200" alt="" class="img">
-        <div class="content">
-          <p class="title">的期望的全额负担的题</p>
-          <p class="describe">这个是顶顶顶述</p>
-        </div>
-      </div>
-      <div class="footerContainer">
-        <a class="author">吴小龙</a>
-        <a class="time">2018.12.12</a>
-        <a href="javascript:;" class="enter">查看</a>
-      </div>
-    </div>    <div class="blogCardContainer">
-      <div class="contentContainer">
-        <div>
-          <p class="type">#编程</p>
-        </div>
-        <img src="../../assets/logo.png" height="200" width="200" alt="" class="img">
-        <div class="content">
-          <p class="title">的期望的全额负担的题</p>
-          <p class="describe">这个是顶顶顶述</p>
-        </div>
-      </div>
-      <div class="footerContainer">
-        <a class="author">吴小龙</a>
-        <a class="time">2018.12.12</a>
-        <a href="javascript:;" class="enter">查看</a>
-      </div>
-    </div>    <div class="blogCardContainer">
-      <div class="contentContainer">
-        <div>
-          <p class="type">#编程</p>
-        </div>
-        <img src="../../assets/logo.png" height="200" width="200" alt="" class="img">
-        <div class="content">
-          <p class="title">的期望的全额负担的题</p>
-          <p class="describe">这个是顶顶顶述</p>
-        </div>
-      </div>
-      <div class="footerContainer">
-        <a class="author">吴小龙</a>
-        <a class="time">2018.12.12</a>
-        <a href="javascript:;" class="enter">查看</a>
-      </div>
-    </div>    <div class="blogCardContainer">
-      <div class="contentContainer">
-        <div>
-          <p class="type">#编程</p>
-        </div>
-        <img src="../../assets/logo.png" height="200" width="200" alt="" class="img">
-        <div class="content">
-          <p class="title">的期望的全额负担的题</p>
-          <p class="describe">这个是顶顶顶述</p>
-        </div>
-      </div>
-      <div class="footerContainer">
-        <a class="author">吴小龙</a>
-        <a class="time">2018.12.12</a>
+        <a class="author">{{item.userNickName}}</a>
+        <a class="time">{{item.blog_time}}</a>
         <a href="javascript:;" class="enter">查看</a>
       </div>
     </div>
@@ -115,14 +34,34 @@ import {
 export default {
   props: {},
   data() {
-    return {}
+    return {
+      blogList:[]
+    }
   },
   components: {},
   computed: {},
-  methods: {},
+  methods: {
+     ...mapActions(['setBlogList']),
+    getBlogList:function(queryAfter,number){
+      const  _=this;
+      this.$ajax.getBlogList(queryAfter,number).then(function(res){
+        _.setBlogList(res.data);
+        if(res.data.success){
+          _.pushData(res.data.package);
+        }
+      });
+    },
+    pushData:function(data){
+      for(let i=0;i<data.length;i++){
+        this.blogList.push(data[i]);
+      }
+    }
+  },
   watch: {},
   beforeMount() {},
-  mounted() {},
+  mounted() {
+    this.getBlogList(0,8);
+  },
   beforeUpdate() {}
 }
 

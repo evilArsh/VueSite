@@ -2,7 +2,6 @@
   <div class="tipBarContainer">
     <transition v-on:after-enter="afterEnter"
      v-on:before-enter="beforeEnter"
-    v-on:enter="enter"
       name="downUp">
       <p class="msg fa" v-show='tipBarVisible' :class="tipStatus">{{tipBarMsg.data}}</p>
     </transition>
@@ -38,7 +37,6 @@ export default {
     ...mapActions(['closeTipBar', 'setTipBarMsg']),
     beforeEnter: function(el) {
     },
-    enter:function(el){console.log('data, ...args')},
     // ...mapGetters(['tipBarMsg']),
     afterEnter: function() {
       let _self = this;

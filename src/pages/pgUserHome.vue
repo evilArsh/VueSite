@@ -6,39 +6,36 @@
       <li class="listItem"><a href="javascript:;" tar="avatar">头像</a></li>
       <li class="listItem"><a href="javascript:;" tar="blog">我的博客</a></li>
     </ul>
-    <transition  mode="out-in" name="info"
-    >
+    <transition mode="out-in" name="info">
       <div class="infoContainer" v-if="activeDiv==='info'" key="info">
         <div class="infoItem">
           <div class="item">
             <span class="infoDescribe">邮箱</span>
-            <span class="infoValue">1183520543@qq.com</span>
+            <span class="infoValue">{{userInfo.mail}}</span>
           </div>
           <div class="item">
             <span class="infoDescribe">昵称</span>
-            <input type="text" class="infoValue input" value="吴小龙">
+            <input type="text" class="infoValue input" :placeholder="userInfo.nickName" v-model="userNickName">
           </div>
-          <button class="save">保存更改</button>
+          <button class="save" @click="update">保存更改</button>
         </div>
       </div>
       <div class="avatarContainer" v-if="activeDiv==='avatar'" key="avatar">
         <div class="infoItem">
-        <div class="imgOuter">
-          <img src="../assets/logo.png"  alt="" class="img">
+          <div class="imgOuter">
+            <img :src="userInfo.avatar" alt="" class="img">
+          </div>
+          <p class="tip">图片大小不得超过5mb</p>
+          <input type="file" class="choice" ref="avatar">
+          <button class="save" @click="upload">上传</button>
         </div>
-        <input type="file" class="choice">
-       <button class="save">上传</button>
-        </div>
-       </div>
+      </div>
       <div class="blogContainer" v-if="activeDiv==='blog'" key="blog">
         <div class="infoItem">
-          <a  href="javascript:;" class="blogModel">
-            <span class="title">怎样学vuejs</span>
-            <span class="time">2018-12-12</span>
+          <a href="javascript:;" class="blogModel" v-for="item in blogList" :key="item.blog_id">
+            <span class="title">{{item.blog_title}}</span>
+            <span class="time">{{item.blog_time}}</span>
           </a>
-                    <a  href="javascript:;" class="blogModel">
-            <span class="title">怎样学vuejs</span>
-            <span class="time">2018-12-12</span>
           </a>
         </div>
       </div>
@@ -50,42 +47,80 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      activeDiv:'blog'
+      activeDiv: 'info',
+      blogList: [],
+      userNickName: ''
     }
   },
   components: {},
   computed: {
-    ...mapGetters(['bgColor'])
+    ...mapGetters(['bgColor', 'userInfo'])
   },
   methods: {
-    setActiveDiv:function(val){
-      this.activeDiv=val;
+    ...mapActions(['setBlogList','submitDataFromServer','setNickName','setAvatarURL']),
+    ...mapGetters(['getUserID']),
+    getBlogList: function(queryAfter, number) {
+      const _ = this;
+      this.$ajax.getUserBlogList(this.getUserID(), queryAfter, number).then(function(res) {
+        _.setBlogList(res.data);
+        if (res.data.success) {
+          _.pushData(res.data.package);
+        }
+      });
     },
-    changeCp:function(e){
-      if(e.target&&e.target.nodeName==='A'){
-        let tar=e.target.getAttribute('tar');
+    upload: function() {
+      const _ = this;
+      //$('#ee')[0].files.length ? $('#ee')[0].files[0] : null;
+      const img = this.$refs.avatar.files.length ? this.$refs.avatar.files[0] : null;
+      if(!img||((img.size)/(1<<20))>=5){
+        this.submitDataFromServer({success:false,data:'图片大小不符合'});
+        return;
+      }
+      var form = new FormData();
+      form.append('img',img, img.name);
+      this.$ajax.upload(this.getUserID(),form).then(function(res){
+        _.submitDataFromServer(res.data);
+        if(res.data.success){
+     _.setAvatarURL(img.name);
+        }
+      });
+    },
+    update: function() {
+      const _ = this;
+      if (this.userNickName.length) {
+        this.$ajax.updateUser(this.getUserID(), {
+          userNickName: this.userNickName
+        }).then(function(res) {
+          _.setBlogList(res.data);
+          if (res.data.success) {
+            _.setNickName(_.userNickName);
+          }
+        })
+      }
+    },
+    setActiveDiv: function(val) {
+      this.activeDiv = val;
+    },
+    changeCp: function(e) {
+      if (e.target && e.target.nodeName === 'A') {
+        let tar = e.target.getAttribute('tar');
         this.setActiveDiv(tar);
       }
     },
-    beforeEnter:function(el){
-      // el.classList.remove("in");
-      // el.classList.remove("afterLeave");
-      // el.classList.add("leave");
-    },
-    enter:function(el,done){
-      // el.classList.remove("leave");
-      // el.classList.add("in");
-    }, 
-    leave:function(el,done){
-      // el.classList.remove("in");
-      // el.classList.add("leave");
-    },
+    pushData: function(data) {
+      for (let i = 0; i < data.length; i++) {
+        this.blogList.push(data[i]);
+      }
+    }
   },
   watch: {},
   beforeMount() {
 
   },
-  mounted() {},
+  mounted() {
+    this.getBlogList(0, 8);
+
+  },
   beforeUpdate() {}
 }
 

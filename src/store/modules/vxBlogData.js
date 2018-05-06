@@ -1,22 +1,21 @@
 import maps from '../vxMaps'
 const vxBlogData = {
   state: {
-    listLock: true,
-    storage: []
+    //初始化 
+    queryAfter:0,
+    number:10,
+    totalNum:0
   },
   actions: {
     //取数据
-    fetchListData({ commit, disPatch, state }) {
+    fetchBlogList({ commit, disPatch, state }) {
 
     }
   },
   mutations: {
  
   },
-  getters: {
-    getBlogList: state => {
-      return state.listLock ? [] : state.storage;
-    }
+  getters: { 
   }
 };
 export default vxBlogData;
