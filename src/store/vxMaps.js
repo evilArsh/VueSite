@@ -6,7 +6,8 @@ export default{
 	JUMPTO_PATH:'JUMPTO_PATH',
 	//主页加载数据
 
-	//head part
+	//style模块
+	TOGGLE_COMPONENT:'TOGGLE_COMPONENT',
 	HEAD_BGCOLOR:'HRAD_BGCOLOR',
 	//博客模块
  

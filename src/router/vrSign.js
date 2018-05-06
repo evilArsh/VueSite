@@ -8,7 +8,17 @@ export default [
     component: signUp,
     meta: {
       isRoot: true,
-      target:'sign'
+      target: 'sign',
+      dispatchFunc: [{
+        name: 'toggleFoot',
+        payload: false
+      }, {
+        name: 'toggleHead',
+        payload:false
+      }, {
+        name: 'toggleNav',
+        payload: false
+      }]
     }
   },
   {
@@ -17,7 +27,17 @@ export default [
     component: signIn,
     meta: {
       isRoot: true,
-      target:'sign'
+      target: 'sign',
+      dispatchFunc: [{
+        name: 'toggleFoot',
+        payload: false
+      }, {
+        name: 'toggleHead',
+        payload:false
+      }, {
+        name: 'toggleNav',
+        payload: false
+      }]
     }
   }
 ]

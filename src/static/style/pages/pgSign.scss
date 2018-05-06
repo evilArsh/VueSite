@@ -1,14 +1,13 @@
 @import "../pre.scss";
 //外壳
 .signContainer {
-position: absolute;
+  margin:0 auto;
+position: relative;
 box-shadow: 0px 0px 5px 1px #1f5579;
     height: 60%;
     width: 30%;
-    top: rem(5);
+    top:rem(10);
     border-radius: 3px;
-    left: 50%;
-    transform: translate3d(-50%, 0, 0);
   .box {
     //background-color: #ebd29b;
     display: inline-block; //padding: 70px 30px;

@@ -7,15 +7,15 @@
     </transition> -->
     <v-cpbganimate></v-cpbganimate>
     <div class="mainContainer">
-        <v-cpheader></v-cpheader>
         <v-pghome></v-pghome>
+        <!-- 测试用 -->
+        <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999'}" @click="demo">测试</span>
     </div>
   </div>
 </template>
 <script>
 import pgHome from './pages/pgHome'
 import cpTipBar from '@/components/common/cpTipBar'
-import cpHeader from '@/components/home/cpHeader'
 import cpBigBlack from '@/components/common/cpBigBlack'
 import cpBGAnimate from '@/components/common/cpBGAnimate'
 import { mapActions, mapGetters } from 'vuex'
@@ -29,13 +29,25 @@ export default {
   },
   components: {
     'v-cptipbar':cpTipBar,
-    'v-cpheader': cpHeader,
     'v-cpbganimate':cpBGAnimate,
     'v-pghome':pgHome
   },
   computed: {
   },
   methods: {
+    ...mapActions(['toggleFoot','toggleHead','toggleNav','setTipBarMsg']),
+    //测试用
+    demo:function(){
+//       var _=this;
+//     this.setTipBarMsg({data:'测试较低价位一下',success:true})
+// setTimeout(function(args) {
+//     _.setTipBarMsg({data:'的亲卫队请问的武器的',success:true})
+  
+// }, 3100)
+      // this.toggleNav();
+      // this.toggleHead();
+      // this.toggleFoot();
+    }
   },
 
 }

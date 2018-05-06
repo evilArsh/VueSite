@@ -58,6 +58,7 @@
       ...mapGetters(['bgColor', 'mailReg', 'pwdReg'])
     },
     methods: {
+      ...mapActions(['submitDataFromServer']),
       toLog() {
         this.$router.replace('/sign/signIn')
       },
@@ -66,10 +67,11 @@
       },
       submit() {
         let m=this.isMailMatch(this.mail),p=this.isPwdMatch(this.pwd),rp=this.isPwdMatch(this.rPwd);
+        let _=this;
         if(m&&p&&rp&&p===rp){
           const re=this.$ajax.register({ mail: this.mail, pwd: this.pwd })
           .then(function(res) {
-            console.log(res);
+            _.submitDataFromServer(res.data);
           });          
           return;
         }
@@ -131,6 +133,4 @@
 </script>
 <style lang="scss" scoped>
   @import '../../static/style/pages/pgSign.scss';
-  @import '../../static/style/animate.css';
-
 </style>

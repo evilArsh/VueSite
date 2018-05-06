@@ -1,33 +1,57 @@
 <template>
-  <div class="headContainer" :style="bgColor">
-    <!-- 用户 -->
-    <div class="user"></div>
-    <!-- 链接 -->
-    <div class="link">
-      <a href="javascript:;" class="linkItem fa fa-github"></a>
-      <a href="javascript:;" class="linkItem fa fa-weibo"></a>
+  <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">
+    <div ref="head" class="headContainer" :style="bgColor" v-show="isHeadShow">
+      <!-- 链接 -->
+      <div class="link">
+        <a href="javascript:;" class="linkItem" v-show="isUserLogin">
+        <img :src="userInfo.avatar" class="img logo" alt="">
+      </a>
+        <a href="javascript:;" class="linkItem">
+        <span class='logo fa fa-github'></span>
+      </a>
+        <a href="javascript:;" class="linkItem">
+        <span class='logo fa fa-weibo'></span>
+      </a>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {},
   data() {
-    return {
-      tipDirection:true,
+    return {}
+  },
+  components: {},
+  methods: {
+    ...mapActions(['setUserInfo']),
+    beforeEnter: function(el) {
+      el.classList.remove("normal");
+      el.classList.add("toggle");
+    },
+    enter: function(el, done) {
+      el.classList.remove("toggle");
+      el.classList.add("normal");
+
+    },
+    leave: function(el, done) {
+      el.classList.remove("normal");
+      el.classList.add("toggle");
+
     }
   },
-  components: {
-  },
-  methods: {
-  },
   mounted() {
+    let _ = this;
+    this.$ajax.getUserInfo().then((res)=> {
+      _.setUserInfo(res.data)
+    });
   },
   computed: {
-    ...mapGetters(["bgColor"]),
+    ...mapGetters(["bgColor", "isHeadShow", 'userInfo','isUserLogin']),
   },
   watch: {
+
   }
 }
 

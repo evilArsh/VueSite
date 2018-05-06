@@ -1,34 +1,106 @@
 @import "../pre.scss";
-.headContainer {
-    position: relative;
-    padding: rem(2) rem(1.5)  0 rem(6.5);
-    overflow: hidden;
-            height: 48px;
-    .user{
+$height:48px;
+.normal {
+  margin-top: 0;
+  opacity: 1;
+}
 
-    }
-    .link{
+.toggle {
+  margin-top: -$height;
+  opacity: 0;
+}
+
+.headContainer {
+  transition: all ease .3s;
+  position: relative;
+  border-bottom: solid 3px #fff;
+  padding: rem(2) rem(1.5) 0 rem(6.5);
+  overflow: hidden;
+  height: $height;
+  // .user {
+  // transition: all ease .3s;
+  // cursor: pointer;
+  //   background-color: #293b4c;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 50%;
+  //   margin-left: -50px;
+  //   width: 100px;
+  //   &::after{
+  //       content: "";
+  //   position: absolute;
+  //   top: 18px;
+  //   right: 10px;
+  //   border-left: 5px solid transparent;
+  //   border-right: 5px solid transparent;
+  //   border-top: 6px solid #6f6f6f;
+  //   }
+  //   &:hover{
+  //       background-color: #4a4a4a;
+  //   }
+  //   .img {
+  //     height: 100%;
+  //     width: 100%;
+  //     width: 48px;
+  //     display: block;
+  //     height: 48px;
+  //     /* position: relative; */
+  //     margin: 0 auto;
+  //     /* z-index: 999; */
+  //   }
+  // }
+  .link {
+    position: absolute;
+    top: 0;
+    right: rem(3);
+    .linkItem {
+        float: left;
+        width: 40px;
+        height: 40px;
+      background-color: #e67e22;
+      position: relative;
+      margin: 0 rem(1) 0 0;
+      border-bottom-right-radius: 50%;
+      border-bottom-left-radius: 50%;
+      .logo,.img{
+        width: 30px;
+        height: 30px;
+        top:50%;
+        left:50%;
+        border-radius: 50%;
+        padding:rem(.2);
+        transform:translate3d(-50%,-50%,0);
         position: absolute;
-        top:0;
-        right:rem(3);
-        .linkItem{
-            background-color: #e67e22;
-            position: relative;
-            font-size: rem(2);
-            // pzadding: rem(1.5) rem(1.5) 0 rem(1.5);
-            padding:rem(1.5);
-            border-bottom-right-radius: 50%;
-            border-bottom-left-radius: 50%;
-            &:before{
-                background-color: #fff;
-                padding:rem(.2);
-                border-radius: 50%;
-                color:#2c3e50;
-                position: absolute;
-                top:50%;
-                left:50%;
-                transform:translate3d(-50%,-50%,0)
-            }
-        }
+      }
+      .logo{
+        background-color: #fff;
+        font-size: rem(2.5);
+              &:before {
+        background-color: #fff;
+        padding: rem(.2);
+        border-radius: 50%;
+        color: #2c3e50;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0)
+      }
+      }
+      .img{
+        // border-radius: 50%;
+        width: 30px;
+        height: 30px;
+      }
+      // &:before {
+      //   background-color: #fff;
+      //   padding: rem(.2);
+      //   border-radius: 50%;
+      //   color: #2c3e50;
+      //   position: absolute;
+      //   top: 50%;
+      //   left: 50%;
+      //   transform: translate3d(-50%, -50%, 0)
+      // }
     }
+  }
 }

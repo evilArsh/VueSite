@@ -58,7 +58,7 @@
           //提交数据 
           this.$ajax.login({mail:this.mail,pwd:this.pwd})
           .then(function(res){
-            console.log(res)
+            // console.log(res)
             _self.setLoginData(res.data);
           })
           return;

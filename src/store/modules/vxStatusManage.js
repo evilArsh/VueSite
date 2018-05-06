@@ -1,63 +1,82 @@
+//对数据的处理
 import maps from '../vxMaps';
-const vxStatusManage={
-    state:{
-        packageReg:/^[0-9]{1,}D$/,
-        isTipBarVisible:false,
-        tipBarMsg:{success:false,data:'',status:''},
-        isUserLogin:false,
-        userInfo:{nickName:'',avatar:'../../assets/logo.png'}
+const vxStatusManage = {
+    state: {
+      packageReg: /^[0-9]{1,}D$/,
+      isTipBarVisible: false,
+      tipBarMsg: { success: false, data: '', status: '' },
+      isUserLogin: false,
+      //base url
+      baseUrl:'',
+      baseResourceURL:'',
+      userInfo: { nickName: '', avatar: '' } //this.$ajax.baseURL+'/user.png'
+
+  },
+  actions: {
+    //数据入口方法
+    submitDataFromServer({ commit, dispatch }, res) {
+      let { success } = res;
+      if (success) {
+        dispatch('successDataHandle', res)
+      } else {
+        dispatch('errorDataHandle', res)
+      }
     },
-    actions:{
-        //数据入口方法
-        submitDataFromServer({commit,dispatch},res){
-            let {success}=res;
-            if(success){
-                dispatch('successDataHandle',res)
-            }else{
-                dispatch('errorDataHandle',res)
-            }
-        },
-        //登录
-        setLoginData({commit,dispatch},res){
-            dispatch('submitDataFromServer',res);
-           if(res.success) {
-             commit(maps.USER_SETINFOR,res)
-           }
-        },
-        setTipBarMsg({commit},res){
-            commit(maps.BAR_MSG,res);
-        },
-        closeTipBar({commit}){
-            commit(maps.BAR_CLOSE);
-        },
-        successDataHandle({commit,dispatch},res){
-            //do something
-            dispatch('setTipBarMsg',res);
-        },
-        errorDataHandle({commit,dispatch},res){
-            //do something
-            dispatch('setTipBarMsg',res);
-        }
+    //登录
+    setLoginData({ commit, dispatch }, res) {
+      dispatch('submitDataFromServer', res);
+      if (res.success) {
+        commit(maps.USER_SETINFOR, res)
+      }
     },
-    mutations:{
-        [maps.BAR_MSG](state,res){
-            state.tipBarMsg=Object.assign({},res);
-            state.isTipBarVisible=true;
-        },
-        [maps.BAR_CLOSE](state){
-            state.isTipBarVisible=false;
-        },
-        [maps.USER_SETINFOR](state,res){
-            state.userInfo.nickName=res.package.userNickName;
-            state.userInfo.avatar=res.package.userAvatar;
-            state.isUserLogin=true;
-        }
+    //获取用户信息
+    setUserInfo({ commit, dispatch }, res){
+              dispatch('submitDataFromServer', res);
+      if (res.success) {
+        commit(maps.USER_SETINFOR, res)
+      }
     },
-    getters:{
-        tipBarMsg:state=>state.tipBarMsg,
-        tipBarVisible:state=>state.isTipBarVisible,
-        isUserLogin:state=>state.isUserLogin,
-        userInfo:state=>state.userInfo
+    setTipBarMsg({ commit }, res) {
+      commit(maps.BAR_MSG, res);
+    },
+    closeTipBar({ commit }) {
+      commit(maps.BAR_CLOSE);
+    },
+    successDataHandle({ commit, dispatch }, res) {
+      //do something
+      dispatch('setTipBarMsg', res);
+    },
+    errorDataHandle({ commit, dispatch }, res) {
+      //do something
+      dispatch('setTipBarMsg', res);
+    },
+    setBaseURL({state},url){
+        state.baseUrl=url;
+    },
+        baseResourceURL({state},url){
+        state.baseResourceURL=url;
     }
+  },
+  mutations: {
+    //设置提示信息
+    [maps.BAR_MSG](state, res) {
+      state.tipBarMsg = Object.assign({}, res);
+      state.isTipBarVisible = true;
+    },
+    [maps.BAR_CLOSE](state) {
+      state.isTipBarVisible = false;
+    },
+    [maps.USER_SETINFOR](state, res) {
+      state.userInfo.nickName = res.package.userNickName;
+      state.userInfo.avatar = state.baseResourceURL+'/'+res.package.userAvatar;
+      state.isUserLogin = true;
+    }
+  },
+  getters: {
+    tipBarMsg: state => state.tipBarMsg,
+    tipBarVisible: state => state.isTipBarVisible,
+    isUserLogin: state => state.isUserLogin,
+    userInfo: state => state.userInfo
+  }
 };
 export default vxStatusManage;

@@ -92,3 +92,36 @@
 .upDown-leave-active {
   transition: all .3s ease;
 }
+/*navbar*/
+
+.nav-enter,
+.nav-leave-to {
+  transform: translateX(-100%);
+  opacity: 0
+}
+
+.nav-enter-active {
+  transition: all .3s ease;
+}
+
+.nav-leave-active {
+  transition: all .3s ease;
+}
+/*个人中心*/
+
+.info-enter{
+  transform: translateX(-20px);
+  opacity: 0
+}
+.info-leave-to {
+  transform: translateX(20px);
+  opacity: 0
+}
+
+.info-enter-active {
+  transition: all .2s ease;
+}
+
+.info-leave-active {
+  transition: all .3s ease;
+}

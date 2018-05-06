@@ -1,0 +1,38 @@
+@import "../pre.scss";
+.error {
+  background-color: #000;
+  color: red;
+  &::before {
+    color: red
+  }
+}
+
+.success {
+  background-color: #560b07;
+  color: #00cee5;
+  &::before {
+    color: #00cee5
+  }
+}
+
+.tipBarContainer {
+  text-align: center;
+  right:0;
+  position: fixed;
+  top:0;
+  z-index: 999;
+  width: 100%;
+}
+.msg {
+  margin:0 auto;
+  overflow: auto;
+  opacity: .8;
+  font-size: 14px;
+ padding: 16px 39px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  @include bsha( 0 2px 2px 0 #9c9e7a);
+  &::before {
+    margin: 0 10px 0 10px;
+  }
+}

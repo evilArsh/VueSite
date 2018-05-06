@@ -1,34 +1,23 @@
-<!-- 主页 -->
 <template>
-  <div class="homeContainer" :style="bgColor">
-        <v-cpheader></v-cpheader>
-
-    <v-cprouter></v-cprouter>
-
-    <v-pgnavbar></v-pgnavbar>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
+    <transition
+       v-on:before-enter="beforeEnter"
+  v-on:enter="enter"
+  v-on:leave="leave"
+    >  
+    <div class="footer normal" v-show="isFootShow">
+      <a href="javascript:;" class="about">about</a>
+      <p class="footerWord">Copyright © 2018 <a class="linkWord" href="http://www.miitbeian.gov.cn">黔ICP备17004129号</a></p>
+    </div>
     </transition>
-    <v-cpfooter></v-cpfooter>
   </div>
 </template>
 <script>
-import pgNavBar from '@/components/home/cpNavBar'
-import cpRouter from '@/components/home/cpRouter'
-import cpHeader from '@/components/home/cpHeader'
-import cpFooter from '@/components/home/cpFooter'
-
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {}
   },
   components: {
-    'v-pgnavbar': pgNavBar,
-    'v-cprouter': cpRouter,
-    'v-cpheader': cpHeader,
-    'v-cpfooter': cpFooter,
-
   },
   computed: {
     ...mapGetters(['bgColor','isFootShow'])
@@ -47,7 +36,7 @@ export default {
       el.classList.remove("normal");
       el.classList.add("toggle");
 
-    },
+    }
   },
   watch: {
   },
@@ -61,6 +50,5 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-@import "../static/style/pages/pgHome.scss";
-
+@import '../../static/style/components/cpFooter.scss';
 </style>

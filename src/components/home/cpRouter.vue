@@ -33,6 +33,7 @@ export default {
       let { fullPath, name, meta } = this.$route;
       //监听路由变化改变Header.vue
       fullPath === '/' ? this.isHome = true : this.isHome = false;
+      this.statusHandle(meta);
       this.alterPath({ fullPath, name, meta });
       this.routerLength = this.getStackLength();
     }
@@ -62,6 +63,9 @@ export default {
           this.$router.replace(this.getPath().fullPath);
         }
       }
+    },
+    statusHandle: function(meta) {
+
     }
   }
 }
@@ -69,4 +73,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../static/style/components/cpRouter.scss';
+
 </style>

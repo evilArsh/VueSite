@@ -1,9 +1,12 @@
 <template>
-  <transition name="downUp" v-on:after-enter="afterAnimateEnter">
-    <div class="tipBarContainer" v-show="tipBarVisible">
-      <p class="msg fa" :class="tipStatus">{{tipBarMsg.data}}</p>
-    </div>
-  </transition>
+  <div class="tipBarContainer">
+    <transition v-on:after-enter="afterEnter"
+     v-on:before-enter="beforeEnter"
+    v-on:enter="enter"
+      name="downUp">
+      <p class="msg fa" v-show='tipBarVisible' :class="tipStatus">{{tipBarMsg.data}}</p>
+    </transition>
+  </div>
 </template>
 <script>
 import {
@@ -26,17 +29,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['tipBarVisible','tipBarMsg'])
+    ...mapGetters(['tipBarVisible', 'tipBarMsg'])
   },
-  mounted() {},
+  mounted() {
+    // this.setTipBarMsg({ data: '测试一下', success: true })
+  },
   methods: {
-    ...mapActions(['closeTipBar']),
+    ...mapActions(['closeTipBar', 'setTipBarMsg']),
+    beforeEnter: function(el) {
+    },
+    enter:function(el){console.log('data, ...args')},
     // ...mapGetters(['tipBarMsg']),
-    afterAnimateEnter:function(){
-        let _self=this;
-        setTimeout(function() {
-            _self.closeTipBar();
-        },2000);
+    afterEnter: function() {
+      let _self = this;
+     let flag = setTimeout(function() {
+        _self.closeTipBar();
+      }, 3000);
     },
     getStatusError: function() {
       return ['fa-exclamation-circle', 'error'];
@@ -58,45 +66,7 @@ export default {
 }
 
 </script>
-<style lang="scss">
-@import '../../static/style/pre.scss';
-@import '../../static/style/animate.css';
-.error {
-  background-color: #000;
-  color: red;
-  &::before {
-    color: red
-  }
-}
-
-.success {
-  background-color: #560b07;
-  color: #00cee5;
-  &::before {
-    color: #00cee5
-  }
-}
-
-.tipBarContainer {
-  text-align: center;
-  right:0;
-  position: fixed;
-  z-index: 999;
-  max-width: 100%;
-}
-
-.msg {
-
-  overflow: auto;
-  opacity: .8;
-  font-size: 14px;
-  padding: 5px 10px 5px 0;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  @include bsha( 0 2px 2px 0 #9c9e7a);
-  &::before {
-    margin: 0 10px 0 10px;
-  }
-}
+<style lang="scss" scoped>
+@import '../../static/style/components/cpTipBar.scss';
 
 </style>

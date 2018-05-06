@@ -1,0 +1,29 @@
+@import "../pre.scss";
+.editContainer {
+  width: 80%;
+  margin: rem(4) auto 0 auto;
+  right: 0;
+  .edit {
+    background-color: #fff;
+    overflow-y:visible; 
+    .w-e-text{
+    overflow-y:visible; 
+    }
+  }
+  .bar{
+    background-color: #fff;
+    overflow-x: scroll;
+  }
+  .handle {}
+  .title,
+  .describe {
+    width: 100%;
+    display: block;
+    padding: rem(1.2) rem(1.2);
+  }
+  .title {
+
+  }
+  .describe {
+  }
+}
