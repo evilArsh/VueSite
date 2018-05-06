@@ -1,5 +1,5 @@
 <template>
-  <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">
+  <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" :css='false'>
     <div ref="head" class="headContainer" :style="bgColor" v-show="isHeadShow">
       <!-- 链接 -->
       <div class="link">

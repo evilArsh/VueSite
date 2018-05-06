@@ -3,6 +3,7 @@
        v-on:before-enter="beforeEnter"
   v-on:enter="enter"
   v-on:leave="leave"
+  :css='false'
     >  
     <div class="footer normal" v-show="isFootShow">
       <p class="footerWord">Copyright © 2018 <a class="linkWord" href="http://www.miitbeian.gov.cn">黔ICP备17004129号</a></p>
