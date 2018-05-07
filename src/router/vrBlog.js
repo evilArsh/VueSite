@@ -31,5 +31,24 @@ export default [{
       }]
     }
   },
+   {
+    path: '/blogContent/:id',
+    name: '博客内容',
+    component: () =>import ('../components/blog/cpBlogContent'),
+    meta: {
+      isRoot: false,
+      target: 'blogContent',
+      dispatchFunc: [{
+        name: 'toggleFoot',
+        payload: false
+      }, {
+        name: 'toggleHead',
+        payload: false
+      }, {
+        name: 'toggleNav',
+        payload: false
+      }]
+    }
+  }
 
 ]

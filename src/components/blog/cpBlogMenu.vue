@@ -17,7 +17,7 @@
       <div class="footerContainer">
         <a class="author">{{item.userNickName}}</a>
         <a class="time">{{item.blog_time}}</a>
-        <a href="javascript:;" class="enter">查看</a>
+        <router-link :to="{ path: '/blogContent/'+item.blog_id}" class="enter">查看</router-link>
       </div>
     </div>
     <div class="handle">

@@ -60,7 +60,7 @@ export default store => {
         withCredentials: true
       });
     },
-    //所有博客内容
+    //所有博客列表
     getBlogList(queryAfter, number) {
       queryAfter = parseInt(queryAfter),
         number = parseInt(number)
@@ -75,7 +75,7 @@ export default store => {
         withCredentials: true
       });
     },
-    //单个博客内容
+    //单个用户博客列表
     getUserBlogList(id, queryAfter, number) {
       queryAfter = parseInt(queryAfter),
         number = parseInt(number)
@@ -86,6 +86,14 @@ export default store => {
           queryAfter: queryAfter,
           number: number
         },
+        headers: {},
+        withCredentials: true
+      });
+    },
+    getBlogContent(id){
+            return axios({
+        url: '/blogContent' + '/' + id,
+        method: 'get',
         headers: {},
         withCredentials: true
       });
@@ -103,11 +111,27 @@ export default store => {
       });
     },
     //上传头像
+    //用户Id
     upload(id, data) {
       return axios({
         baseURL: baseResourceURL,
         url: '/'+id,
         method: 'put',
+        data: data,
+        headers: {
+          "x-csrf-token": this.getCsrf()
+        },
+        withCredentials: true
+      });
+    },
+    //用户id
+    createBlog(id,data){
+      return axios({
+        url: '/blogContent',
+        method: 'post',
+        params:{
+          id:id
+        },
         data: data,
         headers: {
           "x-csrf-token": this.getCsrf()

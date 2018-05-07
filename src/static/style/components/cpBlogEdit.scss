@@ -3,6 +3,7 @@
   width: 80%;
   margin: rem(4) auto 0 auto;
   right: 0;
+  .go{}
   .edit {
     background-color: #fff;
     overflow-y:visible; 
@@ -20,6 +21,18 @@
     width: 100%;
     display: block;
     padding: rem(1.2) rem(1.2);
+  }
+  .handle{background-color: #fff;
+    border-top: dashed 1px #b7b7b7;
+    .go{
+ border: none;
+ cursor: pointer;
+    padding: 9px 31px;
+    margin: 6px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #1f60a1;
+    }
   }
   .title {
 

@@ -32,11 +32,10 @@
       </div>
       <div class="blogContainer" v-if="activeDiv==='blog'" key="blog">
         <div class="infoItem">
-          <a href="javascript:;" class="blogModel" v-for="item in blogList" :key="item.blog_id">
+          <router-link  :to="{ path: '/blogContent/'+item.blog_id}"  class="blogModel" v-for="item in blogList" :key="item.blog_id">
             <span class="title">{{item.blog_title}}</span>
             <span class="time">{{item.blog_time}}</span>
-          </a>
-          </a>
+          </router-link>
         </div>
       </div>
     </transition>
