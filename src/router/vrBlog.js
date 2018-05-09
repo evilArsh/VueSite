@@ -4,10 +4,10 @@ export default [{
     component: () =>
       import ('../components/blog/cpBlogMenu'),
     meta: {
-      isRoot: true,
+      isRoot: false,
       target: 'blogMenu',
       dispatchFunc: [{
-        name: 'toggleFoot',
+        name: 'toggleHead',
         payload: false
       }]
     }
@@ -17,16 +17,10 @@ export default [{
     name: '博客编辑',
     component: () =>import ('../components/blog/cpBlogEdit'),
     meta: {
-      isRoot: true,
+      isRoot: false,
       target: 'blogEdit',
       dispatchFunc: [{
-        name: 'toggleFoot',
-        payload: false
-      }, {
         name: 'toggleHead',
-        payload: true
-      }, {
-        name: 'toggleNav',
         payload: false
       }]
     }
@@ -38,14 +32,8 @@ export default [{
     meta: {
       isRoot: false,
       target: 'blogContent',
-      dispatchFunc: [{
-        name: 'toggleFoot',
-        payload: false
-      }, {
+      dispatchFunc: [ {
         name: 'toggleHead',
-        payload: false
-      }, {
-        name: 'toggleNav',
         payload: false
       }]
     }

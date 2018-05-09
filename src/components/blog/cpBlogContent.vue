@@ -48,7 +48,6 @@ export default {
       let id=route.params.id;
       const _=this;
       this.$ajax.getBlogContent(id).then(function(res){
-        console.log(res)
         if(res.data.success){
           _.data=Object.assign({},res.data.package[0]);
           _.setContent();

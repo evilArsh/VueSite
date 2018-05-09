@@ -1,6 +1,8 @@
 <template>
   <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" :css="false">
     <div ref="head" class="headContainer" :style="bgColor" v-show="isHeadShow">
+    <v-pgnavbar></v-pgnavbar>
+
       <!-- 链接 -->
       <div class="link">
         <a href="javascript:;" class="linkItem" v-show="isUserLogin">
@@ -18,12 +20,15 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import pgNavBar from '@/components/home/cpNavBar'
 export default {
   props: {},
   data() {
     return {}
   },
-  components: {},
+  components: {
+    'v-pgnavbar': pgNavBar,
+  },
   methods: {
     ...mapActions(['setUserInfo']),
     beforeEnter: function(el) {

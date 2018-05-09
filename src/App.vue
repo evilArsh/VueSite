@@ -27,6 +27,7 @@ export default {
   beforeCreate(){
     this.$ajax.initial();
   },
+  
   components: {
     'v-cptipbar':cpTipBar,
     'v-cpbganimate':cpBGAnimate,
@@ -38,15 +39,6 @@ export default {
     ...mapActions(['toggleFoot','toggleHead','toggleNav','setTipBarMsg']),
     //测试用
     demo:function(){
-//       var _=this;
-//     this.setTipBarMsg({data:'测试较低价位一下',success:true})
-// setTimeout(function(args) {
-//     _.setTipBarMsg({data:'的亲卫队请问的武器的',success:true})
-  
-// }, 3100)
-      // this.toggleNav();
-      // this.toggleHead();
-      // this.toggleFoot();
     }
   },
 

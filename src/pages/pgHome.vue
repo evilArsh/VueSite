@@ -5,33 +5,25 @@
 
     <v-cprouter></v-cprouter>
 
-    <v-pgnavbar></v-pgnavbar>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
-    <v-cpfooter></v-cpfooter>
   </div>
 </template>
 <script>
-import pgNavBar from '@/components/home/cpNavBar'
 import cpRouter from '@/components/home/cpRouter'
 import cpHeader from '@/components/home/cpHeader'
-import cpFooter from '@/components/home/cpFooter'
-
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {}
   },
   components: {
-    'v-pgnavbar': pgNavBar,
     'v-cprouter': cpRouter,
     'v-cpheader': cpHeader,
-    'v-cpfooter': cpFooter,
-
   },
   computed: {
-    ...mapGetters(['bgColor','isFootShow'])
+    ...mapGetters(['bgColor'])
   },
   methods: {
     beforeEnter:function(el){

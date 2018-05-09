@@ -1,6 +1,5 @@
 import maps from '../vxMaps'
 //CPHeader.vue导航系统
-//parent为navbar,child为每个navbar的子路由
 class Parent {
   constructor() {
     this.length = 0;
@@ -11,12 +10,10 @@ class Parent {
     this.length++;
   }
   pop(index) {
-    //考虑一个阈值，清空一部分
-    this.length = index; //
+    this.length = index;
     this.stack.splice(index);
   }
   clear() {
-
     if (this.length !== 0) {
       this.stack = [];
       this.length = 0;
@@ -46,33 +43,21 @@ const vxRouter = {
     //对path操作,core
     alterPath({ commit, state, dispatch }, res) {
       let { fullPath, name, meta } = res;
-      let isForward = true;
-      for (let tmp of state.data.stack) {
-        if (tmp.fullPath === res.fullPath) {
-          isForward = false;
-        }
-      }
-      //前进
-      if (isForward) {
-        //栈非空
-        if (!(state.data.isEmpty())) {
-          //是父路由进栈
-          if (meta.isRoot) {
-            state.data.clear();
-            dispatch('setPath', { fullPath, name });
-          }
-          //子路由进栈
-          else {
-            dispatch('setPath', { fullPath, name });
+      if (meta.isRoot) {
+        state.data.clear();
+        dispatch('setPath', { fullPath, name });
+      } else {
+        let index = state.data.stack.length;
+        for (let  i= state.data.stack.length-1;i>=0; i--) {
+          if (state.data.stack[i].fullPath === res.fullPath) {
+            index = i ;
+            break;
           }
         }
-        //栈空
-        else {
-          dispatch('setPath', { fullPath, name });
-        }
+         commit(maps.DEL_PATH,index);
+         dispatch('setPath', { fullPath, name });
       }
     }
-
   },
   mutations: {
     [maps.SET_PATH](state, res) {

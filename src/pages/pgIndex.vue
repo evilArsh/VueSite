@@ -1,21 +1,25 @@
-<template >
-  <div class="blogContainer">
+<!-- 主页 -->
+<template>
+  <div class="indexContainer" :style="bgColor">
+    <v-cpfooter></v-cpfooter>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
-    return {
-    }
+    return {}
   },
   components: {
+    'v-cpfooter':()=>import( '@/components/home/cpFooter')
   },
   computed: {
-    },
-  methods: {
+    ...mapGetters(['bgColor'])
   },
-  watch:{
+  methods: {
+
+  },
+  watch: {
   },
   beforeMount() {
 
@@ -27,5 +31,5 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-@import "../static/style/pages/pgBlog.scss";
+@import "../static/style/pages/pgHome.scss";
 </style>
