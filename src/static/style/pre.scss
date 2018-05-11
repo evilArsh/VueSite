@@ -1,7 +1,5 @@
 
 //定义断点
-//参照max-width 1440 90rem 90:	75	  :   62   :    48  :25.875
-//                                                        1:0.833333:0.688889:0.533333:0.2875
 $breakpoints:(
 	'xs': 'screen and (max-width:25.875rem)',
 	'sm': 'screen and (max-width:48rem)',
@@ -18,7 +16,12 @@ $breakpoints:(
 @mixin tsha($args...){
     text-shadow: $args;
 }
-
+/*
+    @include media('lg') {}
+    @include media('md') {}
+    @include media('sm') {}
+    @include media('xs') {}
+ */
 //media query
 @mixin media($breakpoint){
 	$screen: map-get($breakpoints,$breakpoint);

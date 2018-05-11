@@ -1,23 +1,60 @@
 @import "../pre.scss";
 .homeNav {
-    transition: all .3s ease;
- .toggle{
-    top:rem(1);
+  transition: all .3s ease;
+  .toggle {
+    display: none;
     font-size: rem(1.3);
     position: absolute;
-    padding: rem(.6) rem(1.2);
-    background-color: #40566d;
+    padding: 16px 19px; // background-color: #40566d;
+    color: #fff;
     cursor: pointer;
- }
-  .options{
-    .option{
-display: inline-block;
-    vertical-align: middle;
-    color: #ffffff;
-    font-size: 0.875rem;
-    padding: 0px 18px;
-    letter-spacing: 2px;
-    margin: 13px 4px;
+    @include media('sm') {
+        display: block;
+    }
+  }
+  .black{
+    position: fixed;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    opacity: .2;
+    z-index: 9998;
+  }
+  .hide {
+    @include media('sm') {
+      position: absolute;
+      display: none;
+    }
+  }
+  .options {
+    @include media('sm') {
+        background-color: #000;
+        position: relative;
+      z-index: 9999;
+    }
+    .option {
+      @include media('lg') {}
+      @include media('md') {}
+      @include media('sm') {
+        display: block;
+        float: left;
+        width: 100%;
+      }
+      @include media('xs') {}
+      display: inline-block;
+      vertical-align: middle;
+      color: #ffffff;
+      font-size: 0.875rem;
+      padding: 0px 18px;
+      letter-spacing: 2px;
+      margin: 13px 4px;
+    }
+    &::after {
+      display: block;
+      content: '';
+      clear: both;
     }
   }
 }

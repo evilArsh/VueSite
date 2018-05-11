@@ -31,6 +31,7 @@
   export default {
     data() {
       return {
+        lock:false,
         mailTagColor: {
           color: ""
         },
@@ -52,14 +53,20 @@
         tag.color = co;
       },
       submit: function () {
+        if(this.lock) return;
+        this.lock=true;
         let m= this.isMailMatch(this.mail),n=this.isDataNull(this.pwd);
-        let _self=this;
+        let _=this;
         if(m&&!n){
           //提交数据 
           this.$ajax.login({mail:this.mail,pwd:this.pwd})
           .then(function(res){
             // console.log(res)
-            _self.setLoginData(res.data);
+            _.setLoginData(res.data);
+            _.lock=false;
+            if(res.data.success){
+             _.$router.push({path:'/'});
+            }
           })
           return;
         }

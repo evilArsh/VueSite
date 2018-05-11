@@ -15,19 +15,36 @@
       background-color: #ff9900;
       left:0
     }
-  .routerList {
-    display: inline-block;
-    padding: 5px 5px;
-    font-size: 12px;
-    cursor: pointer;
-
-    &>i {
+  .tag,.routerList{
+    padding:0 0;
+    font-size: rem(1.4);
+  }
+  .tag{
+    color:#ccc;
       font-style: normal;
-    }
+        padding: 12px 0;
+  }
+  .routerList {
+    transition:all ease .2s;
+    position: relative;
+    display: inline-block;
+        color: #c2c2c2;
+        padding: 12px 11px;
+    cursor: pointer;
     &:hover {
-      background-color: #4d2e2e;
+      color:#fff
+    }
+    &:after{
+    content: '/';
+    position: absolute;
+    right: -5%;
+    color: #fff;
     }
     &:last-child {
+      &:after{
+        content:''
+      }
+      content:'';
       color: #ff9b3b;
       &:hover {
       	cursor: auto;

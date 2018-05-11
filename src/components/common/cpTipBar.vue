@@ -42,7 +42,7 @@ export default {
       let _self = this;
      let flag = setTimeout(function() {
         _self.closeTipBar();
-      }, 3000);
+      }, 2000);
     },
     getStatusError: function() {
       return ['fa-exclamation-circle', 'error'];

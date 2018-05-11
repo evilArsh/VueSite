@@ -6,11 +6,11 @@
       <v-cpbigblack v-show="navShow"></v-cpbigblack>
     </transition> -->
     <v-cpbganimate></v-cpbganimate>
-    <div class="mainContainer">
+
         <v-pghome></v-pghome>
         <!-- 测试用 -->
-        <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999'}" @click="demo">测试</span>
-    </div>
+<!--         <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999'}" @click="demo">测试</span> -->
+
   </div>
 </template>
 <script>
@@ -38,8 +38,8 @@ export default {
   methods: {
     ...mapActions(['toggleFoot','toggleHead','toggleNav','setTipBarMsg']),
     //测试用
-    demo:function(){
-    }
+    // demo:function(){
+    // }
   },
 
 }
@@ -75,8 +75,5 @@ a {
 }
 
 .mainContainer {
-  position:relative;
-  min-height:100%;
-  transition: all .3s ease;
 }
 </style>

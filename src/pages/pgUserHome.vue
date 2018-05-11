@@ -18,6 +18,7 @@
             <input type="text" class="infoValue input" :placeholder="userInfo.nickName" v-model="userNickName">
           </div>
           <button class="save" @click="update">保存更改</button>
+          <button class="loginOut" @click="loginOut">注销登录</button>
         </div>
       </div>
       <div class="avatarContainer" v-if="activeDiv==='avatar'" key="avatar">
@@ -32,7 +33,7 @@
       </div>
       <div class="blogContainer" v-if="activeDiv==='blog'" key="blog">
         <div class="infoItem">
-          <router-link  :to="{ path: '/blogContent/'+item.blog_id}"  class="blogModel" v-for="item in blogList" :key="item.blog_id">
+          <router-link :to="{ path: '/blogContent/'+item.blog_id}" class="blogModel" v-for="item in blogList" :key="item.blog_id">
             <span class="title">{{item.blog_title}}</span>
             <span class="time">{{item.blog_time}}</span>
           </router-link>
@@ -46,9 +47,12 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      lock: false,
       activeDiv: 'info',
       blogList: [],
-      userNickName: ''
+      userNickName: '',
+      old:'',
+      oldImg:''
     }
   },
   components: {},
@@ -56,46 +60,72 @@ export default {
     ...mapGetters(['bgColor', 'userInfo'])
   },
   methods: {
-    ...mapActions(['setBlogList','submitDataFromServer','setNickName','setAvatarURL']),
+    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin']),
     ...mapGetters(['getUserID']),
-    getBlogList: function(queryAfter, number) {
+    getBlog: function(queryAfter, number) {
       const _ = this;
-      this.$ajax.getUserBlogList(this.getUserID(), queryAfter, number).then(function(res) {
-        _.setBlogList(res.data);
-        if (res.data.success) {
-          _.pushData(res.data.package);
-        }
-      });
+      let id = this.getUserID();
+      if (parseInt(id) >= 0) {
+        this.$ajax.getUserBlogList(this.getUserID(), queryAfter, number).then(function(res) {
+          _.setBlogList(res.data);
+          if (res.data.success) {
+            _.pushData(res.data.package);
+          }
+        });
+      }
     },
     upload: function() {
       const _ = this;
+      if (this.lock) return;
+      this.lock = true;
       //$('#ee')[0].files.length ? $('#ee')[0].files[0] : null;
       const img = this.$refs.avatar.files.length ? this.$refs.avatar.files[0] : null;
-      if(!img||((img.size)/(1<<20))>=5){
-        this.submitDataFromServer({success:false,data:'图片大小不符合'});
+      if (!img || ((img.size) / (1 << 20)) >= 5) {
+        this.submitDataFromServer({ success: false, data: '图片大小不符合' });
         return;
       }
+      if(img.name===this.oldImg)return;
       var form = new FormData();
-      form.append('img',img, img.name);
-      this.$ajax.upload(this.getUserID(),form).then(function(res){
+      form.append('img', img, img.name);
+      this.$ajax.upload(this.getUserID(), form).then(function(res) {
         _.submitDataFromServer(res.data);
-        if(res.data.success){
-     _.setAvatarURL(img.name);
+        _.lock = false;
+        if (res.data.success) {
+          _.setAvatarURL(img.name);
+          _.oldImg=img.name;
         }
       });
     },
     update: function() {
+      if (this.lock) return;
+      if(this.old===this.userNickName)return;
+      this.lock = true;
       const _ = this;
       if (this.userNickName.length) {
         this.$ajax.updateUser(this.getUserID(), {
           userNickName: this.userNickName
         }).then(function(res) {
           _.setBlogList(res.data);
+          _.submitDataFromServer(res.data);
+          _.lock = false;
           if (res.data.success) {
+            _.old=_.userNickName;
             _.setNickName(_.userNickName);
           }
         })
       }
+    },
+    loginOut: function() {
+      const _ = this;
+      if (!isNaN(parseInt(this.getUserID()))) {
+        this.$ajax.loginOut(this.getUserID()).then(function(res) {
+          _.submitDataFromServer(res.data);
+          if (res.data.success) {
+            _.cleanLogin();
+            _.$router.push({ path: '/' });
+          }
+        })
+      };
     },
     setActiveDiv: function(val) {
       this.activeDiv = val;
@@ -112,13 +142,19 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+  },
   beforeMount() {
 
   },
+  created() {
+    if (isNaN(parseInt(this.getUserID()))) {
+      this.submitDataFromServer({ success: false, data: '请先登录' });
+      this.$router.push('/sign/signIn');
+    }
+  },
   mounted() {
-    this.getBlogList(0, 8);
-
+    this.getBlog(0, 8);
   },
   beforeUpdate() {}
 }

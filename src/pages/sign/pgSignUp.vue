@@ -31,106 +31,117 @@
   </div>
 </template>
 <script>
-  import {
-    mapGetters,mapActions
-  } from 'vuex'
-  export default {
-    data() {
-      return {
-        mail: '',
-        pwd: '',
-        rPwd: '',
-        mailToggle: false,
-        pwdToggle: false,
-        rPwdToggle: false,
-        mailTagColor: {
-          color: ''
-        },
-        pwdTagColor: {
-          color: ''
-        },
-        rPwdTagColor: {
-          color: ''
-        }
-      }
-    },
-    computed: {
-      ...mapGetters(['bgColor', 'mailReg', 'pwdReg'])
-    },
-    methods: {
-      ...mapActions(['submitDataFromServer']),
-      toLog() {
-        this.$router.replace('/sign/signIn')
+import {
+  mapGetters,
+  mapActions
+} from 'vuex'
+export default {
+  data() {
+    return {
+      lock: false,
+      mail: '',
+      pwd: '',
+      rPwd: '',
+      mailToggle: false,
+      pwdToggle: false,
+      rPwdToggle: false,
+      mailTagColor: {
+        color: ''
       },
-      setTagColor: function (tag, co) {
-        tag.color = co;
+      pwdTagColor: {
+        color: ''
       },
-      submit() {
-        let m=this.isMailMatch(this.mail),p=this.isPwdMatch(this.pwd),rp=this.isPwdMatch(this.rPwd);
-        let _=this;
-        if(m&&p&&rp&&p===rp){
-          const re=this.$ajax.register({ mail: this.mail, pwd: this.pwd })
-          .then(function(res) {
-            _.submitDataFromServer(res.data);
-          });          
-          return;
-        }
-        this.mailToggle=m?false:true;
-        this.pwdToggle=p?false:true;
-        this.rPwdToggle=rp&&p===rp?false:true;
-      },
-      isDataNull: function (val) {
-        return val.length === 0 ? true : false;
-      },
-      isMailMatch: function (val) {
-        return this.mailReg.test(val);
-      },
-      isPwdMatch: function (val) {
-        return this.pwdReg.test(val);
-      },
-      setPwdStatus: function (val) {
-        if (!this.isDataNull(val)) {
-          this.isPwdMatch(val) ? this.setTagColor(this.pwdTagColor, "green") : this.setTagColor(this.pwdTagColor,
-            "red");
-          if (!this.isDataNull(this.rPwd)) {
-            val === this.rPwd && this.isPwdMatch(this.rPwd) ? this.setTagColor(this.rPwdTagColor, "green") : this.setTagColor(
-              this.rPwdTagColor,
-              "red");
-          }
-        } else {
-          this.setTagColor(this.pwdTagColor, "");
-          this.isDataNull(this.rPwd) ? this.setTagColor(this.rPwdTagColor, "") : this.setTagColor(
-            this.rPwdTagColor, "red");
-        }
-      }
-    },
-    watch: {
-      mail: function (val) {
-        this.mailToggle = false;
-        if (this.isDataNull(val)) {
-          this.setTagColor(this.mailTagColor, "");
-        } else {
-          if (this.isMailMatch(val)) {
-            this.setTagColor(this.mailTagColor, "green");
-          } else {
-            this.setTagColor(this.mailTagColor, "red")
-          }
-        }
-      },
-      pwd: function (val) {
-        this.pwdToggle = false;
-        this.setPwdStatus(val);
-      },
-      rPwd: function (val) {
-        this.rPwdToggle = false;
-        this.isDataNull(val) ? this.setTagColor(this.rPwdTagColor, "") :
-          val === this.pwd && this.isPwdMatch(val) ? this.setTagColor(this.rPwdTagColor, "green") : this.setTagColor(
-            this.rPwdTagColor, "red");
+      rPwdTagColor: {
+        color: ''
       }
     }
+  },
+  computed: {
+    ...mapGetters(['bgColor', 'mailReg', 'pwdReg'])
+  },
+  methods: {
+    ...mapActions(['submitDataFromServer']),
+    toLog() {
+      this.$router.replace('/sign/signIn')
+    },
+    setTagColor: function(tag, co) {
+      tag.color = co;
+    },
+    submit() {
+      if (this.lock) return;
+      this.lock = true;
+      let m = this.isMailMatch(this.mail),
+        p = this.isPwdMatch(this.pwd),
+        rp = this.isPwdMatch(this.rPwd);
+      let _ = this;
+      if (m && p && rp && p === rp) {
+        const re = this.$ajax.register({ mail: this.mail, pwd: this.pwd })
+          .then(function(res) {
+            _.lock=false;
+            _.submitDataFromServer(res.data);
+            if(res.data.success){
+              _.$router.push({path:'/'});
+            }
+          });
+        return;
+      }
+      this.mailToggle = m ? false : true;
+      this.pwdToggle = p ? false : true;
+      this.rPwdToggle = rp && p === rp ? false : true;
+    },
+    isDataNull: function(val) {
+      return val.length === 0 ? true : false;
+    },
+    isMailMatch: function(val) {
+      return this.mailReg.test(val);
+    },
+    isPwdMatch: function(val) {
+      return this.pwdReg.test(val);
+    },
+    setPwdStatus: function(val) {
+      if (!this.isDataNull(val)) {
+        this.isPwdMatch(val) ? this.setTagColor(this.pwdTagColor, "green") : this.setTagColor(this.pwdTagColor,
+          "red");
+        if (!this.isDataNull(this.rPwd)) {
+          val === this.rPwd && this.isPwdMatch(this.rPwd) ? this.setTagColor(this.rPwdTagColor, "green") : this.setTagColor(
+            this.rPwdTagColor,
+            "red");
+        }
+      } else {
+        this.setTagColor(this.pwdTagColor, "");
+        this.isDataNull(this.rPwd) ? this.setTagColor(this.rPwdTagColor, "") : this.setTagColor(
+          this.rPwdTagColor, "red");
+      }
+    }
+  },
+  watch: {
+    mail: function(val) {
+      this.mailToggle = false;
+      if (this.isDataNull(val)) {
+        this.setTagColor(this.mailTagColor, "");
+      } else {
+        if (this.isMailMatch(val)) {
+          this.setTagColor(this.mailTagColor, "green");
+        } else {
+          this.setTagColor(this.mailTagColor, "red")
+        }
+      }
+    },
+    pwd: function(val) {
+      this.pwdToggle = false;
+      this.setPwdStatus(val);
+    },
+    rPwd: function(val) {
+      this.rPwdToggle = false;
+      this.isDataNull(val) ? this.setTagColor(this.rPwdTagColor, "") :
+        val === this.pwd && this.isPwdMatch(val) ? this.setTagColor(this.rPwdTagColor, "green") : this.setTagColor(
+          this.rPwdTagColor, "red");
+    }
   }
+}
 
 </script>
 <style lang="scss" scoped>
-  @import '../../static/style/pages/pgSign.scss';
+@import '../../static/style/pages/pgSign.scss';
+
 </style>

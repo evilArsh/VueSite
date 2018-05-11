@@ -1,10 +1,8 @@
 <!-- 主页 -->
 <template>
-  <div class="homeContainer" :style="bgColor">
-        <v-cpheader></v-cpheader>
-
+  <div @scroll="scroll($event)" class="homeContainer" :style="bgColor">
+    <v-cpheader></v-cpheader>
     <v-cprouter></v-cprouter>
-
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -16,7 +14,11 @@ import cpHeader from '@/components/home/cpHeader'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
-    return {}
+    return {
+      //如果滚轮上滑，不触发
+      old: 0,
+      news: 1,
+    }
   },
   components: {
     'v-cprouter': cpRouter,
@@ -26,16 +28,26 @@ export default {
     ...mapGetters(['bgColor'])
   },
   methods: {
-    beforeEnter:function(el){
+    ...mapActions(['setGetBlogSignal']),
+    scroll: function(e) {
+      if (this.old < this.news) {
+        this.old = this.news;
+        this.news = e.target.scrollTop;
+        if (e.target.scrollTop > (e.target.scrollHeight * 0.6)) {
+          this.setGetBlogSignal(true);
+        }
+      }
+    },
+    beforeEnter: function(el) {
       el.classList.remove("normal");
       el.classList.add("toggle");
     },
-    enter:function(el,done){
+    enter: function(el, done) {
       el.classList.remove("toggle");
       el.classList.add("normal");
 
     },
-    leave:function(el,done){
+    leave: function(el, done) {
       el.classList.remove("normal");
       el.classList.add("toggle");
 
@@ -46,8 +58,7 @@ export default {
   beforeMount() {
 
   },
-  mounted() {
-  },
+  mounted() {},
   beforeUpdate() {}
 }
 

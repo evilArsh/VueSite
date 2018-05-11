@@ -14,6 +14,7 @@ const vxStatusManage = {
   },
   actions: {
     //数据入口方法
+    //{success:false,data:'',package:''}
     submitDataFromServer({ commit, dispatch }, res) {
       let { success } = res;
       if (success) {
@@ -31,15 +32,21 @@ const vxStatusManage = {
     },
     //获取用户信息
     setUserInfo({ commit, dispatch }, res) {
-      dispatch('submitDataFromServer', res);
+      // dispatch('submitDataFromServer', res);
       if (res.success) {
         commit(maps.USER_SETINFOR, res)
       }
     },
     //博客列表
     setBlogList({ commit, dispatch }, res) {
-      dispatch('submitDataFromServer', res);
+      // dispatch('submitDataFromServer', res);
     },
+    //注销登录
+    cleanLogin({commit,state}){
+      state.userInfo=Object.assign({},{ id: '', nickName: '', avatar: '', mail: ''});
+      state.isUserLogin=false;
+    },
+    //消息提示框
     setTipBarMsg({ commit }, res) {
       commit(maps.BAR_MSG, res);
     },

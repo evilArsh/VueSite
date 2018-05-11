@@ -2,8 +2,8 @@
 <!-- 路由结构  -->
 <template>
   <div class="routerContainer">
-    <div class="router" @click="toWhere">当前位置：
-      <span v-for="(item,index) in routerStack.stack" :index="index+1" :title="item.name" class="routerList"><i>{{item.name}}</i></span>
+    <div class="router" @click="toWhere"><i class='tag'>当前位置：</i>
+      <span v-for="(item,index) in routerStack.stack" :index="index+1" :title="item.name" class="routerList">{{item.name}}</span>
     </div>
   </div>
 </template>
@@ -38,9 +38,8 @@ export default {
     ...mapActions(["setPath", "delPath", "alterPath", "clearPath"]),
     ...mapGetters(["getStackLength", "getPath"]),
     toWhere: function(e) {
-      if (e.target && e.target.nodeName === "I") {
-        let p = e.target.parentNode;
-        let index = p.getAttribute('index');
+      if (e.target && e.target.nodeName === "SPAN") {
+        let index =  e.target.getAttribute('index');
         index = parseInt(index);
         if (index !== this.routerLength) {
           this.delPath(index);

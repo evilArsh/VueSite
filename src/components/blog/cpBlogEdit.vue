@@ -1,8 +1,17 @@
 <template>
   <div class="editContainer" :style='bgColor'>
-    <input class='title' placeholder="添加标题" type="text" v-model="title">
-    <input class='describe' placeholder="添加一些描述" type="text" v-model="describe">
-    <input class='describe' placeholder="添加分类" type="text" v-model="type">
+    <label for="bl1">
+    <input class='title' id="bl1"  placeholder="添加标题" type="text" v-model="title">
+      
+    </label>
+    <label for="bl2">
+    <input class='describe' id="bl2" placeholder="添加一些描述" type="text" v-model="describe">
+      
+    </label>
+    <label for="bl3">
+    <input class='describe' id="bl3" placeholder="添加分类" type="text" v-model="type">
+      
+    </label>
     <div ref="bar" class="bar"></div>
     <div ref="edit" class="edit">
       <p>请输入内容</p>
@@ -19,6 +28,7 @@ export default {
   props: {},
   data() {
     return {
+      lock: false,
       title: '无标题文章',
       describe: '无描述',
       content: '',
@@ -28,8 +38,10 @@ export default {
   components: {},
   methods: {
     ...mapGetters(['getUserID']),
-    ...mapActions([ 'setTipBarMsg','submitDataFromServer']),
+    ...mapActions(['setTipBarMsg', 'submitDataFromServer']),
     go: function() {
+      if (this.lock) return;
+      this.lock = true;
       if (this.content.length === 0) {
         this.setTipBarMsg({ success: false, data: '您应该写点什么' });
         return;
@@ -37,12 +49,14 @@ export default {
       let _ = this;
       console.log(this.getUserID())
       this.$ajax.createBlog(this.getUserID(), {
-        title:_.title,
-        describe:_.describe,
-        content:_.content,
-        type:_.type
-      }).then(function(res){
-        _.submitDataFromServer(res.data)
+        title: _.title,
+        describe: _.describe,
+        content: _.content,
+        type: _.type
+      }).then(function(res) {
+        _.lock=false;
+        _.submitDataFromServer(res.data);
+         _.$router.push({path:'/blogMenu'});
       })
     }
   },

@@ -138,6 +138,17 @@ export default store => {
         },
         withCredentials: true
       });
+    },
+    //注销
+    loginOut(id){
+        return axios({
+            url: '/user'+'/'+id,
+            method: 'delete',
+            headers: {
+                "x-csrf-token":this.getCsrf()
+            },
+            withCredentials: true
+        });
     }
   }
 };

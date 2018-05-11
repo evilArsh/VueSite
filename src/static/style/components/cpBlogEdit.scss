@@ -18,9 +18,23 @@
   .handle {}
   .title,
   .describe {
+    position: relative;
     width: 100%;
     display: block;
     padding: rem(1.2) rem(1.2);
+        border-bottom: solid 1px #ccc;
+  }
+  label{
+    position: relative;
+    &::before{
+    position: absolute;
+    content: '';
+    transform: translate3d(0,50%,0);
+    height: 22px;
+    width: 2px;
+    background-color: #df7015;
+    z-index: 999;
+    }
   }
   .handle{background-color: #fff;
     border-top: dashed 1px #b7b7b7;
