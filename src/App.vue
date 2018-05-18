@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <v-cptipbar></v-cptipbar>
 <!-- 
     <transition name="dim">
       <v-cpbigblack v-show="navShow"></v-cpbigblack>
@@ -9,27 +8,26 @@
 
         <v-pghome></v-pghome>
         <!-- 测试用 -->
-<!--         <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999'}" @click="demo">测试</span> -->
+<!--         <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999',backgroundColor:'#000',color:'#fff'}" @click="demo">测试</span> -->
 
   </div>
 </template>
 <script>
 import pgHome from './pages/pgHome'
-import cpTipBar from '@/components/common/cpTipBar'
 import cpBigBlack from '@/components/common/cpBigBlack'
 import cpBGAnimate from '@/components/common/cpBGAnimate'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'app',
   data() {
-    return {}
+    return {
+    }
   },
   beforeCreate(){
     this.$ajax.initial();
   },
   
   components: {
-    'v-cptipbar':cpTipBar,
     'v-cpbganimate':cpBGAnimate,
     'v-pghome':pgHome
   },
@@ -38,8 +36,9 @@ export default {
   methods: {
     ...mapActions(['toggleFoot','toggleHead','toggleNav','setTipBarMsg']),
     //测试用
-    // demo:function(){
-    // }
+    demo:function(){
+      this.setTipBarMsg({success:false,data:'当前是一个测试！！！'})
+    }
   },
 
 }

@@ -48,6 +48,10 @@ export default {
       //将数组变成string 
       this.imgData=this.imgData.join(')(');
       this.content = this.delImgSrc(this.content);
+
+      this.title.length===0?this.title='无标题文章':1;
+      this.type.length===0?this.type='默认':1;
+      this.title.describe===0?this.describe='暂无描述':1;
       this.upload();
     },
     //剔除文章里面的img标签src 的内容

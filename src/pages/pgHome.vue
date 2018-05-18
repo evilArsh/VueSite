@@ -3,6 +3,8 @@
   <div id="home" class="homeContainer" :style="bgColor" :class="{fixed:isHomeFixed}">
     <v-cpheader></v-cpheader>
     <v-cprouter></v-cprouter>
+    <v-cptipbar></v-cptipbar>
+
     <transition name="fade" mode="out-in">
       <keep-alive :include="['blogMenu']">
       <router-view></router-view>
@@ -14,6 +16,7 @@
 <script>
 import cpRouter from '@/components/home/cpRouter'
 import cpHeader from '@/components/home/cpHeader'
+import cpTipBar from '@/components/common/cpTipBar'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
@@ -24,6 +27,7 @@ export default {
     }
   },
   components: {
+    'v-cptipbar':cpTipBar,
     'v-cprouter': cpRouter,
     'v-cpheader': cpHeader,
   },

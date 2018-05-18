@@ -3,7 +3,6 @@ import maps from '../vxMaps';
 const vxStatusManage = {
   state: {
     packageReg: /^[0-9]{1,}D$/,
-    isTipBarVisible: false,
     tipBarMsg: { success: false, data: '', status: '' },
     isUserLogin: false,
     //base url
@@ -50,9 +49,6 @@ const vxStatusManage = {
     setTipBarMsg({ commit }, res) {
       commit(maps.BAR_MSG, res);
     },
-    closeTipBar({ commit }) {
-      commit(maps.BAR_CLOSE);
-    },
     successDataHandle({ commit, dispatch }, res) {
       //do something
       dispatch('setTipBarMsg', res);
@@ -79,10 +75,6 @@ const vxStatusManage = {
     //设置提示信息
     [maps.BAR_MSG](state, res) {
       state.tipBarMsg = Object.assign({}, res);
-      state.isTipBarVisible = true;
-    },
-    [maps.BAR_CLOSE](state) {
-      state.isTipBarVisible = false;
     },
     [maps.USER_SETINFOR](state, res) {
       state.userInfo = Object.assign({}, {
@@ -99,7 +91,6 @@ const vxStatusManage = {
   },
   getters: {
     tipBarMsg: state => state.tipBarMsg,
-    tipBarVisible: state => state.isTipBarVisible,
     isUserLogin: state => state.isUserLogin,
     userInfo: state => state.userInfo,
     getUserID: state => state.userInfo.id,

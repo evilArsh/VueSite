@@ -1,6 +1,6 @@
 <!-- 黑幕布 -->
 <template>
-<div class="bigBlack" @click="hideNav"></div>
+<div class="bigBlack" ></div>
 </template>
 <script>
 import {mapActions} from 'vuex'
@@ -11,10 +11,6 @@ export default {
     };
   },
   methods:{
-  	...mapActions(["setNavVisible"]),
-  	hideNav:function(){
-  		this.setNavVisible(false);
-  	}
   }
 };
 </script>

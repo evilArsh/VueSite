@@ -125,3 +125,29 @@
 .info-leave-active {
   transition: all .3s ease;
 }
+/* 提示框的动画,position待改进 */
+@keyframes tipBar{
+    from{
+      /* ←正 →负  */
+    transform: translate3d(100%, 0, 0);
+    }
+    10%,80%{
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0);
+    opacity: 1
+    }
+    90%{
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, -100%, 0);
+    opacity: .8
+    }
+     100%{
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, -100%, 0);
+    opacity: .5
+    }
+    to{
+    transform: translate3d(0, -100%, 0);
+        opacity: 0
+    }
+}

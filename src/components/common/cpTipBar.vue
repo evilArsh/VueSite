@@ -1,10 +1,5 @@
 <template>
-  <div class="tipBarContainer">
-    <transition v-on:after-enter="afterEnter"
-     v-on:before-enter="beforeEnter"
-      name="downUp">
-      <p class="msg fa" v-show='tipBarVisible' :class="tipStatus">{{tipBarMsg.data}}</p>
-    </transition>
+  <div class="tipBarContainer" ref="tipBar">
   </div>
 </template>
 <script>
@@ -15,48 +10,57 @@ import {
 export default {
   data() {
     return {
+      id: 1,
       // msgSignal: this.tipBarMsg(),
       tipStatus: [],
-      msg: ''
     }
   },
   watch: {
-    tipBarMsg: function(val) {
+    msg(val) {
       if (val.success !== undefined) {
         val.success ? this.setSuccessMsg(val.data) : this.setErrorMsg(val.data);
       }
+      let cls = ['tipBar_msg', 'fa', 'tipBar_ani', 'tipBar_bar'].concat(this.tipStatus);
+      let id = 'bar' + (this.id++);
+      let p = this.createEle('p', id, cls, val.data);
+      this.$refs.tipBar.append(p);
+      let _ = this;
+      document.getElementById(id).addEventListener('animationend', function() {
+        _.$refs.tipBar.removeChild(this);
+      })
     }
   },
   computed: {
-    ...mapGetters(['tipBarVisible', 'tipBarMsg'])
+    msg() {
+      return this.$store.state.vxStatusManage.tipBarMsg;
+    }
   },
-  mounted() {
-    // this.setTipBarMsg({ data: '测试一下', success: true })
-  },
+  mounted() {},
   methods: {
     ...mapActions(['closeTipBar', 'setTipBarMsg']),
-    beforeEnter: function(el) {
+    //cls参数为array,为初始的类
+    createEle: function(el, id, cls, msg) {
+      let p = document.createElement(el);
+      p.setAttribute('class', cls.join(' '));
+      p.setAttribute('id', id);
+      p.innerText = msg;
+      return p;
     },
-    // ...mapGetters(['tipBarMsg']),
+    beforeEnter: function(el) {},
     afterEnter: function() {
       let _self = this;
-     let flag = setTimeout(function() {
-        _self.closeTipBar();
-      }, 2000);
     },
     getStatusError: function() {
-      return ['fa-exclamation-circle', 'error'];
+      return ['fa-exclamation-circle', 'tipBar_error'];
     },
     getStatusSuccess: function() {
-      return ['fa-check-circle', 'success'];
+      return ['fa-check-circle', 'tipBar_success'];
     },
     getStatusWarning: function() {},
     setErrorMsg: function(msg) {
-      this.msg = msg;
       this.tipStatus = this.getStatusError();
     },
     setSuccessMsg: function(msg) {
-      this.msg = msg;
       this.tipStatus = this.getStatusSuccess();
     },
     setWarningMsg: function(msg) {}
@@ -64,6 +68,49 @@ export default {
 }
 
 </script>
+<style lang="css">
+.tipBar_msg {
+  margin: 0 auto;
+  overflow: auto;
+  opacity: .8;
+  font-size: 14px;
+    padding: 15px 14px;
+    margin: 1px 0;
+    border-radius: 4px;
+}
+
+.tipBar_msg::before {
+  margin: 0 10px 0 10px;
+}
+
+.tipBar_bar {
+  position: relative;
+  float: left;
+}
+
+.tipBar_ani {
+  animation: tipBar 3s;
+}
+
+.tipBar_error {
+  background-color: #000;
+  color: red;
+}
+
+.tipBar_error::before {
+  color: red
+}
+
+.tipBar_success {
+  background-color: #091522;
+  color: #00cee5;
+}
+
+.tipBar_success::before {
+  color: #00cee5
+}
+
+</style>
 <style lang="scss" scoped>
 @import '../../static/style/components/cpTipBar.scss';
 
