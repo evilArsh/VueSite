@@ -59,6 +59,7 @@
     }
     .img {
       transition: all ease .3s;
+          padding: 2px 2px;
       @include media('lg') {
         max-width: 75%;
       }

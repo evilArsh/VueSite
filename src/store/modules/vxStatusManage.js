@@ -64,7 +64,7 @@ const vxStatusManage = {
     setBaseURL({ state }, url) {
       state.baseUrl = url;
     },
-    baseResourceURL({ state }, url) {
+    setBaseResourceURL({ state }, url) {
       state.baseResourceURL = url;
     },
     //小操作
@@ -93,7 +93,7 @@ const vxStatusManage = {
       })
       // state.userInfo.nickName = res.package.userNickName;
       // state.userInfo.mail = res.package.userMail;
-      // state.userInfo.avatar = state.baseResourceURL + '/' + res.package.userAvatar;
+      // state.userInfo.avatar = state.setBaseResourceURL + '/' + res.package.userAvatar;
       state.isUserLogin = true;
     }
   },
@@ -102,7 +102,8 @@ const vxStatusManage = {
     tipBarVisible: state => state.isTipBarVisible,
     isUserLogin: state => state.isUserLogin,
     userInfo: state => state.userInfo,
-    getUserID: state => state.userInfo.id
+    getUserID: state => state.userInfo.id,
+    baseResourceURL:state=>state.baseResourceURL
   }
 };
 export default vxStatusManage;

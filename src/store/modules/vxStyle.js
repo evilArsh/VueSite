@@ -10,9 +10,17 @@ const windows = {
     //底角隐藏开关
     isFootShow:true,
     //导航条隐藏开关
-    isNavShow:true
+    isNavShow:true,
+    //pgHome.vue布局方式
+    isHomeFixed:true
   },
   actions: {
+    toggleHomeFixed({commit,state},cmd){
+      if(typeof cmd==='undefined'||typeof cmd!=='boolean'){
+        cmd=true;
+      }
+      commit(maps.TOGGLE_HOME_FIXED,cmd)
+    },
     toggleHead({commit,state},cmd){
       if(typeof cmd==='undefined'||typeof cmd!=='boolean'){
         cmd=!state.isHeadShow;
@@ -46,6 +54,9 @@ const windows = {
         case 'nav':state.isNavShow=res.cmd;break;
       }
     },
+    [maps.TOGGLE_HOME_FIXED](state,res){
+      state.isHomeFixed=res;
+    },
     [maps.HEAD_BGCOLOR](state,res){
       state.headBgColor=res;
     }
@@ -54,7 +65,8 @@ const windows = {
     bgColor:state=>{return {'backgroundColor':state.headBgColor}},
     isHeadShow:state=>state.isHeadShow,
     isFootShow:state=>state.isFootShow,
-    isNavShow:state=>state.isNavShow
+    isNavShow:state=>state.isNavShow,
+    isHomeFixed:state=>state.isHomeFixed
   },
 };
 export default windows;

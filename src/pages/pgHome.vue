@@ -1,10 +1,13 @@
 <!-- 主页 -->
 <template>
-  <div @scroll="scroll($event)" class="homeContainer" :style="bgColor">
+  <div id="home" class="homeContainer" :style="bgColor" :class="{fixed:isHomeFixed}">
     <v-cpheader></v-cpheader>
     <v-cprouter></v-cprouter>
     <transition name="fade" mode="out-in">
+      <keep-alive :include="['blogMenu']">
       <router-view></router-view>
+        
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -15,9 +18,9 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      //如果滚轮上滑，不触发
-      old: 0,
-      news: 1,
+      // //如果滚轮上滑，不触发
+      // old: 0,
+      // news: 1,
     }
   },
   components: {
@@ -25,18 +28,20 @@ export default {
     'v-cpheader': cpHeader,
   },
   computed: {
-    ...mapGetters(['bgColor'])
+    ...mapGetters(['bgColor','isHomeFixed'])
   },
   methods: {
     ...mapActions(['setGetBlogSignal']),
+
     scroll: function(e) {
-      if (this.old < this.news) {
-        this.old = this.news;
-        this.news = e.target.scrollTop;
-        if (e.target.scrollTop > (e.target.scrollHeight * 0.6)) {
-          this.setGetBlogSignal(true);
-        }
-      }
+      // if (this.old < this.news) {
+      //   this.old = this.news;
+      //   this.news = e.target.scrollTop;
+
+      //   if (e.target.scrollTop >= (e.target.scrollHeight * 0.3)) {
+      //     this.setGetBlogSignal(true);
+      //   }
+      // }
     },
     beforeEnter: function(el) {
       el.classList.remove("normal");

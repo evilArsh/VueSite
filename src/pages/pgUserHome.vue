@@ -35,7 +35,7 @@
         <div class="infoItem">
           <router-link :to="{ path: '/blogContent/'+item.blog_id}" class="blogModel" v-for="item in blogList" :key="item.blog_id">
             <span class="title">{{item.blog_title}}</span>
-            <span class="time">{{item.blog_time}}</span>
+            <span class="time ">{{item.blog_time}}</span>
           </router-link>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       lock: false,
-      activeDiv: 'info',
+      activeDiv: 'blog',
       blogList: [],
       userNickName: '',
       old:'',

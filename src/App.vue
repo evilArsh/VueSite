@@ -67,7 +67,6 @@ export default {
 ;
 body,
 html {
-  height: 100%;
 }
 
 a {

@@ -68,4 +68,5 @@ router.afterEach(function(to, from) {
   }
   // store.dispatch('toggleHead',false)
 });
+
 export default router

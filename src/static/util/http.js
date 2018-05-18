@@ -2,6 +2,23 @@ import axios from "axios";
 var baseURL = 'http://localhost:7001/api';
 var baseResourceURL = 'http://localhost:7001/api/resources';
 axios.defaults.baseURL = baseURL;
+
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+   // console.log('request',config)
+    return config;
+  }, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  });
+
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+   // console.log('response',response)
+    return response;
+  }, function (error) {
+    return Promise.reject(error);
+  });
 export default store => {
   return {
     getCsrf() {
@@ -15,9 +32,9 @@ export default store => {
     initial() {
       //注入baseURL
       store.dispatch('setBaseURL', baseURL);
-      store.dispatch('baseResourceURL', baseResourceURL);
+      store.dispatch('setBaseResourceURL', baseResourceURL);
       axios({
-        url: '/',
+        url: '/token',
         method: 'get',
         withCredentials: true
       }).then(function(response) {}).catch(function(err) {});
@@ -125,7 +142,7 @@ export default store => {
       });
     },
     //用户id
-    createBlog(id,data){
+    createBlog_WangEditor(id,data){
       return axios({
         url: '/blogContent',
         method: 'post',
