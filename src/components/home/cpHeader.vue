@@ -4,14 +4,14 @@
     <v-pgnavbar></v-pgnavbar>
 
       <!-- 链接 -->
-      <div class="link">
-        <a href="javascript:;" class="linkItem" v-show="isUserLogin">
+      <div class="link" @click="linkTo($event)">
+        <a href="javascript:;"  tar="user" class="linkItem" v-show="isUserLogin">
         <img :src="userInfo.avatar" class="img logo" alt="">
       </a>
-        <a href="javascript:;" class="linkItem">
+        <a href="javascript:;" tar="github" class="linkItem">
         <span class='logo fa fa-github'></span>
       </a>
-        <a href="javascript:;" class="linkItem">
+        <a href="javascript:;" tar="weibo" class="linkItem">
         <span class='logo fa fa-weibo'></span>
       </a>
       </div>
@@ -30,7 +30,18 @@ export default {
     'v-pgnavbar': pgNavBar,
   },
   methods: {
-    ...mapActions(['setUserInfo']),
+    ...mapActions(['setUserInfo','setTipBarMsg']),
+    linkTo:function(e){
+      if(e.target&&e.target.nodeName==='A'||'IMG'||"SPAN"){
+        let t=e.target.nodeName!=="A"?e.target.parentNode:e.target;
+        let tar=t.getAttribute('tar');
+        switch(tar){
+          case 'user':this.$router.push({ path: '/userHome' });break;
+          case 'github':window.open('https://github.com/evilArsh/VueSite');break;
+          case 'weibo':this.setTipBarMsg({success:true,data:'暂无微博'});break;
+        }
+      }
+    },
     beforeEnter: function(el) {
       el.classList.remove("normal");
       el.classList.add("toggle");

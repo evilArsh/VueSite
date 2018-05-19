@@ -35,17 +35,9 @@ export default {
     ...mapGetters(['bgColor','isHomeFixed'])
   },
   methods: {
-    ...mapActions(['setGetBlogSignal']),
+    ...mapActions(['setGetBlogSignal','toggleWait']),
 
     scroll: function(e) {
-      // if (this.old < this.news) {
-      //   this.old = this.news;
-      //   this.news = e.target.scrollTop;
-
-      //   if (e.target.scrollTop >= (e.target.scrollHeight * 0.3)) {
-      //     this.setGetBlogSignal(true);
-      //   }
-      // }
     },
     beforeEnter: function(el) {
       el.classList.remove("normal");
@@ -65,10 +57,13 @@ export default {
   watch: {
   },
   beforeMount() {
-
   },
-  mounted() {},
-  beforeUpdate() {}
+  mounted() {
+    this.toggleWait(false)
+  },
+  beforeMount() {
+    this.toggleWait(true)
+  }
 }
 
 </script>

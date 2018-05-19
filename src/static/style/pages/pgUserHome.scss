@@ -116,13 +116,19 @@
   .input {
     cursor: pointer;
   }
-  .save {
+  .btn{
     font-size: 12px;
     padding: 7px 13px;
     margin: 36px 0 0 0;
-
-    background-color: #1d476f;
     border: none;
+  cursor: pointer;
+  }
+  .quit{
+    background-color: #c5532a;
+    color: #fff;
+  }
+  .save {
+    background-color: #1d476f;
     color: #fff;
   }
 }

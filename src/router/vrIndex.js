@@ -53,11 +53,12 @@ const router = new Router({
     }
   ]
 });
-router.beforeResolve(function(to, from, next) {
-
+router.beforeEach(function(to, from, next) {
+store.dispatch('toggleWait',true);
   next();
 });
 router.afterEach(function(to, from) {
+store.dispatch('toggleWait',false);
   if (typeof to.meta.isRoot !== 'undefined') {
     store.dispatch('setHeadBgColor', color[to.meta.target])
   }

@@ -17,8 +17,8 @@
             <span class="infoDescribe">昵称</span>
             <input type="text" class="infoValue input" :placeholder="userInfo.nickName" v-model="userNickName">
           </div>
-          <button class="save" @click="update">保存更改</button>
-          <button class="loginOut" @click="loginOut">注销登录</button>
+          <button class="btn save" @click="update">保存更改</button>
+          <button class="btn quit" @click="loginOut">注销登录</button>
         </div>
       </div>
       <div class="avatarContainer" v-if="activeDiv==='avatar'" key="avatar">
@@ -28,7 +28,7 @@
           </div>
           <p class="tip">图片大小不得超过5mb</p>
           <input type="file" class="choice" ref="avatar">
-          <button class="save" @click="upload">上传</button>
+          <button class="btn save" @click="upload">上传</button>
         </div>
       </div>
       <div class="blogContainer" v-if="activeDiv==='blog'" key="blog">
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       lock: false,
-      activeDiv: 'blog',
+      activeDiv: 'info',
       blogList: [],
       userNickName: '',
       old:'',
@@ -60,7 +60,7 @@ export default {
     ...mapGetters(['bgColor', 'userInfo'])
   },
   methods: {
-    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin']),
+    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin','toggleWait']),
     ...mapGetters(['getUserID']),
     getBlog: function(queryAfter, number) {
       const _ = this;
@@ -78,6 +78,7 @@ export default {
       const _ = this;
       if (this.lock) return;
       this.lock = true;
+
       //$('#ee')[0].files.length ? $('#ee')[0].files[0] : null;
       const img = this.$refs.avatar.files.length ? this.$refs.avatar.files[0] : null;
       if (!img || ((img.size) / (1 << 20)) >= 5) {
@@ -85,9 +86,13 @@ export default {
         return;
       }
       if(img.name===this.oldImg)return;
+      this.toggleWait(true);
+
       var form = new FormData();
       form.append('img', img, img.name);
       this.$ajax.upload(this.getUserID(), form).then(function(res) {
+      _.toggleWait(false);
+
         _.submitDataFromServer(res.data);
         _.lock = false;
         if (res.data.success) {
@@ -99,13 +104,14 @@ export default {
     update: function() {
       if (this.lock) return;
       if(this.old===this.userNickName)return;
+      this.toggleWait(true);
       this.lock = true;
       const _ = this;
       if (this.userNickName.length) {
         this.$ajax.updateUser(this.getUserID(), {
           userNickName: this.userNickName
         }).then(function(res) {
-          _.setBlogList(res.data);
+      _.toggleWait(false);
           _.submitDataFromServer(res.data);
           _.lock = false;
           if (res.data.success) {
@@ -118,7 +124,11 @@ export default {
     loginOut: function() {
       const _ = this;
       if (!isNaN(parseInt(this.getUserID()))) {
+      this.toggleWait(true);
+
         this.$ajax.loginOut(this.getUserID()).then(function(res) {
+      _.toggleWait(true);
+
           _.submitDataFromServer(res.data);
           if (res.data.success) {
             _.cleanLogin();

@@ -23,7 +23,7 @@ export default {
       let cls = ['tipBar_msg', 'fa', 'tipBar_ani', 'tipBar_bar'].concat(this.tipStatus);
       let id = 'bar' + (this.id++);
       let p = this.createEle('p', id, cls, val.data);
-      this.$refs.tipBar.append(p);
+      this.$refs.tipBar.appendChild(p);
       let _ = this;
       document.getElementById(id).addEventListener('animationend', function() {
         _.$refs.tipBar.removeChild(this);

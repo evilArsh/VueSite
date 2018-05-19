@@ -60,7 +60,7 @@ export default {
     ...mapGetters(['bgColor', 'mailReg', 'pwdReg'])
   },
   methods: {
-    ...mapActions(['submitDataFromServer']),
+    ...mapActions(['submitDataFromServer','toggleWait']),
     toLog() {
       this.$router.replace('/sign/signIn')
     },
@@ -70,6 +70,7 @@ export default {
     submit() {
       if (this.lock) return;
       this.lock = true;
+      this.toggleWait(true);
       let m = this.isMailMatch(this.mail),
         p = this.isPwdMatch(this.pwd),
         rp = this.isPwdMatch(this.rPwd);
@@ -78,6 +79,7 @@ export default {
         const re = this.$ajax.register({ mail: this.mail, pwd: this.pwd })
           .then(function(res) {
             _.lock=false;
+            _.toggleWait(false);
             _.submitDataFromServer(res.data);
             if(res.data.success){
               _.$router.push({path:'/'});

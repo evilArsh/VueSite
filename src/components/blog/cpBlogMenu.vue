@@ -65,7 +65,6 @@ export default {
       this.toggleWait(true);
       this.getSignal = false;
       this.$ajax.getBlogList(queryAfter, number).then(function(res) {
-        _.toggleWait(false);
         _.setBlogList(res.data);
         _.getSignal = true;
         if (res.data.success) {
@@ -74,6 +73,8 @@ export default {
           _.queryAfter += number;
           _.pushData(res.data.package);
         }
+        _.toggleWait(false);
+        
       });
     },
     pushData: function(data) {
@@ -88,7 +89,9 @@ export default {
     }
   },
   watch: {},
-  beforeMount() {},
+  beforeCreate(){
+    // this.toggleWait(true);
+  },
   mounted() {
     document.body.onscroll = this.scroll;
     window.onresize = this.reset;

@@ -11,7 +11,6 @@ $height:48px;
 }
 
 .headContainer {
-  transition: all ease .3s;
   position: relative;
   border-bottom: solid 3px #fff;
   height: $height;
@@ -20,6 +19,7 @@ $height:48px;
     top: 0;
     right: rem(3);
     .linkItem {
+  transition: all ease .3s;
         float: left;
         width: 40px;
         height: 40px;
@@ -28,6 +28,9 @@ $height:48px;
       margin: 0 rem(1) 0 0;
       border-bottom-right-radius: 50%;
       border-bottom-left-radius: 50%;
+      &:hover{
+        background-color:#8d3f3f;
+      }
       .logo,.img{
         width: 30px;
         height: 30px;
@@ -37,7 +40,7 @@ $height:48px;
         padding:rem(.2);
         transform:translate3d(-50%,-50%,0);
         position: absolute;
-        box-shadow: 0 0 6px 1px #431e1a;
+        box-shadow: 0 0 3px 1px #533010;
       }
       .logo{
         background-color: #fff;

@@ -8,8 +8,8 @@
 
         <v-pghome></v-pghome>
         <!-- 测试用 -->
-        <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999',backgroundColor:'#000',color:'#fff'}" @click="demo">测试</span>
-
+<!--         <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999',backgroundColor:'#000',color:'#fff'}" @click="demo">测试</span>
+ -->
   </div>
 </template>
 <script>

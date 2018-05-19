@@ -35,6 +35,12 @@
       z-index: 9999;
     }
     .option {
+  transition: all .3s ease;
+      
+      &:hover{
+       color: #f89f17;
+    transform: translateY(-2px);
+      }
       @include media('lg') {}
       @include media('md') {}
       @include media('sm') {
@@ -43,13 +49,13 @@
         width: 100%;
       }
       @include media('xs') {}
-      display: inline-block;
-      vertical-align: middle;
-      color: #ffffff;
-      font-size: 0.875rem;
-      padding: 0px 18px;
-      letter-spacing: 2px;
-      margin: 13px 4px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #ffffff;
+    font-size: rem(1.4);
+    padding: 14px 18px;
+    letter-spacing: 2px;
+    margin: 0px 4px;
     }
     &::after {
       display: block;

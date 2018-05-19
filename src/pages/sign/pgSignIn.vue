@@ -45,7 +45,7 @@
       }
     },
     methods: {
-      ...mapActions(['setLoginData']),
+      ...mapActions(['setLoginData','toggleWait']),
       toReg() {
         this.$router.replace('/sign/signUp')
       },
@@ -54,6 +54,7 @@
       },
       submit: function () {
         if(this.lock) return;
+        this.toggleWait(true);
         let m= this.isMailMatch(this.mail),n=this.isDataNull(this.pwd);
         let _=this;
         if(m&&!n){
@@ -62,6 +63,7 @@
           this.$ajax.login({mail:this.mail,pwd:this.pwd})
           .then(function(res){
             // console.log(res)
+            _.toggleWait(false);
             _.setLoginData(res.data);
             _.lock=false;
             if(res.data.success){
