@@ -41,7 +41,7 @@ export default {
   components: {},
   computed: {},
   methods: {
-    ...mapActions(['setBlogList', 'toggleHomeFixed']),
+    ...mapActions(['setBlogList', 'toggleHomeFixed','toggleWait']),
     scroll: function(e) {
       if (this.allDataDone === true) {
         return;
@@ -62,8 +62,10 @@ export default {
       if (!this.getSignal) {
         return;
       }
+      this.toggleWait(true);
       this.getSignal = false;
       this.$ajax.getBlogList(queryAfter, number).then(function(res) {
+        _.toggleWait(false);
         _.setBlogList(res.data);
         _.getSignal = true;
         if (res.data.success) {

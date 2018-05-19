@@ -85,7 +85,7 @@ export default {
 
 .tipBar_bar {
   position: relative;
-  float: left;
+  float: right;
 }
 
 .tipBar_ani {

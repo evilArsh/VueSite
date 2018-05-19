@@ -36,7 +36,7 @@ export default {
   components: {},
   methods: {
     ...mapGetters(['getUserID', 'baseResourceURL']),
-    ...mapActions(['setTipBarMsg', 'submitDataFromServer']),
+    ...mapActions(['setTipBarMsg', 'submitDataFromServer','toggleWait']),
     go: function() {
       // if (this.lock) return;
       this.lock = true;

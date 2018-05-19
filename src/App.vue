@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-<!-- 
-    <transition name="dim">
-      <v-cpbigblack v-show="navShow"></v-cpbigblack>
-    </transition> -->
+
+      <keep-alive>
+      <v-wait></v-wait>
+      </keep-alive>
     <v-cpbganimate></v-cpbganimate>
 
         <v-pghome></v-pghome>
         <!-- 测试用 -->
-<!--         <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999',backgroundColor:'#000',color:'#fff'}" @click="demo">测试</span> -->
+        <span :style="{position:'fixed',bottom:'0',left:'0',width:'50px',height:'50px',zIndex:'999',backgroundColor:'#000',color:'#fff'}" @click="demo">测试</span>
 
   </div>
 </template>
 <script>
 import pgHome from './pages/pgHome'
-import cpBigBlack from '@/components/common/cpBigBlack'
+import cpWait from '@/components/common/cpWait'
 import cpBGAnimate from '@/components/common/cpBGAnimate'
 import { mapActions, mapGetters } from 'vuex'
 export default {
@@ -26,18 +26,18 @@ export default {
   beforeCreate(){
     this.$ajax.initial();
   },
-  
   components: {
+    'v-wait':cpWait,
     'v-cpbganimate':cpBGAnimate,
     'v-pghome':pgHome
   },
   computed: {
   },
   methods: {
-    ...mapActions(['toggleFoot','toggleHead','toggleNav','setTipBarMsg']),
+    ...mapActions(['toggleFoot','toggleHead','toggleNav','setTipBarMsg','toggleWait']),
     //测试用
     demo:function(){
-      this.setTipBarMsg({success:false,data:'当前是一个测试！！！'})
+      this.toggleWait();
     }
   },
 
