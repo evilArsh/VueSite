@@ -9,7 +9,6 @@
       <p class="footerWord">Copyright © 2018 <a class="linkWord" href="http://www.miitbeian.gov.cn">黔ICP备17004129号</a></p>
     </div>
     </transition>
-  </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'

@@ -1,13 +1,24 @@
 @import "../pre.scss";
 //外壳
 .signContainer {
-  margin:0 auto;
-position: relative;
-box-shadow: 0px 0px 5px 1px #1f5579;
-    height: 60%;
-    width: 30%;
-    top:rem(10);
-    border-radius: 3px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0px 0px 5px 1px #1f5579;
+  height: 100%;
+  width: 30%;
+  border-radius: 3px;
+  @include media('lg') {
+    width: 50%;
+  }
+  @include media('md') {
+    width: 52%;
+  }
+  @include media('sm') {
+    width: 79%;
+  }
+  @include media('xs') {
+    width: 84%;
+  }
   .box {
     //background-color: #ebd29b;
     display: inline-block; //padding: 70px 30px;
@@ -37,14 +48,14 @@ box-shadow: 0px 0px 5px 1px #1f5579;
     position: relative;
     margin: rem(5) 0;
   }
-  .mail_tip{
+  .mail_tip {
     position: absolute;
-    top:rem(-1.75);
-    left:2rem;
+    top: rem(-1.75);
+    left: 2rem;
     font-size: rem(1.4);
-    color:red;
-    &::before{
-      margin:0 3px 0 0;
+    color: red;
+    &::before {
+      margin: 0 3px 0 0;
     }
   }
   .signIn,

@@ -3,13 +3,17 @@ import maps from '../vxMaps';
 const vxStatusManage = {
   state: {
     packageReg: /^[0-9]{1,}D$/,
+    //一次只有一个提示框，自动关闭
     tipBarMsg: { success: false, data: '', status: '' },
+    //手动关闭的提示框
+    loadMsg:'数据加载中',
+    //无限多个提示框，自动关闭
+    runningMsg:{ success: false, data: '', status: '' },
     isUserLogin: false,
     //base url
     baseUrl: '',
     baseResourceURL: '',
-    userInfo: { id: '', nickName: '', avatar: '', mail: '' } //this.$ajax.baseURL+'/user.png'
-
+    userInfo: { id: '', nickName: '', avatar: '', mail: '' }
   },
   actions: {
     //数据入口方法
@@ -17,10 +21,14 @@ const vxStatusManage = {
     submitDataFromServer({ commit, dispatch }, res) {
       let { success } = res;
       if (success) {
-        dispatch('successDataHandle', res)
+        dispatch('_successDataHandle', res)
       } else {
-        dispatch('errorDataHandle', res)
+        dispatch('_errorDataHandle', res)
       }
+    },
+    //设置加载组件的文字描述
+    setLoadMsg({ commit }, res){
+      commit(maps.LOAD_MSG,res);
     },
     //登录
     setLoginData({ commit, dispatch }, res) {
@@ -49,11 +57,11 @@ const vxStatusManage = {
     setTipBarMsg({ commit }, res) {
       commit(maps.BAR_MSG, res);
     },
-    successDataHandle({ commit, dispatch }, res) {
+    _successDataHandle({ commit, dispatch }, res) {
       //do something
       dispatch('setTipBarMsg', res);
     },
-    errorDataHandle({ commit, dispatch }, res) {
+    _errorDataHandle({ commit, dispatch }, res) {
       //do something
       dispatch('setTipBarMsg', res);
     },
@@ -63,15 +71,18 @@ const vxStatusManage = {
     setBaseResourceURL({ state }, url) {
       state.baseResourceURL = url;
     },
-    //小操作
+////////////
     setNickName({ state }, val) {
         state.userInfo.nickName=val;
     },
     setAvatarURL({ state }, val) {
-           state.userInfo.avatar=state.baseResourceURL + '/' + val;
+           state.userInfo.avatar=val;
     }
   },
   mutations: {
+    [maps.LOAD_MSG](state,res){
+      state.loadMsg=res;
+    },
     //设置提示信息
     [maps.BAR_MSG](state, res) {
       state.tipBarMsg = Object.assign({}, res);
@@ -81,7 +92,7 @@ const vxStatusManage = {
         nickName: res.package.userNickName,
         mail: res.package.userMail,
         id: res.package.userID,
-        avatar: state.baseResourceURL + '/' + res.package.userAvatar
+        avatar: res.package.userAvatar
       })
       // state.userInfo.nickName = res.package.userNickName;
       // state.userInfo.mail = res.package.userMail;

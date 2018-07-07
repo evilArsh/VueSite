@@ -54,11 +54,11 @@
       },
       submit: function () {
         if(this.lock) return;
-        this.toggleWait(true);
         let m= this.isMailMatch(this.mail),n=this.isDataNull(this.pwd);
         let _=this;
         if(m&&!n){
         this.lock=true;
+        this.toggleWait(true);
           //提交数据 
           this.$ajax.login({mail:this.mail,pwd:this.pwd})
           .then(function(res){

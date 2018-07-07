@@ -13,6 +13,7 @@ export default{
 	TOGGLE_WAIT:'TOGGLE_WAIT',
 	//博客模块
 	//状态管理
+	LOAD_MSG:'LOAD_MSG',
 	BAR_MSG:'BAR_MSG',
 	USER_SETINFOR:'USER_SETINFOR'
 };

@@ -1,10 +1,9 @@
 <!-- 主页 -->
 <template>
   <div id="home" class="homeContainer" :style="bgColor" :class="{fixed:isHomeFixed}">
+    <v-cptipbar></v-cptipbar>
     <v-cpheader></v-cpheader>
     <v-cprouter></v-cprouter>
-    <v-cptipbar></v-cptipbar>
-
     <transition name="fade" mode="out-in">
       <keep-alive :include="['blogMenu']">
       <router-view></router-view>
@@ -35,24 +34,7 @@ export default {
     ...mapGetters(['bgColor','isHomeFixed'])
   },
   methods: {
-    ...mapActions(['setGetBlogSignal','toggleWait']),
-
-    scroll: function(e) {
-    },
-    beforeEnter: function(el) {
-      el.classList.remove("normal");
-      el.classList.add("toggle");
-    },
-    enter: function(el, done) {
-      el.classList.remove("toggle");
-      el.classList.add("normal");
-
-    },
-    leave: function(el, done) {
-      el.classList.remove("normal");
-      el.classList.add("toggle");
-
-    },
+    ...mapActions(['toggleWait']),
   },
   watch: {
   },

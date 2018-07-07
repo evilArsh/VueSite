@@ -39,11 +39,11 @@ export default {
     ...mapActions(['setTipBarMsg', 'submitDataFromServer','toggleWait']),
     go: function() {
       if (this.lock) return;
-      this.lock = true;
       if (this.content.length === 0) {
         this.setTipBarMsg({ success: false, data: '您应该写点什么' });
         return;
       }
+      this.lock = true;
       this.toggleWait(true);
       this.imgData = this.extractImgData(this.edit.txt.getJSON());
       //将数组变成string 
@@ -89,7 +89,7 @@ export default {
         img:this.imgData
       }).then(function(res) {
         _.lock = false;
-        this.toggleWait(false);
+        _.toggleWait(false);
         _.submitDataFromServer(res.data);
         if(res.data.success){
         _.$router.push({ path: '/blogMenu' });
