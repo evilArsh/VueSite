@@ -24,7 +24,7 @@
       <div class="avatarContainer" v-if="activeDiv==='avatar'" key="avatar">
         <div class="infoItem">
           <div class="imgOuter">
-            <img :src="userInfo.avatar" alt="" class="img">
+            <img :src="userInfo.url" alt="" class="img">
           </div>
           <p class="tip">图片大小不得超过5mb</p>
           <input type="file" class="choice" ref="avatar">
@@ -60,7 +60,7 @@ export default {
     ...mapGetters(['bgColor', 'userInfo'])
   },
   methods: {
-    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin','toggleWait']),
+    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin','toggleLoad']),
     ...mapGetters(['getUserID']),
     getBlog: function(queryAfter, number) {
       const _ = this;
@@ -86,17 +86,17 @@ export default {
         return;
       }
       if(img.name===this.oldImg)return;
-      this.toggleWait(true);
+      this.toggleLoad('正在上传');
 
       var form = new FormData();
       form.append('img', img, img.name);
       this.$ajax.upload(this.getUserID(), form).then(function(res) {
-      _.toggleWait(false);
+      _.toggleLoad();
 
         _.submitDataFromServer(res.data);
         _.lock = false;
         if (res.data.success) {
-          _.setAvatarURL(img.name);
+          _.setAvatarURL(res.data.package);
           _.oldImg=img.name;
         }
       });
@@ -104,14 +104,14 @@ export default {
     update: function() {
       if (this.lock) return;
       if(this.old===this.userNickName)return;
-      this.toggleWait(true);
+      this.toggleLoad('正在更新');
       this.lock = true;
       const _ = this;
       if (this.userNickName.length) {
         this.$ajax.updateUser(this.getUserID(), {
           userNickName: this.userNickName
         }).then(function(res) {
-      _.toggleWait(false);
+      _.toggleLoad();
           _.submitDataFromServer(res.data);
           _.lock = false;
           if (res.data.success) {
@@ -124,10 +124,10 @@ export default {
     loginOut: function() {
       const _ = this;
       if (!isNaN(parseInt(this.getUserID()))) {
-      this.toggleWait(true);
+      this.toggleLoad('正在注销');
 
         this.$ajax.loginOut(this.getUserID()).then(function(res) {
-      _.toggleWait(true);
+      _.toggleLoad();
 
           _.submitDataFromServer(res.data);
           if (res.data.success) {

@@ -45,7 +45,7 @@
       }
     },
     methods: {
-      ...mapActions(['setLoginData','toggleWait']),
+      ...mapActions(['setLoginData','toggleLoad']),
       toReg() {
         this.$router.replace('/sign/signUp')
       },
@@ -58,12 +58,12 @@
         let _=this;
         if(m&&!n){
         this.lock=true;
-        this.toggleWait(true);
+        this.toggleLoad('正在登录');
           //提交数据 
           this.$ajax.login({mail:this.mail,pwd:this.pwd})
           .then(function(res){
             // console.log(res)
-            _.toggleWait(false);
+            _.toggleLoad();
             _.setLoginData(res.data);
             _.lock=false;
             if(res.data.success){

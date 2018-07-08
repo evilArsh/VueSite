@@ -1,14 +1,7 @@
 <template>
-    <transition
-       v-on:before-enter="beforeEnter"
-  v-on:enter="enter"
-  v-on:leave="leave"
-  :css='false'
-    >  
-    <div class="footer normal" v-show="isFootShow">
+    <div class="footer normal">
       <p class="footerWord">Copyright © 2018 <a class="linkWord" href="http://www.miitbeian.gov.cn">黔ICP备17004129号</a></p>
     </div>
-    </transition>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
@@ -19,23 +12,9 @@ export default {
   components: {
   },
   computed: {
-    ...mapGetters(['bgColor','isFootShow'])
+    ...mapGetters(['bgColor'])
   },
   methods: {
-    beforeEnter:function(el){
-      el.classList.remove("normal");
-      el.classList.add("toggle");
-    },
-    enter:function(el,done){
-      el.classList.remove("toggle");
-      el.classList.add("normal");
-
-    },
-    leave:function(el,done){
-      el.classList.remove("normal");
-      el.classList.add("toggle");
-
-    }
   },
   watch: {
   },

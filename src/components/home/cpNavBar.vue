@@ -30,7 +30,6 @@ export default {
     beforeEnter:function(el){
     console.log(el)
     },
-    ...mapActions(['toggleNav']),
     hideNav:function(){
       this.$refs.black.classList.remove('black');
       this.$refs.bar.classList.add('hide')
@@ -38,7 +37,6 @@ export default {
     showNav:function(){
       this.$refs.bar.classList.remove('hide');
       this.$refs.black.classList.add('black');
-      // this.toggleNav(true);
     },
     componentHandle:function(e){
             this.$refs.black.classList.remove('black');

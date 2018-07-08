@@ -54,11 +54,11 @@ const router = new Router({
   ]
 });
 router.beforeEach(function(to, from, next) {
-store.dispatch('toggleWait',true);
+store.dispatch('toggleLoad','加载中');
   next();
 });
 router.afterEach(function(to, from) {
-store.dispatch('toggleWait',false);
+store.dispatch('toggleLoad');
   if (typeof to.meta.isRoot !== 'undefined') {
     store.dispatch('setHeadBgColor', color[to.meta.target])
   }

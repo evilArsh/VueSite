@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <v-wait></v-wait>
-    </keep-alive>
     <v-cpbganimate></v-cpbganimate>
     <v-pghome></v-pghome>
     <!-- 测试用 -->
@@ -11,7 +8,6 @@
 </template>
 <script>
 import pgHome from './pages/pgHome'
-import cpWait from '@/components/common/cpWait'
 import cpBGAnimate from '@/components/common/cpBGAnimate'
 import { mapActions, mapGetters } from 'vuex'
 export default {
@@ -25,19 +21,18 @@ export default {
     this.$ajax.initial();
   },
   components: {
-    'v-wait': cpWait,
     'v-cpbganimate': cpBGAnimate,
     'v-pghome': pgHome
   },
   computed: {},
   methods: {
-    ...mapActions(['setLoadMsg']),
+    ...mapActions(['toggleLoad']),
     //测试用
     demo: function() {
         if (this.demoBool===false) {
-          this.setLoadMsg('数据加载中...');
+          this.toggleLoad('数据加载中...');
         }else{
-          this.setLoadMsg('');
+          this.toggleLoad();
         }
         this.demoBool=!this.demoBool;
       }

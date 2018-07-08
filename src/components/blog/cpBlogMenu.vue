@@ -41,7 +41,7 @@ export default {
   components: {},
   computed: {},
   methods: {
-    ...mapActions(['setBlogList', 'toggleHomeFixed','toggleWait']),
+    ...mapActions(['setBlogList', 'toggleHomeFixed','toggleLoad']),
     scroll: function(e) {
       if (this.allDataDone === true) {
         return;
@@ -62,19 +62,18 @@ export default {
       if (!this.getSignal) {
         return;
       }
-      this.toggleWait(true);
+      this.toggleLoad('正在加载...');
       this.getSignal = false;
       this.$ajax.getBlogList(queryAfter, number).then(function(res) {
         _.setBlogList(res.data);
         _.getSignal = true;
+        _.toggleLoad();
         if (res.data.success) {
           if (res.data.package.length === 0) { _.allDataDone = true; }
           // console.log(res.data.package)
           _.queryAfter += number;
           _.pushData(res.data.package);
         }
-        _.toggleWait(false);
-        
       });
     },
     pushData: function(data) {
@@ -90,7 +89,7 @@ export default {
   },
   watch: {},
   beforeCreate(){
-    // this.toggleWait(true);
+    // this.toggleLoad(true);
   },
   mounted() {
     document.body.onscroll = this.scroll;

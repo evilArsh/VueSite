@@ -15,5 +15,6 @@ export default{
 	//状态管理
 	LOAD_MSG:'LOAD_MSG',
 	BAR_MSG:'BAR_MSG',
+	RUN_MSG:'RUN_MSG',
 	USER_SETINFOR:'USER_SETINFOR'
 };

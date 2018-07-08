@@ -16,7 +16,7 @@ export default {
       active: 'tip_t1',
       //互斥的提示框
       ms: '',
-      loadms:'数据正在加载中'
+      loadms:''
     }
   },
   watch: {
@@ -39,6 +39,7 @@ export default {
       if(val.length>0){
         //关闭互斥提示框
         this.close(this.active);
+        this.loadms=val;
         this.beginLoad('tip_l1');
       }else{
         this.closeLoad('tip_l1');
@@ -101,7 +102,6 @@ export default {
 </script>
 <style lang="css">
 .tipBar_msg {
-  opacity: .8;
   font-size: 14px;
   display: inline-block;
   padding: 10px 31px;

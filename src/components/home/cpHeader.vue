@@ -6,7 +6,7 @@
       <!-- 链接 -->
       <div class="link" @click="linkTo($event)">
         <a href="javascript:;"  tar="user" class="linkItem" v-show="isUserLogin">
-        <img :src="userInfo.avatar" class="img logo" alt="">
+        <img :src="userInfo.url" class="img logo" alt="">
       </a>
         <a href="javascript:;" tar="github" class="linkItem">
         <span class='logo fa fa-github'></span>
@@ -30,7 +30,7 @@ export default {
     'v-pgnavbar': pgNavBar,
   },
   methods: {
-    ...mapActions(['setUserInfo','setTipBarMsg']),
+    ...mapActions(['setUserInfo','tipMsg']),
     linkTo:function(e){
       if(e.target&&e.target.nodeName==='A'||'IMG'||"SPAN"){
         let t=e.target.nodeName!=="A"?e.target.parentNode:e.target;
@@ -38,7 +38,7 @@ export default {
         switch(tar){
           case 'user':this.$router.push({ path: '/userHome' });break;
           case 'github':window.open('https://github.com/evilArsh/VueSite');break;
-          case 'weibo':this.setTipBarMsg({success:true,data:'暂无微博'});break;
+          case 'weibo':this.tipMsg({success:true,data:'暂无微博'});break;
         }
       }
     },

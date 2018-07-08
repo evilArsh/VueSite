@@ -6,14 +6,13 @@ const vxStatusManage = {
     //一次只有一个提示框，自动关闭
     tipBarMsg: { success: false, data: '', status: '' },
     //手动关闭的提示框
-    loadMsg:'数据加载中',
+    loadMsg: '',
     //无限多个提示框，自动关闭
-    runningMsg:{ success: false, data: '', status: '' },
+    runningMsg: { success: false, data: '', status: '' },
     isUserLogin: false,
-    //base url
-    baseUrl: '',
-    baseResourceURL: '',
-    userInfo: { id: '', nickName: '', avatar: '', mail: '' }
+    userInfo: { id: '', nickName: '', url: '', mail: '' },
+    baseResourceURL:'',
+    baseURL:''
   },
   actions: {
     //数据入口方法
@@ -26,9 +25,29 @@ const vxStatusManage = {
         dispatch('_errorDataHandle', res)
       }
     },
-    //设置加载组件的文字描述
-    setLoadMsg({ commit }, res){
-      commit(maps.LOAD_MSG,res);
+    //加载数据时的提示框
+    toggleLoad({ commit, state }, msg) {
+      let _msg=msg;
+      if (typeof _msg === 'undefined') {
+        /*state.loadMsg.length===0?_msg='加载中...':*/
+        _msg='';
+      }
+      if(_msg===null){
+        _msg=' ';
+      }
+      _msg=_msg.toString();
+      commit(maps.LOAD_MSG, _msg)
+    },
+    /*
+        loadMsg({ commit }, res) {
+          commit(maps.LOAD_MSG, res);
+        },*/
+    //消息提示框
+    tipMsg({ commit }, res) {
+      commit(maps.BAR_MSG, res);
+    },
+    runMsg({commit},res){
+      commit(maps.RUN_MSG, res);
     },
     //登录
     setLoginData({ commit, dispatch }, res) {
@@ -49,21 +68,17 @@ const vxStatusManage = {
       // dispatch('submitDataFromServer', res);
     },
     //注销登录
-    cleanLogin({commit,state}){
-      state.userInfo=Object.assign({},{ id: '', nickName: '', avatar: '', mail: ''});
-      state.isUserLogin=false;
-    },
-    //消息提示框
-    setTipBarMsg({ commit }, res) {
-      commit(maps.BAR_MSG, res);
+    cleanLogin({ commit, state }) {
+      state.userInfo = Object.assign({}, { id: '', nickName: '', url: '', mail: '' });
+      state.isUserLogin = false;
     },
     _successDataHandle({ commit, dispatch }, res) {
       //do something
-      dispatch('setTipBarMsg', res);
+      dispatch('tipMsg', res);
     },
     _errorDataHandle({ commit, dispatch }, res) {
       //do something
-      dispatch('setTipBarMsg', res);
+      dispatch('tipMsg', res);
     },
     setBaseURL({ state }, url) {
       state.baseUrl = url;
@@ -71,28 +86,32 @@ const vxStatusManage = {
     setBaseResourceURL({ state }, url) {
       state.baseResourceURL = url;
     },
-////////////
+    ////////////
     setNickName({ state }, val) {
-        state.userInfo.nickName=val;
+      state.userInfo.nickName = val;
     },
     setAvatarURL({ state }, val) {
-           state.userInfo.avatar=val;
+      val=val.replace('\\','/')
+      state.userInfo.url =state.baseResourceURL+ val;
     }
   },
   mutations: {
-    [maps.LOAD_MSG](state,res){
-      state.loadMsg=res;
+    [maps.LOAD_MSG](state, res) {
+      state.loadMsg = res;
     },
     //设置提示信息
     [maps.BAR_MSG](state, res) {
       state.tipBarMsg = Object.assign({}, res);
+    }, 
+    [maps.RUN_MSG](state, res) {
+      state.runningMsg = Object.assign({}, res);
     },
     [maps.USER_SETINFOR](state, res) {
       state.userInfo = Object.assign({}, {
         nickName: res.package.userNickName,
         mail: res.package.userMail,
         id: res.package.userID,
-        avatar: res.package.userAvatar
+        url: res.package.url
       })
       // state.userInfo.nickName = res.package.userNickName;
       // state.userInfo.mail = res.package.userMail;
@@ -104,8 +123,7 @@ const vxStatusManage = {
     tipBarMsg: state => state.tipBarMsg,
     isUserLogin: state => state.isUserLogin,
     userInfo: state => state.userInfo,
-    getUserID: state => state.userInfo.id,
-    baseResourceURL:state=>state.baseResourceURL
+    getUserID: state => state.userInfo.id
   }
 };
 export default vxStatusManage;

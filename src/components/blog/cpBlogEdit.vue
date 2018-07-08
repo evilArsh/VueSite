@@ -35,16 +35,16 @@ export default {
   },
   components: {},
   methods: {
-    ...mapGetters(['getUserID', 'baseResourceURL']),
-    ...mapActions(['setTipBarMsg', 'submitDataFromServer','toggleWait']),
+    ...mapGetters(['getUserID']),
+    ...mapActions(['tipMsg', 'submitDataFromServer','toggleLoad']),
     go: function() {
       if (this.lock) return;
       if (this.content.length === 0) {
-        this.setTipBarMsg({ success: false, data: '您应该写点什么' });
+        this.tipMsg({ success: false, data: '您应该写点什么' });
         return;
       }
       this.lock = true;
-      this.toggleWait(true);
+      this.toggleLoad('正在发布...');
       this.imgData = this.extractImgData(this.edit.txt.getJSON());
       //将数组变成string 
       this.imgData=this.imgData.join(')(');
@@ -89,7 +89,7 @@ export default {
         img:this.imgData
       }).then(function(res) {
         _.lock = false;
-        _.toggleWait(false);
+        _.toggleLoad();
         _.submitDataFromServer(res.data);
         if(res.data.success){
         _.$router.push({ path: '/blogMenu' });

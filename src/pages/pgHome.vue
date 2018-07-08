@@ -34,17 +34,17 @@ export default {
     ...mapGetters(['bgColor','isHomeFixed'])
   },
   methods: {
-    ...mapActions(['toggleWait']),
+    ...mapActions(['toggleLoad']),
   },
   watch: {
   },
-  beforeMount() {
+  beforeMount() { 
   },
   mounted() {
-    this.toggleWait(false)
+    this.toggleLoad()
   },
   beforeMount() {
-    this.toggleWait(true)
+    this.toggleLoad('加载中')
   }
 }
 

@@ -60,7 +60,7 @@ export default {
     ...mapGetters(['bgColor', 'mailReg', 'pwdReg'])
   },
   methods: {
-    ...mapActions(['submitDataFromServer','toggleWait']),
+    ...mapActions(['submitDataFromServer','toggleLoad']),
     toLog() {
       this.$router.replace('/sign/signIn')
     },
@@ -75,11 +75,11 @@ export default {
         rp = this.isPwdMatch(this.rPwd);
       let _ = this;
       if (m && p && rp && p === rp) {
-      this.toggleWait(true);
+      this.toggleLoad('正在注册');
         const re = this.$ajax.register({ mail: this.mail, pwd: this.pwd })
           .then(function(res) {
             _.lock=false;
-            _.toggleWait(false);
+            _.toggleLoad();
             _.submitDataFromServer(res.data);
             if(res.data.success){
               _.$router.push({path:'/'});
