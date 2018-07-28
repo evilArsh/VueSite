@@ -8,10 +8,8 @@ import Http from './static/util/http';
 import 'normalize.css/normalize.css';
 import 'font-awesome/css/font-awesome.css';
 Vue.config.productionTip = false;
- Vue.prototype.$ajax =new Http(store);
-
-//Vue.prototype.$ajax =new Http(store,'http://vivcode.cn/api');
-
+ // Vue.prototype.$ajax =new Http(store);
+Vue.prototype.$ajax =new Http(store,'https://vivcode.cn/api');
 new Vue({
   el: '#app',
   router,
