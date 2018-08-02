@@ -11,7 +11,6 @@
       <router-link to="/userHome" class="option">个人中心</router-link>
     </div>
   </div>
-    </transition>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'

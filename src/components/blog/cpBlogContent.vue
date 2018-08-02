@@ -44,13 +44,10 @@ export default {
   }
   },
   methods: {
-    ...mapActions(['toggleLoad']),
     getDataByID:function(route){
-      this.toggleLoad('加载中...');
       let id=route.params.id;
       const _=this;
       this.$ajax.getBlogContent(id).then(function(res){
-        _.toggleLoad();
         if(res.data.success){
           _.appendImg(res.data.package[0]);
           _.data=Object.assign({},res.data.package[0]);

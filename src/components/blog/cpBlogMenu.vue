@@ -5,7 +5,7 @@
       <router-link :to="{ path: '/blogContent/'+item.blog_id}" class="title">{{item.blog_title}}</router-link>
       <div class="contentContainer">
         <div class="describe">{{item.blog_describe}}</div>
-        <img v-for="img in item.blog_img" :src="img" alt="" class="img">
+        <img v-for="(img,index) in item.blog_img" :key="index" :src="img" alt="" class="img">
       </div>
       <div class="footerContainer">
         <a class="author">{{item.userNickName}}</a>
@@ -15,14 +15,10 @@
   </div>
 </template>
 <script>
-import {
-  mapActions,
-  mapGetters,
-  mapState
-} from 'vuex'
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   props: {},
-  name: 'blogMenu',
+  name: "blogMenu",
   data() {
     return {
       //拉到最低端
@@ -33,64 +29,60 @@ export default {
       allDataDone: false,
       blogList: [],
       queryAfter: 0,
-      number: 8,
-      //保证低速网络下不重复请求
-      getSignal: true
-    }
+      number: 8
+    };
   },
   components: {},
   computed: {},
   methods: {
-    ...mapActions(['setBlogList', 'toggleHomeFixed','toggleLoad']),
+    ...mapActions(["setBlogList", "toggleHomeFixed"]),
     scroll: function(e) {
       if (this.allDataDone === true) {
         return;
       }
-      let scale = document.querySelector('#listContainer').getBoundingClientRect();
+      let scale = document
+        .querySelector("#listContainer")
+        .getBoundingClientRect();
       this.news = this.old;
-      this.old = -(scale.bottom);
+      this.old = -scale.bottom;
       if (this.news < this.old) {
-        if (document.body.clientHeight / scale.bottom >= 0.8 && this.maxBottom < -(scale.bottom)) {
+        if (
+          document.body.clientHeight / scale.bottom >= 0.8 &&
+          this.maxBottom < -scale.bottom
+        ) {
           this.getBlogList(this.queryAfter, this.number);
         }
-        this.maxBottom < -(scale.bottom) ? this.maxBottom = -(scale.bottom) : 1;
+        this.maxBottom < -scale.bottom ? (this.maxBottom = -scale.bottom) : 1;
       }
     },
     reset: function() {},
     getBlogList: function(queryAfter, number) {
       const _ = this;
-      if (!this.getSignal) {
-        return;
-      }
-      this.toggleLoad('正在加载...');
-      this.getSignal = false;
       this.$ajax.getBlogList(queryAfter, number).then(function(res) {
         _.setBlogList(res.data);
-        _.getSignal = true;
-        _.toggleLoad();
         if (res.data.success) {
-          if (res.data.package.length === 0) { _.allDataDone = true; }
-          // console.log(res.data.package)
           _.queryAfter += number;
+          if (res.data.package.length === 0) {
+            _.allDataDone = true;
+          }
+          // console.log(res.data.package)
           _.pushData(res.data.package);
         }
       });
     },
     pushData: function(data) {
       for (let i = 0; i < data.length; i++) {
-        data[i].blog_img = this.changeToArry(data[i].blog_img)
+        data[i].blog_img = this.changeToArry(data[i].blog_img);
         this.blogList.push(data[i]);
       }
     },
     changeToArry: function(imgStr) {
       if (!imgStr) return [];
-      return imgStr.split(')(');
+      return imgStr.split(")(");
     }
   },
   watch: {},
-  beforeCreate(){
-    // this.toggleLoad(true);
-  },
+  beforeCreate() {},
   mounted() {
     document.body.onscroll = this.scroll;
     window.onresize = this.reset;
@@ -106,10 +98,8 @@ export default {
     this.toggleHomeFixed(true);
     document.body.onscroll = function() {};
   }
-}
-
+};
 </script>
 <style lang="scss" scoped>
-@import '../../static/style/components/cpBlogMenu.scss';
-
+@import "../../static/style/components/cpBlogMenu.scss";
 </style>

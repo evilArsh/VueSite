@@ -3,7 +3,7 @@
 <template>
   <div class="routerContainer">
     <div class="router" @click="toWhere"><i class='tag'>当前位置：</i>
-      <span v-for="(item,index) in routerStack.stack" :index="index+1" :title="item.name" class="routerList">{{item.name}}</span>
+      <span v-for="(item,index) in routerStack.stack" :key="index" :index="index+1" :title="item.name" class="routerList">{{item.name}}</span>
     </div>
   </div>
 </template>

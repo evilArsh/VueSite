@@ -24,7 +24,6 @@ export default {
   props: {},
   data() {
     return {
-      lock: false,
       title: '',
       describe: '',
       content: '',
@@ -36,15 +35,12 @@ export default {
   components: {},
   methods: {
     ...mapGetters(['getUserID']),
-    ...mapActions(['tipMsg', 'submitDataFromServer','toggleLoad']),
+    ...mapActions(['tipMsg', 'submitDataFromServer']),
     go: function() {
-      if (this.lock) return;
       if (this.content.length === 0) {
         this.tipMsg({ success: false, data: '您应该写点什么' });
         return;
       }
-      this.lock = true;
-      this.toggleLoad('正在发布...');
       this.imgData = this.extractImgData(this.edit.txt.getJSON());
       //将数组变成string 
       this.imgData=this.imgData.join(')(');
@@ -81,15 +77,13 @@ export default {
     //以后修改或者拓展
     upload: function() {
       let _ = this;
-      this.$ajax.createBlog_WangEditor(this.getUserID(), {
+      this.$ajax.createBlog_WangEditor({
         title: this.title,
         describe: this.describe,
         content: this.content,
         type: this.type,
         img:this.imgData
       }).then(function(res) {
-        _.lock = false;
-        _.toggleLoad();
         _.submitDataFromServer(res.data);
         if(res.data.success){
         _.$router.push({ path: '/blogMenu' });

@@ -38,7 +38,6 @@ import {
 export default {
   data() {
     return {
-      lock: false,
       mail: '',
       pwd: '',
       rPwd: '',
@@ -60,7 +59,7 @@ export default {
     ...mapGetters(['bgColor', 'mailReg', 'pwdReg'])
   },
   methods: {
-    ...mapActions(['submitDataFromServer','toggleLoad']),
+    ...mapActions(['submitDataFromServer']),
     toLog() {
       this.$router.replace('/sign/signIn')
     },
@@ -68,18 +67,13 @@ export default {
       tag.color = co;
     },
     submit() {
-      if (this.lock) return;
-      this.lock = true;
       let m = this.isMailMatch(this.mail),
         p = this.isPwdMatch(this.pwd),
         rp = this.isPwdMatch(this.rPwd);
       let _ = this;
       if (m && p && rp && p === rp) {
-      this.toggleLoad('正在注册');
         const re = this.$ajax.register({ mail: this.mail, pwd: this.pwd })
           .then(function(res) {
-            _.lock=false;
-            _.toggleLoad();
             _.submitDataFromServer(res.data);
             if(res.data.success){
               _.$router.push({path:'/'});

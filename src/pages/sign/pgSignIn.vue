@@ -31,7 +31,6 @@
   export default {
     data() {
       return {
-        lock:false,
         mailTagColor: {
           color: ""
         },
@@ -45,7 +44,7 @@
       }
     },
     methods: {
-      ...mapActions(['setLoginData','toggleLoad']),
+      ...mapActions(['setLoginData']),
       toReg() {
         this.$router.replace('/sign/signUp')
       },
@@ -53,19 +52,13 @@
         tag.color = co;
       },
       submit: function () {
-        if(this.lock) return;
         let m= this.isMailMatch(this.mail),n=this.isDataNull(this.pwd);
         let _=this;
         if(m&&!n){
-        this.lock=true;
-        this.toggleLoad('正在登录');
           //提交数据 
           this.$ajax.login({mail:this.mail,pwd:this.pwd})
           .then(function(res){
-            // console.log(res)
-            _.toggleLoad();
             _.setLoginData(res.data);
-            _.lock=false;
             if(res.data.success){
              _.$router.push({path:'/'});
             }

@@ -47,7 +47,6 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      lock: false,
       activeDiv: 'info',
       blogList: [],
       userNickName: '',
@@ -60,7 +59,7 @@ export default {
     ...mapGetters(['bgColor', 'userInfo'])
   },
   methods: {
-    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin','toggleLoad']),
+    ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin']),
     ...mapGetters(['getUserID']),
     getBlog: function(queryAfter, number) {
       const _ = this;
@@ -76,9 +75,6 @@ export default {
     },
     upload: function() {
       const _ = this;
-      if (this.lock) return;
-      this.lock = true;
-
       //$('#ee')[0].files.length ? $('#ee')[0].files[0] : null;
       const img = this.$refs.avatar.files.length ? this.$refs.avatar.files[0] : null;
       if (!img || ((img.size) / (1 << 20)) >= 5) {
@@ -86,15 +82,10 @@ export default {
         return;
       }
       if(img.name===this.oldImg)return;
-      this.toggleLoad('正在上传');
-
       var form = new FormData();
       form.append('img', img, img.name);
-      this.$ajax.upload(this.getUserID(), form).then(function(res) {
-      _.toggleLoad();
-
+      this.$ajax.upload(form).then(function(res) {
         _.submitDataFromServer(res.data);
-        _.lock = false;
         if (res.data.success) {
           _.setAvatarURL(res.data.package);
           _.oldImg=img.name;
@@ -102,18 +93,13 @@ export default {
       });
     },
     update: function() {
-      if (this.lock) return;
       if(this.old===this.userNickName)return;
-      this.toggleLoad('正在更新');
-      this.lock = true;
       const _ = this;
       if (this.userNickName.length) {
-        this.$ajax.updateUser(this.getUserID(), {
+        this.$ajax.updateUser({
           userNickName: this.userNickName
         }).then(function(res) {
-      _.toggleLoad();
           _.submitDataFromServer(res.data);
-          _.lock = false;
           if (res.data.success) {
             _.old=_.userNickName;
             _.setNickName(_.userNickName);
@@ -123,19 +109,14 @@ export default {
     },
     loginOut: function() {
       const _ = this;
-      if (!isNaN(parseInt(this.getUserID()))) {
-      this.toggleLoad('正在注销');
-
-        this.$ajax.loginOut(this.getUserID()).then(function(res) {
-      _.toggleLoad();
-
+        this.$ajax.loginOut().then(function(res) {
           _.submitDataFromServer(res.data);
           if (res.data.success) {
             _.cleanLogin();
             _.$router.push({ path: '/' });
           }
         })
-      };
+      ;
     },
     setActiveDiv: function(val) {
       this.activeDiv = val;
