@@ -4,6 +4,7 @@
     <v-cptipbar></v-cptipbar>
     <v-cpheader></v-cpheader>
     <v-cprouter></v-cprouter>
+    <v-cpruntip></v-cpruntip>
     <transition name="fade" mode="out-in">
       <keep-alive :include="['blogMenu']">
       <router-view></router-view>
@@ -13,6 +14,7 @@
   </div>
 </template>
 <script>
+import cpRunTip from '@/components/common/cpMsgBox'
 import cpRouter from '@/components/home/cpRouter'
 import cpHeader from '@/components/home/cpHeader'
 import cpTipBar from '@/components/common/cpTipBar'
@@ -26,6 +28,7 @@ export default {
     }
   },
   components: {
+    'v-cpruntip':cpRunTip,
     'v-cptipbar':cpTipBar,
     'v-cprouter': cpRouter,
     'v-cpheader': cpHeader,

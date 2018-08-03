@@ -44,10 +44,30 @@ const vxStatusManage = {
         },*/
     //消息提示框
     tipMsg({ commit }, res) {
-      commit(maps.BAR_MSG, res);
+      let _t;
+      if(typeof res==='string'){
+        _t={
+          success:true,
+          data:res,
+          status:1
+        }
+      }else{
+        _t=res;
+      }
+      commit(maps.BAR_MSG, _t);
     },
     runMsg({commit},res){
-      commit(maps.RUN_MSG, res);
+      let _t;
+      if(typeof res==='string'){
+         _t={
+          success:true,
+          data:res,
+          status:1
+        }
+      }else{
+        _t=res;
+      }
+      commit(maps.RUN_MSG, _t);
     },
     //登录
     setLoginData({ commit, dispatch }, res) {

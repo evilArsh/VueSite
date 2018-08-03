@@ -26,15 +26,10 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions(['toggleLoad']),
+    ...mapActions(['toggleLoad','runMsg']),
     //测试用
     demo: function() {
-        if (this.demoBool===false) {
-          this.toggleLoad('数据加载中...');
-        }else{
-          this.toggleLoad();
-        }
-        this.demoBool=!this.demoBool;
+      this.runMsg('go')
       }
     }
   }
@@ -57,15 +52,8 @@ export default {
   background-color: rgba(23, 23, 23, .5);
   color: #ededec;
 }
-
-;
-body,
-html {}
-
 a {
   text-decoration: none;
 }
-
-.mainContainer {}
 
 </style>

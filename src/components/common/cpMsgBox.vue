@@ -3,30 +3,29 @@
   </div>
 </template>
 <script>
-import {
-  mapGetters,
-  mapActions
-} from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       id: 1,
-      tipStatus: [],
-    }
+      tipStatus: []
+    };
   },
   watch: {
     msg(val) {
       if (val.success !== undefined) {
         val.success ? this.setSuccessMsg(val.data) : this.setErrorMsg(val.data);
       }
-      let cls = ['msgBox_msg', 'fa', 'msgBox_ani', 'msgBox_bar'].concat(this.tipStatus);
-      let id = 'bar' + (this.id++);
-      let p = this.createEle('p', id, cls, val.data);
+      let cls = ["msgBox_msg", "fa", "msgBox_ani", "msgBox_bar"].concat(
+        this.tipStatus
+      );
+      let id = "bar" + this.id++;
+      let p = this.createEle("p", id, cls, val.data);
       this.$refs.msgBox.appendChild(p);
       let _ = this;
-      document.getElementById(id).addEventListener('animationend', function() {
+      document.getElementById(id).addEventListener("animationend", function() {
         _.$refs.msgBox.removeChild(this);
-      })
+      });
     }
   },
   computed: {
@@ -39,8 +38,8 @@ export default {
     //cls参数为array,为初始的类
     createEle: function(el, id, cls, msg) {
       let p = document.createElement(el);
-      p.setAttribute('class', cls.join(' '));
-      p.setAttribute('id', id);
+      p.setAttribute("class", cls.join(" "));
+      p.setAttribute("id", id);
       p.innerText = msg;
       return p;
     },
@@ -49,10 +48,10 @@ export default {
       let _self = this;
     },
     getStatusError: function() {
-      return ['fa-exclamation-circle', 'msgBox_error'];
+      return ["fa-exclamation-circle", "msgBox_error"];
     },
     getStatusSuccess: function() {
-      return ['fa-check-circle', 'msgBox_success'];
+      return ["fa-check-circle", "msgBox_success"];
     },
     getStatusWarning: function() {},
     setErrorMsg: function(msg) {
@@ -63,18 +62,17 @@ export default {
     },
     setWarningMsg: function(msg) {}
   }
-}
-
+};
 </script>
 <style lang="css">
 .msgBox_msg {
   margin: 0 auto;
   overflow: auto;
-  opacity: .8;
+  opacity: 0.9;
   font-size: 14px;
-    padding: 15px 14px;
-    margin: 1px 0;
-    border-radius: 4px;
+  padding: 15px 14px;
+  margin: 1px 0;
+  border-radius: 2px;
 }
 
 .msgBox_msg::before {
@@ -83,11 +81,11 @@ export default {
 
 .msgBox_bar {
   position: relative;
-  float: right;
+  display: block;
 }
 
 .msgBox_ani {
-  animation: msgBox 3s;
+  animation: runMsg 3s;
 }
 
 .msgBox_error {
@@ -96,7 +94,7 @@ export default {
 }
 
 .msgBox_error::before {
-  color: red
+  color: red;
 }
 
 .msgBox_success {
@@ -105,17 +103,14 @@ export default {
 }
 
 .msgBox_success::before {
-  color: #00cee5
+  color: #00cee5;
 }
-
 </style>
 <style lang="scss" scoped>
 .msgBoxContainer {
-    right: 0;
-    position: absolute;
-    top: 2%;
-    overflow: hidden;
-    z-index: 999;
-    max-width: 200px;
+  right: 0;
+  position: absolute;
+  overflow: hidden;
+  z-index: 999;
 }
 </style>
