@@ -15,48 +15,7 @@ export default class Http {
     //请求队列
     this.reqs = new Map();
   }
-  _push(obj) {
-    if (this.reqs.has(obj.url)) {
-      let { single/*, complete */ } = this.reqs.get(obj.url);
-      if (single /*&& (!complete)*/) {
-        return false;
-      }
-    }
 
-    let _obj = {
-      url: undefined,
-      tip: '数据加载中...',
-      //是否出现提示框
-      showTip: true,
-      //在请求未完成之前不能再次发送请求
-      single: true,
-      active: false
-      /*,
-      time: new Date().getTime(),
-      complete: false*/
-    };
-    let merge = Object.assign(_obj, obj);
-    this.reqs.set(merge.url, merge);
-    return true;
-  }
-  _canReq(url) {
-    if (this.reqs.has(url)) {
-      let { /*complete,*/ single, active } = this.reqs.get(url);
-      if (single && active) { return false };
-    }
-    return true;
-  }
-  _done(url) {
-    this.reqs.delete(url);
-    if (this.reqs.size === 0) {
-      this.store.dispatch('toggleLoad');
-    } else {
-      for (let d of this.reqs.values()) {
-        this.store.dispatch('toggleLoad', d.tip);
-        break;
-      }
-    }
-  }
   _createHttp() {
     let __a = axios.create({
       baseURL: this.baseURL,
@@ -78,21 +37,64 @@ export default class Http {
       }
     });
   }
+  _push(obj) {
+    if (this.reqs.has(obj.reqUrl)) {
+      let { single } = this.reqs.get(obj.reqUrl);
+      if (single) {
+        return false;
+      }
+    }
+
+    let _obj = {
+      reqUrl: undefined,
+      method: 'GET',
+
+      tip: '数据加载中...',
+      //是否出现提示框
+      showTip: true,
+      //在请求未完成之前不能再次发送请求
+      single: true,
+      active: false
+    };
+    let merge = Object.assign(_obj, obj);
+    this.reqs.set(merge.reqUrl, merge);
+    return true;
+  }
+  _canReq(url, _method) {
+    if (this.reqs.has(url)) {
+      let { single, active, method } = this.reqs.get(url);
+      method = method.toLowerCase();
+      _method = _method.toLowerCase();
+      if ((method === _method) && single && active) { return false };
+    }
+    return true;
+  }
+  _done(url) {
+    this.reqs.delete(url);
+    if (this.reqs.size === 0) {
+      this._load();
+    } else {
+      for (let d of this.reqs.values()) {
+        this._load(d.tip);
+        break;
+      }
+    }
+  }
   // 添加请求拦截器
   //通过抛出一个异常来中断一个请求
   _req(conf) {
-    let _url=this.baseURL+conf.url;
-    if (!this._canReq(_url)) {
+    let _url = this.baseURL + conf.url;
+    if (!this._canReq(_url, conf.method)) {
       throw new Error(this.ignoreStr)
     }
     this.reqs.get(_url).active = true;
-    this.store.dispatch('toggleLoad', this.reqs.get(_url).tip);
+    this._load(this.reqs.get(_url).tip);
     return conf;
   }
   //请求错误拦截
   _reqErr(err) {
+    this._msg(err, false, this.reqs.get(err.config.url).showTip);
     this._done(err.config.url);
-    this.store.dispatch('tipMsg', { success: false, data: '_reqErr' + err.toString() });
     return Promise.reject(err);
   }
   // 添加响应拦截器
@@ -106,30 +108,53 @@ export default class Http {
   //回应错误拦截
   _resErr(err) {
     if (err.hasOwnProperty('config')) {
+      this._msg(err, false, this.reqs.get(err.config.url).showTip);
       this._done(err.config.url);
-      this.store.dispatch('tipMsg', { success: false, data: '_resErr' + err.toString() });
     }
-
     return Promise.reject(err);
   }
+  /////////////
+  _load(msg) {
+    if (typeof msg === 'undefined') {
+      this.store.dispatch('toggleLoad');
+      return;
+    }
+    this.store.dispatch('toggleLoad', msg.toString());
+  }
+  _msg(msg, success, show) {
+    if (typeof success === 'undefined') { success = true };
+    if (typeof show === 'undefined') { show = true };
+    if (show) {
+      this.store.dispatch('tipMsg', { success: success, data: msg.toString() });
+    }
+  }
+  //////////
   getCsrf() {
     let o = document.cookie.match(/(^| )_csrf=([^;]*)(;|$)/);
     return o === null ? null : o[2];
   }
+  _http(config) {
+    // tip
+    // showTip
+    // single
+    // active
+    config.reqUrl = this.baseURL + config.url;
+    this._push({ ...config });
+    return this._axios(config);
+  }
   initial() {
     this.store.dispatch('setBaseURL', this.baseURL);
     this.store.dispatch('setBaseResourceURL', this.baseResourceURL);
-    this._push({ url: this.baseURL+'/token', showTip: false });
-    this._axios({
-      url: '/token',
+    this._http({
+      url: '/',
       method: 'get',
-      withCredentials: true
+      withCredentials: true,
+      showTip: false
     });
   }
   //登录
   login(userKey) {
-    this._push({ url: this.baseURL+'/signIn', tip: '正在登录...' });
-    return this._axios({
+    return this._http({
       url: '/signIn',
       method: 'post',
       data: {
@@ -139,23 +164,22 @@ export default class Http {
       headers: {
         "x-csrf-token": this.getCsrf()
       },
-      withCredentials: true
+      withCredentials: true,
+      tip: '正在登录'
     });
   }
   //获取用户
   getUserInfo() {
-    this._push({ url:this.baseURL+ '/token', showTip: false });
-    return this._axios({
+    return this._http({
       url: '/token',
       method: 'get',
-      withCredentials: true
+      withCredentials: true,
+      showTip: false
     });
   }
   //注册
   register(userKey) {
-    this._push({ url: this.baseURL+'/signUp', tip: '正在注册...' });
-
-    return this._axios({
+    return this._http({
       url: '/signUp',
       method: 'post',
       data: {
@@ -165,15 +189,13 @@ export default class Http {
       headers: {
         "x-csrf-token": this.getCsrf()
       },
-      withCredentials: true
+      withCredentials: true,
+      tip: '正在注册...'
     });
   }
   //所有博客列表
   getBlogList(queryAfter, number) {
-    queryAfter = parseInt(queryAfter);
-    number = parseInt(number);
-    this._push({ url: this.baseURL+'/blog' });
-    return this._axios({
+    return this._http({
       url: '/blog',
       method: 'get',
       params: {
@@ -188,8 +210,7 @@ export default class Http {
   getUserBlogList(id, queryAfter, number) {
     queryAfter = parseInt(queryAfter);
     number = parseInt(number);
-    this._push({ url: this.baseURL+'/blog' + '/' + id, showTip: false });
-    return this._axios({
+    return this._http({
       url: '/blog' + '/' + id,
       method: 'get',
       params: {
@@ -197,12 +218,12 @@ export default class Http {
         number: number
       },
       headers: {},
-      withCredentials: true
+      withCredentials: true,
+      showTip: false
     });
   }
   getBlogContent(id) {
-    this._push({ url: this.baseURL+'/blogContent' + '/' + id });
-    return this._axios({
+    return this._http({
       url: '/blogContent' + '/' + id,
       method: 'get',
       headers: {},
@@ -211,52 +232,52 @@ export default class Http {
   }
   //修改资料
   updateUser(data) {
-    this._push({ url:this.baseURL+ '/blogContent' + '/' + id, tip: '正在修改' });
-    return this._axios({
+    return this._http({
       url: '/user',
       method: 'put',
       data: data,
       headers: {
         "x-csrf-token": this.getCsrf()
       },
-      withCredentials: true
+      withCredentials: true,
+      tip: '正在修改'
     });
   }
   //上传头像
   upload(data) {
-    this._push({ url: this.baseURL+'/resources', tip: '正在上传' });
-    return this._axios({
+    return this._http({
       url: '/resources',
       method: 'post',
       data: data,
       headers: {
         "x-csrf-token": this.getCsrf()
       },
-      withCredentials: true
+      withCredentials: true,
+      tip: '正在上传'
     });
   }
   createBlog_WangEditor(data) {
-    this._push({ url: this.baseURL+'/blogContent', tip: '正在上传' });
-    return this._axios({
+    return this._http({
       url: '/blogContent',
       method: 'post',
       data: data,
       headers: {
         "x-csrf-token": this.getCsrf()
       },
-      withCredentials: true
+      withCredentials: true,
+      tip: '正在发布' 
     });
   }
   //注销
   loginOut() {
-    this._push({ url: this.baseURL+'/user', showTip: false });
-    return this._axios({
+    return this._http({
       url: '/user',
       method: 'delete',
       headers: {
         "x-csrf-token": this.getCsrf()
       },
-      withCredentials: true
+      withCredentials: true,
+      showTip: false 
     });
   }
 }
