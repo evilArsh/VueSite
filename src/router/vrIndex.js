@@ -54,7 +54,7 @@ const router = new Router({
   ]
 });
 router.beforeEach(function(to, from, next) {
-store.dispatch('toggleLoad','加载中');
+store.dispatch('toggleLoad','模块加载中');
   next();
 });
 router.afterEach(function(to, from) {
