@@ -1,5 +1,5 @@
 <template>
-  <div class="editContainer" :style='bgColor'>
+  <div class="editContainer">
     <label for="bl1">
       <input class='title' id="bl1" placeholder="添加一个标题" type="text" v-model="title">
     </label>
@@ -34,7 +34,7 @@ export default {
   },
   components: {},
   methods: {
-    ...mapGetters(['getUserID']),
+    ...mapGetters(['getUserID','getAccessToken']),
     ...mapActions(['tipMsg', 'submitDataFromServer']),
     go: function() {
       if (this.content.length === 0) {
@@ -82,7 +82,8 @@ export default {
         describe: this.describe,
         content: this.content,
         type: this.type,
-        img:this.imgData
+        img:this.imgData,
+        accessToken:this.getAccessToken()
       }).then(function(res) {
         _.submitDataFromServer(res.data);
         if(res.data.success){

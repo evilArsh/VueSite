@@ -1,6 +1,6 @@
 <template>
   <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" :css="false">
-    <div ref="head" class="headContainer" :style="bgColor" v-show="isHeadShow">
+    <div ref="head" class="headContainer" v-show="isHeadShow">
     <v-pgnavbar></v-pgnavbar>
 
       <!-- 链接 -->
@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     ...mapActions(['setUserInfo','tipMsg']),
+    ...mapGetters(['getAccessToken']),
     linkTo:function(e){
       if(e.target&&e.target.nodeName==='A'||'IMG'||"SPAN"){
         let t=e.target.nodeName!=="A"?e.target.parentNode:e.target;
@@ -59,7 +60,7 @@ export default {
   },
   mounted() {
     let _ = this;
-    this.$ajax.getUserInfo().then((res)=> {
+    this.$ajax.getUserInfo(this.getAccessToken()).then((res)=> {
       _.setUserInfo(res.data)
     });
   },

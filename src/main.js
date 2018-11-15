@@ -5,14 +5,16 @@ import App from './App';
 import router from './router/vrIndex';
 import store from './store/vxIndex';
 import Http from './static/util/http';
+// import VueSocketio from 'vue-socket.io';
+// import socketio from 'socket.io-client';
 import 'normalize.css/normalize.css';
 import 'font-awesome/css/font-awesome.css';
 Vue.config.productionTip = false;
- Vue.prototype.$ajax =new Http(store);
-// Vue.prototype.$ajax =new Http(store,'https://vivcode.cn/api');
+// Vue.use(VueSocketio, socketio(process.env.SOCKET),store);
+Vue.prototype.$ajax = new Http(store,process.env.API);
 new Vue({
   el: '#app',
   router,
   store,
- ...App
+  ...App
 })

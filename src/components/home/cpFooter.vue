@@ -12,7 +12,6 @@ export default {
   components: {
   },
   computed: {
-    ...mapGetters(['bgColor'])
   },
   methods: {
   },

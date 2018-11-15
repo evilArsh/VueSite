@@ -1,66 +1,65 @@
 @import "../pre.scss";
 .homeNav {
-  transition: all .3s ease;
-  .toggle {
-    display: none;
-    font-size: rem(1.3);
-    position: absolute;
-    padding: 16px 19px; // background-color: #40566d;
-    color: #fff;
-    cursor: pointer;
-    @include media('sm') {
-        display: block;
+    transition: all .3s ease;
+    .toggle {
+        display: none;
+        font-size: rem(1.3);
+        position: absolute;
+        padding: 16px 19px;
+        color: #fff;
+        cursor: pointer;
+        @include media('sm') {
+            display: block;
+        }
     }
-  }
-  .black{
-    position: fixed;
-    top:0;
-    left:0;
-    bottom: 0;
-    right: 0;
-    background-color: #000;
-    opacity: .2;
-    z-index: 9998;
-  }
-  .hide {
-    @include media('sm') {
-      position: absolute;
-      display: none;
-    }
-  }
-  .options {
-    @include media('sm') {
+    .black {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
         background-color: #000;
-        position: relative;
-      z-index: 9999;
+        opacity: .2;
+        z-index: 9998;
     }
-    .option {
-  transition: all .3s ease;
-      
-      &:hover{
-       color: #f89f17;
-    transform: translateY(-2px);
-      }
-      @include media('lg') {}
-      @include media('md') {}
-      @include media('sm') {
-        display: block;
-        float: left;
-        width: 100%;
-      }
-      @include media('xs') {}
-    display: inline-block;
-    vertical-align: middle;
-    color: #ffffff;
-    font-size: rem(1.4);
-    padding: 14px 18px;
-    letter-spacing: 2px;
-    margin: 0px 4px;
+    .hide {
+        @include media('sm') {
+            position: absolute;
+            display: none;
+        }
     }
-    &::after {
-      display: block;
-      content: '';
-      clear: both;
+    .options {
+        @include media('sm') {
+            background-color: #000;
+            position: relative;
+            z-index: 9999;
+        }
+        .option {
+            transition: all .3s ease;
+            &:hover {
+                color: #f89f17;
+                transform: translateY(-2px);
+            }
+            @include media('lg') {}
+            @include media('md') {}
+            @include media('sm') {
+                display: block;
+                float: left;
+                width: 100%;
+            }
+            @include media('xs') {}
+            display: inline-block;
+            vertical-align: middle;
+            color: #5d5d5d;
+            font-size: rem(1.4);
+            padding: 14px 18px;
+            letter-spacing: 2px;
+            margin: 0px 4px;
+        }
+        &::after {
+            display: block;
+            content: '';
+            clear: both;
+        }
     }
-  }
 }

@@ -1,6 +1,7 @@
 <!-- 主页 -->
 <template>
-  <div class="indexContainer" :style="bgColor">
+  <div class="indexContainer">
+    <v-socketdemo>/</v-socketdemo>
     <v-cpfooter></v-cpfooter>
   </div>
 </template>
@@ -11,10 +12,10 @@ export default {
     return {}
   },
   components: {
+    'v-socketdemo':()=>import('@/pages/soSocketTest'),
     'v-cpfooter':()=>import( '@/components/home/cpFooter')
   },
   computed: {
-    ...mapGetters(['bgColor'])
   },
   methods: {
 

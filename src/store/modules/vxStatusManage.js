@@ -10,7 +10,7 @@ const vxStatusManage = {
     //无限多个提示框，自动关闭
     runningMsg: { success: false, data: '', status: '' },
     isUserLogin: false,
-    userInfo: { id: '', nickName: '', url: '', mail: '' },
+    userInfo: { id: '', nickName: '', url: '',originalUrl:'', mail: '',accessToken:''},
     baseResourceURL:'',
     baseURL:''
   },
@@ -111,11 +111,18 @@ const vxStatusManage = {
       state.userInfo.nickName = val;
     },
     setAvatarURL({ state }, val) {
-      val=val.replace('\\','/')
+      val=val.replace('\\','/');
+      state.userInfo.originalUrl=val;
       state.userInfo.url =state.baseResourceURL+ val;
+    },
+    setAccessToken({commit},res){
+      commit(maps.SET_TOKEN,res);
     }
   },
   mutations: {
+    [maps.SET_TOKEN](state, res) {
+      window.localStorage.setItem("accessToken",res)
+    },
     [maps.LOAD_MSG](state, res) {
       state.loadMsg = res;
     },
@@ -131,11 +138,10 @@ const vxStatusManage = {
         nickName: res.package.userNickName,
         mail: res.package.userMail,
         id: res.package.userID,
-        url: res.package.url
-      })
-      // state.userInfo.nickName = res.package.userNickName;
-      // state.userInfo.mail = res.package.userMail;
-      // state.userInfo.avatar = state.setBaseResourceURL + '/' + res.package.userAvatar;
+        url: res.package.url,
+        accessToken:res.accessToken,
+        originalUrl:res.package.url===null?'':res.package.url.substr(res.package.url.lastIndexOf('/'))
+      });
       state.isUserLogin = true;
     }
   },
@@ -143,7 +149,8 @@ const vxStatusManage = {
     tipBarMsg: state => state.tipBarMsg,
     isUserLogin: state => state.isUserLogin,
     userInfo: state => state.userInfo,
-    getUserID: state => state.userInfo.id
+    getUserID: state => state.userInfo.id,
+    getAccessToken:state=>state.userInfo.accessToken||window.localStorage.getItem("accessToken")
   }
 };
 export default vxStatusManage;

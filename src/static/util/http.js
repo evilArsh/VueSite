@@ -1,12 +1,7 @@
 import axios from "axios";
-import { format } from "path";
 export default class Http {
   constructor(store, url) {
-    if (typeof url === 'undefined') {
-      this.baseURL = 'http://localhost:7001/api';
-    } else {
-      this.baseURL = url;
-    }
+    this.baseURL = url;
     this.ignoreStr = "normal interrupt";
     this.baseResourceURL = this.baseURL + '/resources';
     this.store = store;
@@ -169,28 +164,15 @@ export default class Http {
     });
   }
   //获取用户
-  getUserInfo() {
+  getUserInfo(token) {
     return this._http({
       url: '/token',
+      params: {
+        accessToken: token
+      },
       method: 'get',
       withCredentials: true,
       showTip: false
-    });
-  }
-  //注册
-  register(userKey) {
-    return this._http({
-      url: '/signUp',
-      method: 'post',
-      data: {
-        userMail: userKey.mail,
-        userPassword: userKey.pwd
-      },
-      headers: {
-        "x-csrf-token": this.getCsrf()
-      },
-      withCredentials: true,
-      tip: '正在注册...'
     });
   }
   //所有博客列表
@@ -235,6 +217,9 @@ export default class Http {
     return this._http({
       url: '/user',
       method: 'put',
+      params: {
+        accessToken: data.accessToken
+      },
       data: data,
       headers: {
         "x-csrf-token": this.getCsrf()
@@ -243,12 +228,14 @@ export default class Http {
       tip: '正在修改'
     });
   }
-  //上传头像
   upload(data) {
     return this._http({
       url: '/resources',
       method: 'post',
-      data: data,
+      params: {
+        accessToken: data.accessToken
+      },
+      data: data.data,
       headers: {
         "x-csrf-token": this.getCsrf()
       },
@@ -261,23 +248,29 @@ export default class Http {
       url: '/blogContent',
       method: 'post',
       data: data,
+      params: {
+        accessToken: data.accessToken
+      },
       headers: {
         "x-csrf-token": this.getCsrf()
       },
       withCredentials: true,
-      tip: '正在发布' 
+      tip: '正在发布'
     });
   }
   //注销
-  loginOut() {
+  loginOut(data) {
     return this._http({
       url: '/user',
       method: 'delete',
+      params: {
+        accessToken: data.accessToken
+      },
       headers: {
         "x-csrf-token": this.getCsrf()
       },
       withCredentials: true,
-      showTip: false 
+      showTip: false
     });
   }
 }

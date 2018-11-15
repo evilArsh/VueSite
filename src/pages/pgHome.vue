@@ -1,58 +1,35 @@
 <!-- 主页 -->
 <template>
-  <div id="home" class="homeContainer" :style="bgColor" :class="{fixed:isHomeFixed}">
-    <v-cptipbar></v-cptipbar>
+  <div id="home" class="homeContainer">
     <v-cpheader></v-cpheader>
     <v-cprouter></v-cprouter>
-    <v-cpruntip></v-cpruntip>
     <transition name="fade" mode="out-in">
       <keep-alive :include="['blogMenu']">
       <router-view></router-view>
-        
       </keep-alive>
     </transition>
   </div>
 </template>
 <script>
-import cpRunTip from '@/components/common/cpMsgBox'
-import cpRouter from '@/components/home/cpRouter'
-import cpHeader from '@/components/home/cpHeader'
-import cpTipBar from '@/components/common/cpTipBar'
-import { mapActions, mapGetters } from 'vuex'
+import cpRouter from "@/components/home/cpRouter";
+import cpHeader from "@/components/home/cpHeader";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
-    return {
-      // //如果滚轮上滑，不触发
-      // old: 0,
-      // news: 1,
-    }
+    return {};
   },
   components: {
-    'v-cpruntip':cpRunTip,
-    'v-cptipbar':cpTipBar,
-    'v-cprouter': cpRouter,
-    'v-cpheader': cpHeader,
+    "v-cprouter": cpRouter,
+    "v-cpheader": cpHeader
   },
-  computed: {
-    ...mapGetters(['bgColor','isHomeFixed'])
-  },
-  methods: {
-    ...mapActions(['toggleLoad']),
-  },
-  watch: {
-  },
-  beforeMount() { 
-  },
-  mounted() {
-    this.toggleLoad()
-  },
-  beforeMount() {
-    this.toggleLoad('加载中')
-  }
-}
-
+  computed: {},
+  methods: {},
+  watch: {},
+  beforeMount() {},
+  mounted() {},
+  beforeMount() {}
+};
 </script>
 <style lang="scss" scoped>
 @import "../static/style/pages/pgHome.scss";
-
 </style>

@@ -4,7 +4,6 @@
   margin: 0 auto;
   position: relative;
   box-shadow: 0px 0px 5px 1px #1f5579;
-  height: 100%;
   width: 30%;
   border-radius: 3px;
   @include media('lg') {
@@ -20,12 +19,8 @@
     width: 84%;
   }
   .box {
-    //background-color: #ebd29b;
-    display: inline-block; //padding: 70px 30px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
+    display: inline-block;
+    width: 100%;
   }
   .input {
     padding: 0.75em 0.75em 0.75em 3em;
@@ -75,12 +70,7 @@
     color: #fff;
   }
   .signIn {
-    border-top-left-radius: .5em;
-    border-bottom-left-radius: .5em;
-  }
-  .signUp {
-    border-top-right-radius: .5em;
-    border-bottom-right-radius: .5em;
+    border-radius: .5em;
   }
   .forget {
     font-size: 12px;

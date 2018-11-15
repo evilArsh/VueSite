@@ -50,17 +50,17 @@ export default {
       activeDiv: 'info',
       blogList: [],
       userNickName: '',
-      old:'',
+      url:'',
       oldImg:''
     }
   },
   components: {},
   computed: {
-    ...mapGetters(['bgColor', 'userInfo'])
+    ...mapGetters(['userInfo'])
   },
   methods: {
     ...mapActions(['setBlogList', 'submitDataFromServer', 'setNickName', 'setAvatarURL', 'cleanLogin']),
-    ...mapGetters(['getUserID']),
+    ...mapGetters(['getUserID','getAccessToken']),
     getBlog: function(queryAfter, number) {
       const _ = this;
       let id = this.getUserID();
@@ -82,34 +82,37 @@ export default {
         return;
       }
       if(img.name===this.oldImg)return;
+
       var form = new FormData();
       form.append('img', img, img.name);
-      this.$ajax.upload(form).then(function(res) {
+      this.$ajax.upload({data:form,accessToken:this.getAccessToken()}).then(function(res) {
         _.submitDataFromServer(res.data);
         if (res.data.success) {
-          _.setAvatarURL(res.data.package);
+          _.setAvatarURL(res.data.package.uri);
+          _.update();
+          _.url=res.data.package.uri.replace('\\','/');
           _.oldImg=img.name;
         }
       });
     },
     update: function() {
-      if(this.old===this.userNickName)return;
       const _ = this;
-      if (this.userNickName.length) {
+      if (this.userNickName.length||this.userInfo.nickName) {
         this.$ajax.updateUser({
-          userNickName: this.userNickName
+          userNickName: this.userNickName||this.userInfo.nickName,
+          url:this.url||this.userInfo.originalUrl,
+          accessToken:this.getAccessToken()
         }).then(function(res) {
           _.submitDataFromServer(res.data);
           if (res.data.success) {
-            _.old=_.userNickName;
-            _.setNickName(_.userNickName);
+            _.setNickName(_.userNickName||_.userInfo.nickName);
           }
         })
       }
     },
     loginOut: function() {
       const _ = this;
-        this.$ajax.loginOut().then(function(res) {
+        this.$ajax.loginOut({accessToken:this.getAccessToken()}).then(function(res) {
           _.submitDataFromServer(res.data);
           if (res.data.success) {
             _.cleanLogin();

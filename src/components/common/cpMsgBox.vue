@@ -108,9 +108,10 @@ export default {
 </style>
 <style lang="scss" scoped>
 .msgBoxContainer {
-  right: 0;
-  position: absolute;
-  overflow: hidden;
-  z-index: 999;
+    top: 10%;
+    right: 0;
+    position: fixed;
+    overflow: hidden;
+    z-index: 999;
 }
 </style>

@@ -43,7 +43,7 @@ const vxRouter = {
     //对path操作,core
     alterPath({ commit, state, dispatch }, res) {
       let { fullPath, name, meta } = res;
-      if (meta.isRoot) {
+      if (meta.hasOwnProperty('isRoot')&&meta.isRoot) {
         state.data.clear();
         dispatch('setPath', { fullPath, name });
       } else {

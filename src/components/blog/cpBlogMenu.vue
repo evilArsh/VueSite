@@ -35,7 +35,7 @@ export default {
   components: {},
   computed: {},
   methods: {
-    ...mapActions(["setBlogList", "toggleHomeFixed"]),
+    ...mapActions(["setBlogList"]),
     scroll: function(e) {
       if (this.allDataDone === true) {
         return;
@@ -89,13 +89,10 @@ export default {
     this.getBlogList(this.queryAfter, this.number);
   },
   activated() {
-    this.toggleHomeFixed(false);
   },
   deactivated() {
-    this.toggleHomeFixed(true);
   },
   beforeDestroy() {
-    this.toggleHomeFixed(true);
     document.body.onscroll = function() {};
   }
 };

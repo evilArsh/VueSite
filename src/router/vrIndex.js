@@ -3,7 +3,6 @@ import store from '../store/vxIndex'
 import Router from 'vue-router'
 import sign from './vrSign'
 import blog from './vrBlog'
-import color from './vrRouterBindColor'
 Vue.use(Router)
 const router = new Router({
   routes: [{
@@ -39,7 +38,7 @@ const router = new Router({
     {
       path: '*',
       redirect: '/',
-      name: '首页',
+      name: '404',
       component: () =>
         import ('../pages/pgIndex'),
       meta: {
@@ -59,15 +58,11 @@ store.dispatch('toggleLoad','模块加载中');
 });
 router.afterEach(function(to, from) {
 store.dispatch('toggleLoad');
-  if (typeof to.meta.isRoot !== 'undefined') {
-    store.dispatch('setHeadBgColor', color[to.meta.target])
-  }
-  if (typeof to.meta.dispatchFunc === 'object' && typeof to.meta.dispatchFunc.length === 'number') {
+  if (typeof to.meta.dispatchFunc === 'object' && to.meta.dispatchFunc instanceof Array) {
     for (var i = 0; i < to.meta.dispatchFunc.length; i++) {
       store.dispatch(to.meta.dispatchFunc[i].name, to.meta.dispatchFunc[i].payload);
     }
   }
-  // store.dispatch('toggleHead',false)
 });
 
 export default router
