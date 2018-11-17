@@ -1,67 +1,53 @@
 @import "../pre.scss";
-$height:48px;
-.normal {
-    margin-top: 0;
-    opacity: 1;
-}
-
-.toggle {
-    margin-top: -$height;
-    opacity: 0;
-}
-
-.headContainer {
+.headerContainer{
+    height: $headerHeight;
+    overflow: hidden;
     position: relative;
-    border-bottom: solid 3px #fff;
-    height: $height;
-    .link {
-        position: absolute;
-        top: 0;
-        right: rem(3);
-        .linkItem {
-            transition: all ease .3s;
-            float: left;
-            width: 40px;
-            height: 40px;
-            background-color: #e67e22;
-            position: relative;
-            margin: 0 rem(1) 0 0;
-            border-bottom-right-radius: 50%;
-            border-bottom-left-radius: 50%;
-            &:hover {
-                background-color: #8d3f3f;
-            }
-            .logo,
-            .img {
-                width: 30px;
-                height: 30px;
-                top: 50%;
-                left: 50%;
-                border-radius: 50%;
-                padding: rem(.2);
-                transform: translate3d(-50%, -50%, 0);
-                position: absolute;
-                box-shadow: 0 0 3px 1px #533010;
-            }
-            .logo {
-                background-color: #fff;
-                font-size: rem(2.5);
-                &:before {
-                    background-color: #fff;
-                    padding: rem(.2);
-                    border-radius: 50%;
-                    color: #2c3e50;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate3d(-50%, -50%, 0)
-                }
-            }
-            .img {
-                // border-radius: 50%;
-                width: 30px;
-                height: 30px;
-            }
-        }
+    padding: 26px 20px;
+    background-color: #fff;
+    @include bsha(rgba(0, 0, 0, 0.04) 0 2px 5px 0);
+    .listh{
+        list-style: none;    height: 100%;
+        /* position: relative; */
+        list-style: none;
+    }
+    .barCon{
+        height: 100%;
+    position: absolute;right: 20px;
+    top: 0;
+    }
+    .itemh{    float: left;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        /* display: inline-block; */
+        /* vertical-align: middle; */}
+    .search{    color: #BCBCCB;
+        font-size: 16px;}
+    .barc{}
+    .input{
+        color: #4D4F5C;
+        margin: 0px 0 0 10px;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    .bari{    font-size: 19px;
+        margin: 0 0 0 30px;
+        color: #bcbccb;}
+    .user{    float: left;
+        /* top: 50%; */
+        transform: translateY(50%);
+        /* position: absolute; */}
+    .nameh{    margin: 0 0 0 21px;
+        font-size: 14px;
+        color: #4D4F5C;}
+    .down{         margin: 0 13px 0 7px;
+        color: #a4afb7;
+        font-size: 16px;}
+    .imgh{
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        margin: 0px 11px 0 0;
     }
 }

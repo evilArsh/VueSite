@@ -1,6 +1,8 @@
 
 //定义断点
 //414  768 992 1200
+$navWidth:260px;
+$headerHeight:70px;
 $breakpoints:(
 	'xs': 'screen and (max-width:25.875rem)',  
 	'sm': 'screen and (max-width:48rem)',

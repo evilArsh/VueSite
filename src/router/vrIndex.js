@@ -9,7 +9,7 @@ const router = new Router({
       path: '/',
       name: '首页',
       component: () =>
-        import ('../pages/pgIndex'),
+        import ('@/components/index/pgIndex'),
       meta: {
         isRoot: true,
         target: 'home',
@@ -22,7 +22,7 @@ const router = new Router({
     {
       path: '/userHome',
       component: () =>
-        import ('../pages/pgUserHome'),
+        import ('@/components/user/pgUserHome'),
       name: '个人中心',
       meta: {
         isRoot: false,
@@ -40,7 +40,7 @@ const router = new Router({
       redirect: '/',
       name: '404',
       component: () =>
-        import ('../pages/pgIndex'),
+        import ('@/components/index/pgIndex'),
       meta: {
         isRoot: true,
         target: 'home',

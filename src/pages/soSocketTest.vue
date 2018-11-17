@@ -4,7 +4,6 @@
     <div ref="msgbox">
 
     </div>
-    <p>{{msg}}</p>
     <button @click="demo1">测试1</button>
     <button @click="con">连接</button>
     <button @click="close">关闭</button>

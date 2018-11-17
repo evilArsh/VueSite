@@ -1,79 +1,54 @@
 <template>
-  <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" :css="false">
-    <div ref="head" class="headContainer" v-show="isHeadShow">
-    <v-pgnavbar></v-pgnavbar>
-
-      <!-- 链接 -->
-      <div class="link" @click="linkTo($event)">
-        <a href="javascript:;"  tar="user" class="linkItem" v-show="isUserLogin">
-        <img :src="userInfo.url" class="img logo" alt="">
-      </a>
-        <a href="javascript:;" tar="github" class="linkItem">
-        <span class='logo fa fa-github'></span>
-      </a>
-        <a href="javascript:;" tar="weibo" class="linkItem">
-        <span class='logo fa fa-weibo'></span>
-      </a>
-      </div>
+  <div class="headerContainer">
+    <div class="barCon">
+      <ul class="listh">
+        <li class="itemh">
+          <span class="barc">
+            <i class="bari fa fa-bell"></i>
+          </span>
+        </li>
+        <li class="itemh">
+          <i></i>
+        </li>
+        <li class="itemh">
+          <div class="user">
+            <span class="nameh">Jack Sparrow</span>
+            <i class="down fa fa-chevron-down"></i>
+          </div>
+            <img class="imgh" src="../../assets/logo.png" alt="">
+        </li>
+      </ul>
     </div>
+    <div class="search">
+      <i class="search fa fa-search"></i>
+      <input type="text" class="input" placeholder="搜一搜">
+    </div>
+  </div>
   </transition>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import pgNavBar from '@/components/home/cpNavBar'
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {},
   data() {
-    return {}
-  },
-  components: {
-    'v-pgnavbar': pgNavBar,
+    return {};
   },
   methods: {
-    ...mapActions(['setUserInfo','tipMsg']),
-    ...mapGetters(['getAccessToken']),
-    linkTo:function(e){
-      if(e.target&&e.target.nodeName==='A'||'IMG'||"SPAN"){
-        let t=e.target.nodeName!=="A"?e.target.parentNode:e.target;
-        let tar=t.getAttribute('tar');
-        switch(tar){
-          case 'user':this.$router.push({ path: '/userHome' });break;
-          case 'github':window.open('https://github.com/evilArsh/VueSite');break;
-          case 'weibo':this.tipMsg({success:true,data:'暂无微博'});break;
-        }
-      }
-    },
-    beforeEnter: function(el) {
-      el.classList.remove("normal");
-      el.classList.add("toggle");
-    },
-    enter: function(el, done) {
-      el.classList.remove("toggle");
-      el.classList.add("normal");
-
-    },
-    leave: function(el, done) {
-      el.classList.remove("normal");
-      el.classList.add("toggle");
-
-    }
+    ...mapActions(["setUserInfo", "tipMsg"]),
+    ...mapGetters(["getAccessToken"])
   },
   mounted() {
-    let _ = this;
-    this.$ajax.getUserInfo(this.getAccessToken()).then((res)=> {
-      _.setUserInfo(res.data)
-    });
+    // let _ = this;
+    // this.$ajax.getUserInfo(this.getAccessToken()).then((res)=> {
+    //   _.setUserInfo(res.data)
+    // });
   },
   computed: {
-    ...mapGetters(["bgColor", "isHeadShow", 'userInfo','isUserLogin']),
+    ...mapGetters(["userInfo", "isUserLogin"])
   },
-  watch: {
-
-  }
-}
-
+  watch: {}
+};
 </script>
 <style lang="scss" scoped>
-@import '../../static/style/components/cpHeader.scss';
-
+@import "../../static/style/components/cpHeader.scss";
 </style>

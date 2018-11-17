@@ -4,28 +4,20 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
-    return {}
+    return {};
   },
-  components: {
-  },
-  computed: {
-  },
-  methods: {
-  },
-  watch: {
-  },
-  beforeMount() {
-
-  },
-  mounted() {
-  },
+  components: {},
+  computed: {},
+  methods: {},
+  watch: {},
+  beforeMount() {},
+  mounted() {},
   beforeUpdate() {}
-}
-
+};
 </script>
 <style lang="scss" scoped>
-@import '../../static/style/components/cpFooter.scss';
+@import "../../static/style/components/cpFooter.scss";
 </style>

@@ -3,7 +3,7 @@ export default [
   {
     path: '/sign/signIn',
     name: '登录',
-    component:  ()=>import( '../pages/sign/pgSignIn.vue'),
+    component:  ()=>import( '@/components/sign/pgSignIn.vue'),
     meta: {
       isRoot: false,
       target: 'sign',
