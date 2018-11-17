@@ -155,6 +155,6 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-@import "../../static/style/pages/pgUserHome.scss"
+@import "../../static/style/components/pgUserHome.scss"
 
 </style>

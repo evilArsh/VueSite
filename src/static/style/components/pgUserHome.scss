@@ -1,0 +1,134 @@
+@import "../pre.scss";
+.userHomeContainer {
+  width: 80%;
+  margin: rem(4) auto 0 auto;
+  position: relative;
+  .list {
+    font-size: 12px;
+    list-style: none;
+    background-color: #1e2d3b;
+    border-left: solid 1px #354351;
+    border-right: solid 1px #354351;
+    border-top: solid 1px #354351;
+    border-bottom: solid 1px #636363;
+    box-shadow: inset 0px 1px 3px 0px #34506e;
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+  .listItem {
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px 0;
+    float: left;
+    margin: 0 0px 0px 19px;
+    height: 100%;
+    &>a {
+      font-size: 12px;
+      padding: 13px 18px;
+      color: #fff;
+      width: 100%;
+      border: solid 1px #1d2834;
+      box-shadow: 0 0 3px 0 #2c4053;
+      height: 100%;
+      background-color: #2c3e50;
+      display: inline-block;
+      transform: skew(-11deg);
+    }
+  }
+  .loginOut{
+
+  }
+  .infoContainer,
+  .avatarContainer,
+  .blogContainer {
+    font-size: 12px;
+    padding: 26px 0;
+    background-color: #1e2d3b;
+  }
+  .avatarContainer {
+    .imgOuter {
+      max-width: 200px;
+      border: dashed 1px #fff;
+      padding: 12px;
+    }
+    .img {
+      height: 100%;
+      width: 100%;
+    }
+    .tip{
+      padding: 9px 0px;
+    color: #fff;
+    }
+    .choice {
+      display: block;
+      margin: 29px 0;
+      color: #fff;
+    }
+  }
+  .blogContainer {
+    .blogModel{
+        display: block;
+    margin: 6px 0;
+    padding: 12px 13px;
+    border-radius: 3px;
+    background-color: #3d4e5f;
+    }
+    .title{
+        color: #fff;
+    }
+    .time{
+            float: right;
+    font-size: 12px;
+    color: #888;
+    }
+  }
+  .item {
+    margin: 20px 0 0 0;
+  }
+  .infoItem {
+    font-size: 12px;
+    border-top: solid 1px #221f1f;
+    width: 70%;
+    padding: 8px 0 0 0;
+    margin: 0px auto 24px auto;
+  }
+  .infoDescribe {
+    font-size: 12px;
+    display: inline-block;
+    background-color: #2c3e50;
+    padding: 11px 26px;
+    color: #e1eff7;
+    transform: skew(-12deg);
+    float: left;
+  }
+  .infoValue {
+    font-size: 12px;
+    display: inline-block;
+    background-color: #495763;
+    padding: 11px 17px;
+    color: #fff;
+    transform: skew(-12deg);
+    overflow: hidden;
+  }
+  .input {
+    cursor: pointer;
+  }
+  .btn{
+    font-size: 12px;
+    padding: 7px 13px;
+    margin: 36px 0 0 0;
+    border: none;
+  cursor: pointer;
+  }
+  .quit{
+    background-color: #c5532a;
+    color: #fff;
+  }
+  .save {
+    background-color: #1d476f;
+    color: #fff;
+  }
+}

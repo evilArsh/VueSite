@@ -101,6 +101,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../../static/style/pages/pgSign.scss";
+@import "../../static/style/components/pgSign.scss";
 @import "../../static/style/animate.css";
 </style>

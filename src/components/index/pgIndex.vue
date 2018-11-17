@@ -30,5 +30,5 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-@import "../../static/style/pages/pgIndex.scss";
+@import "../../static/style/components/pgIndex.scss";
 </style>

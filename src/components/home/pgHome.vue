@@ -34,5 +34,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../../static/style/pages/pgHome.scss";
+@import "../../static/style/components/pgHome.scss";
 </style>
